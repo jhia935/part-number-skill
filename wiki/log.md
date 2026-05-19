@@ -11,6 +11,31 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | Full TCC family — comparison table + per-class deep dives
+
+Per `/wiki ingest` directive to expand temperature characteristics beyond X7R to all ranges and investigate TCC.
+
+New wiki comparison page:
+- [[dielectric-class-comparison]] — master reference table covering every commercially significant TCC code:
+  - **Class I**: C0G/NP0 (±30 ppm/°C), P2H (−150), R2H (−220), S2H (−330), T2H (−470), U2J (−750), S2L, X8G (high-T Class I)
+  - **Class II**: X5R, X6S, X7R, X7S, X7T, X7U, X7P, X8R, X8L, X0U (175 °C, new), X9R (200 °C research), X9V (Vishay HOTcap 200 °C)
+  - **Class III**: Y5V, Z5U (high-K legacy)
+  - **Mil hi-rel**: BP, BX, BR (MIL-C-55681)
+  - With εr ranges, max ΔC, aging %/decade, DF max, material basis, and application notes.
+
+New per-class concept deep-dive pages:
+- [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ BME (εr ≈ 31) or BaNd-titanate PME (εr ≈ 70); only "textbook ideal" cap. Extended-range Class I (P2H to U2J) gets εr up to ~500 with linear negative TCC for temperature-compensation use.
+- [[x7r-dielectric]] — Class II workhorse; BaTiO₃ core-shell with Sr/Zr Curie-shifting; X7R/X7S/X7T/X7U cousin tradeoffs (more εr for relaxed tolerance); 1–2 %/decade aging spec.
+- [[x5r-dielectric]] — Class II consumer-dominant; chemistry essentially same as X7R but less doped → higher peak εr, less stable, ~5 %/decade aging.
+- [[x8r-x8l-x9r-high-temperature-dielectrics]] — above-125 °C: X8R (±15 % to 150 °C), X8L (asymmetric drift, automotive standard), X8G (Class I, rare), X9R (200 °C research), X0U (new 175 °C automotive), X9V (Vishay HOTcap 200 °C with +22/−82 %). Chemistry: Sr/Zr/Bi shift, NaNbO₃/BiMg-titanate solid solutions to broaden Curie peak.
+- [[y5v-z5u-class-iii-dielectric]] — Class III; +22/−82 % Y5V, +22/−56 % Z5U; aging 5–7 %/decade; combined operating-point CV can fall to 5–10 % of nameplate; **being phased out** by modern X5R.
+
+Key insights: (1) the X7-family proliferation (R/S/T/U/P) is a single εr-vs-tolerance tradeoff axis at the same −55…+125 °C range; (2) high-T extensions (X8R etc.) work by **flattening the Curie peak** rather than shifting it past T_max — the cost is lower peak εr; (3) **X0U is the newest 2024-era automotive code** for 175 °C operation with asymmetric tolerance allowed above 125 °C; (4) Y5V is being deprecated industry-wide as X5R catches up on εr.
+
+Updated `wiki/index.md` with new "Dielectric class deep-dives" section and the first entry in the previously-empty Comparisons category.
+
+---
+
 ## [2026-05-20] ingest | Core-shell structure deep-dive — chemistry, kinetics, coating, electrical link
 
 Per `/wiki ingest` directive to search for core-shell structure and its relation to characteristics, MLCC process (especially material stage and firing).

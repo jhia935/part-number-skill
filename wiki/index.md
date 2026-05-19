@@ -77,6 +77,13 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[spark-plasma-sintering]] — SPS / FAST; 99 % density in minutes, ~doubled εr.
 - [[cold-sintering]] — Sub-300 °C densification with transient liquid phase (Randall group).
 
+### Dielectric class deep-dives
+- [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
+- [[x7r-dielectric]] — Class II workhorse; ±15 % over −55…+125 °C; BaTiO₃ core-shell.
+- [[x5r-dielectric]] — Class II lower-T; ±15 % to +85 °C; consumer-dominant.
+- [[x8r-x8l-x9r-high-temperature-dielectrics]] — Above-125 °C extensions; automotive standard; X0U / X9V for 175–200 °C.
+- [[y5v-z5u-class-iii-dielectric]] — Class III high-K; +22/−82 %; legacy, being phased out.
+
 ### Primitives (foundational concepts)
 - [[permittivity]] — Dielectric constant εᵣ; the fundamental material property.
 - [[polarization-mechanisms]] — Electronic / ionic / dipolar / space-charge polarization.
@@ -122,7 +129,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 
 ## Comparisons
 
-_No comparisons yet._
+- [[dielectric-class-comparison]] — Master table covering every commercially significant TCC code (Class I C0G/U2J/extended; Class II X5R/X7R/X8R/X8L/X0U/X9R; Class III Y5V/Z5U) with εr ranges, tolerances, T_op, aging, applications.
 
 ## Queries
 
