@@ -11,6 +11,35 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] lint | Wiki health check — promote primitives, fix broken links
+
+Per `/wiki lint` directive to investigate need for more primitive concepts/entities.
+
+**Scan results (before fix):**
+- 11 truly broken wikilinks identified after sort-order correction (LC_ALL=C):
+  - Primitive concepts missing: `curie-temperature`, `temperature-coefficient-of-capacitance`, `heywang-jonker-model`, `termination-and-plating`
+  - Entities missing: `tdk-cga-series`, `intel`
+  - Typos/aliases: `cazro3-dielectric` → `cazro3`, `c0g-dielectric` (drop)
+  - Web-only refs treated as wikilinks: `adv-mater-2026-grain-boundary`, `knowles-fundamentals-8`, `passive-components-eu-mlcc-loss`, `btu-international`
+
+**Auto-fix applied — Created 12 new primitive pages:**
+- Concepts: [[curie-temperature]], [[temperature-coefficient-of-capacitance]], [[heywang-jonker-model]], [[termination-and-plating]], [[perovskite-structure]], [[permittivity]], [[polarization-mechanisms]], [[dissipation-factor]], [[dielectric-breakdown]], [[insulation-resistance]], [[prokopowicz-vaskas-equation]], [[weibull-distribution]]
+- Entities: [[tdk-cga-series]], [[intel]]
+
+**Broken-link cleanup:**
+- `cazro3-dielectric` → `cazro3` (all occurrences in oxygen-vacancy-migration and escies-bme-mlcc-high-reliability)
+- `c0g-dielectric` → drop the broken alias, inline-link `cazro3` instead (in eia-rs-198-dielectric-classes and batio3)
+- `adv-mater-2026-grain-boundary` → replace with full citation + DOI link (in core-shell-batio3 and batio3)
+- `knowles-fundamentals-8` → replace with markdown link to the Knowles blog post (in eia-rs-198-dielectric-classes)
+- `passive-components-eu-mlcc-loss` → redirect to existing [[epci-high-cv-mlcc-bias-aging]] page (in dc-bias-derating)
+- `btu-international` → plain-text reference to BTU International OEM (in bme-sintering-atmosphere)
+
+**Re-scan after fix:** 0 broken wikilinks remaining.
+
+Updated `wiki/index.md` with new "Primitives (foundational concepts)" section + new entities.
+
+---
+
 ## [2026-05-19] ingest | Sintering-physics pass — 5 new sources, 6 new concept pages
 
 Directive: research the physics of dielectric material during the sintering process. Targeted five sub-topics — mass transport, grain growth, defect chemistry, Ni co-sintering, phase transition.

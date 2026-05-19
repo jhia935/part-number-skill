@@ -39,7 +39,7 @@ Achieved by a controlled N₂/H₂ atmosphere (sometimes with H₂O vapor for fi
 | Cool to room T | < 600 | non-critical | Phase transitions complete |
 
 ## Closed-loop control (2020s SOTA)
-Modern pusher furnaces ([[btu-international|BTU and similar]]) use a zircon-oxide ZrO₂ oxygen-sensor coupled to inlet gas mass-flow controllers and water-vapor injection to hold PO₂ to ± 0.1 decade across the hot zone. This is essential for high-N (≥ 500-layer) parts where any PO₂ excursion causes either local Ni oxidation or local dielectric over-reduction → IR scatter.
+Modern pusher furnaces (BTU International and other furnace OEMs) use a zircon-oxide ZrO₂ oxygen-sensor coupled to inlet gas mass-flow controllers and water-vapor injection to hold PO₂ to ± 0.1 decade across the hot zone. This is essential for high-N (≥ 500-layer) parts where any PO₂ excursion causes either local Ni oxidation or local dielectric over-reduction → IR scatter.
 
 ## Cross-references
 - [[mlcc-manufacturing-process]]

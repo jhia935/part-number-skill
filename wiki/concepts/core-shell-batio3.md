@@ -4,7 +4,6 @@ type: concept
 created: 2026-05-19
 updated: 2026-05-19
 sources:
-  - adv-mater-2026-grain-boundary (search)
   - nasa-batio3-mlcc-failure-mechanisms.md
 tags:
   - paper
@@ -28,7 +27,7 @@ A layer thinner than ~1 µm without compensation runs into this collapse.
 
 The shell is engineered by **rare-earth doping** (Y, Ho, Dy, Er, Yb) combined with Mg and Mn at the grain boundaries. Rare earths form a "donor + acceptor" co-doping system that pins oxygen vacancies (reliability) and creates the paraelectric shell (TCC).
 
-[[adv-mater-2026-grain-boundary]] (An et al., *Advanced Materials* 2026) reports grain-boundary segregation as the controlling design lever for DC-bias performance — concentrating the rare-earth at the grain boundary rather than diffusing it through the grain core.
+An et al. ([*Advanced Materials* 2026](https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202507233)) reports grain-boundary segregation as the controlling design lever for DC-bias performance — concentrating the rare-earth at the grain boundary rather than diffusing it through the grain core.
 
 ## Design rules for the simulator
 - `d ≥ (3–5) · r̄` — at least 3 grains across the layer to retain shell-buffered behavior.

@@ -6,7 +6,6 @@ updated: 2026-05-19
 sources:
   - psma-ceramic-capacitor-basics.md
   - samsung-cl-series-mlcc-ds.md
-  - knowles-fundamentals-8 (web)
 tags:
   - paper
 ---
@@ -32,7 +31,7 @@ Used for **paraelectric** dielectrics (e.g., CaZrO₃-based). Linear, low-loss, 
 | U | 7.5 | 9 | +10 000 |   |  |
 
 Examples:
-- `C0G` = 0 ppm/°C × −1, ±30 ppm/°C — the canonical ultra-stable [[c0g-dielectric]] / NP0
+- `C0G` = 0 ppm/°C × −1, ±30 ppm/°C — the canonical ultra-stable C0G / NP0 ([[cazro3]]-based in modern BME)
 - `U2J` = 7.5 × −100 = −750 ppm/°C, ±120
 - `P2H` = 1.5 × −100 = −150 ppm/°C, ±60
 
@@ -65,7 +64,7 @@ Used for **ferroelectric** [[batio3]]-based dielectrics. High `εr` (600–18 00
 | Class II "high-K" (X6S, X7S, X7T) | 4000–8000 | high-cap miniaturization |
 | Class III (Y5V, Z5U) | 4000–18 000 | bulk decoupling, where stability isn't critical |
 
-(Source: [[knowles-fundamentals-8]] aggregated with [[psma-ceramic-capacitor-basics]].)
+(Source: [Knowles "Capacitor Fundamentals Part 8 — Dielectric Classifications"](https://blog.knowlescapacitors.com/blog/capacitor-fundamentals-part-8-dielectric-classifications) aggregated with [[psma-ceramic-capacitor-basics]].)
 
 ## Cross-references
 - [[mlcc-capacitance-equation]] — how class enters as `εr`

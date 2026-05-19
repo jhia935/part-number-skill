@@ -38,7 +38,7 @@ $$
 Y, Ho, Dy, Er, Yb, Tb, La substitute at Ba or Ti sites and pin O-vacancies, slowing electromigration. First-principles calculations confirm reduced O-diffusion coefficient in doped vs undoped BaTiO₃ ([[core-shell-batio3]]). This is the **chemistry** behind the modern [[core-shell-batio3|core-shell microstructure]].
 
 ## CaZrO₃ alternative
-[[cazro3-dielectric|CaZrO₃-based]] BME C0G is intrinsically reduction-resistant — Ca and Zr bind O strongly in the perovskite. The reoxidation anneal is "for refinement, not necessity" per [[escies-bme-mlcc-high-reliability]]. IR drops far less with temperature than in BaTiO₃ systems, and may even **rise** above 120 °C.
+[[cazro3|CaZrO₃-based]] BME C0G is intrinsically reduction-resistant — Ca and Zr bind O strongly in the perovskite. The reoxidation anneal is "for refinement, not necessity" per [[escies-bme-mlcc-high-reliability]]. IR drops far less with temperature than in BaTiO₃ systems, and may even **rise** above 120 °C.
 
 ## Implication for the simulator
 - IR(t) is the right observable for BME reliability prediction, not just TTF.
@@ -50,7 +50,7 @@ Y, Ho, Dy, Er, Yb, Tb, La substitute at Ba or Ti sites and pin O-vacancies, slow
 - [[bme-sintering-atmosphere]]
 - [[re-oxidation-anneal]]
 - [[core-shell-batio3]]
-- [[cazro3-dielectric]]
+- [[cazro3]]
 - [[bme-vs-pme]]
 
 ## References

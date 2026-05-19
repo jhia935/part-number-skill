@@ -7,7 +7,7 @@ sources:
   - vishay-x7r-cap-drift-dc-bias.md
   - psma-ceramic-capacitor-basics.md
   - murata-grm-series-tcc-data.md
-  - passive-components-eu-mlcc-loss (web)
+  - epci-high-cv-mlcc-bias-aging.md
 tags:
   - paper
 ---
@@ -37,7 +37,7 @@ From [[vishay-x7r-cap-drift-dc-bias]] Fig. 2:
 | 20 | −85 |
 
 ## Vendor variation
-For the **same** nominal part (0805 X7R 10 µF 6.3 V), three competing vendors show capacitance change from **−35 % to −65 %** at rated voltage, and **−12 % to −32 %** at 3.3 V derated ([[passive-components-eu-mlcc-loss]]). This is why a simulator must model VCC per **specific part**, not per dielectric class generically.
+For the **same** nominal part (0805 X7R 10 µF 6.3 V), three competing vendors show capacitance change from **−35 % to −65 %** at rated voltage, and **−12 % to −32 %** at 3.3 V derated ([[epci-high-cv-mlcc-bias-aging]]). This is why a simulator must model VCC per **specific part**, not per dielectric class generically.
 
 ## Case-size effect
 For a given capacitance value, a larger case lets you use thicker `d`, lowering `E` at the same `V_DC`. [[psma-ceramic-capacitor-basics]] shows a 1210 X7R 10 µF 6.3 V drops only ~10 % at 6.3 V while a 0805 X7R 10 µF 6.3 V drops ~60 %.

@@ -21,12 +21,14 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[kyocera-avx]] — Cu-electrode RF MLCCs; classic decoupling-design paper.
 - [[yageo]] — Taiwanese parent of KEMET; AEC-Q200 spec contributor *(stub)*.
 - [[rohm]] — Switching-regulator IC vendor; MLCC application-note authority *(stub)*.
+- [[intel]] — CPU OEM whose 2010 thin-layer MLCC reliability report triggered the Liu NASA NEPP framework *(stub)*.
 
 ### Product series
 - [[murata-grm-series]] — General-purpose Murata MLCC; GRM03 through GRM55.
 - [[samsung-cl-series]] — General-purpose SEMCO MLCC; 11-field part number.
 - [[kemet-arcshield]] — KEMET patented HV MLCC with internal shield electrodes.
 - [[bme-c0g]] — KEMET CaZrO₃-based Class I BME family; PME-killer in C0G/NP0 territory.
+- [[tdk-cga-series]] — TDK AEC-Q200-qualified automotive MLCC family (C0G/X7R/X8R; 0402–2220).
 
 ### Materials
 - [[batio3]] — Barium titanate; the dominant Class II/III dielectric base.
@@ -66,6 +68,20 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[ni-batio3-cosintering-interface]] — Interfacial (Ni,Ba,Ti) liquid alloy, electrode discontinuity physics.
 - [[cubic-tetragonal-transition]] — T_C cooldown physics: domain formation, twinning, stress relief vs grain size.
 - [[sintering-aids-glass]] — BBS, ZBS, PBS glass systems; lowering sintering T for Cu BME and LTCC.
+
+### Primitives (foundational concepts)
+- [[permittivity]] — Dielectric constant εᵣ; the fundamental material property.
+- [[polarization-mechanisms]] — Electronic / ionic / dipolar / space-charge polarization.
+- [[perovskite-structure]] — ABO₃ crystal framework underlying every MLCC dielectric.
+- [[curie-temperature]] — Ferroelectric-to-paraelectric transition; the aging-clock reset point.
+- [[temperature-coefficient-of-capacitance]] — TCC; Class I letter-code, Class II envelope.
+- [[dissipation-factor]] — DF / tan δ; dielectric loss spec.
+- [[dielectric-breakdown]] — Intrinsic vs defect-limited vs surface arcing.
+- [[insulation-resistance]] — IR(t, V, T); the BME reliability proxy.
+- [[heywang-jonker-model]] — Schottky double-depletion grain-boundary barrier model.
+- [[prokopowicz-vaskas-equation]] — Single-mode reliability-acceleration equation.
+- [[weibull-distribution]] — Two-parameter Weibull for TTF statistics.
+- [[termination-and-plating]] — Cu/Ni/Sn external electrode stack.
 
 ## Sources
 

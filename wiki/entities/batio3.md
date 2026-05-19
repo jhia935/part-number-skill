@@ -15,7 +15,7 @@ importance: high
 
 # Barium Titanate (BaTiO₃)
 
-A perovskite-structure ferroelectric oxide. The dominant base dielectric material for **Class II / Class III** MLCCs — essentially all X5R, X7R, X8R, X6S, Y5V, Z5U capacitors are BaTiO₃-based. Pure CaZrO₃ and similar paraelectric oxides serve [[c0g-dielectric]] / Class I instead.
+A [[perovskite-structure|perovskite-structure]] ferroelectric oxide. The dominant base dielectric material for **Class II / Class III** MLCCs — essentially all X5R, X7R, X8R, X6S, Y5V, Z5U capacitors are BaTiO₃-based. Pure [[cazro3|CaZrO₃]] and similar paraelectric oxides serve Class I (C0G) instead.
 
 ## Crystal structure & ferroelectricity
 - **Above ~125–130 °C (Curie temperature `T_c`)**: cubic, paraelectric, no permanent dipole. `εr` modest (a few hundred up to a peak near `T_c` of 10 000–15 000).
@@ -25,7 +25,7 @@ A perovskite-structure ferroelectric oxide. The dominant base dielectric materia
 
 ## εr vs grain size (the modern central trade-off)
 - Coarse grain (~1 µm): εr ≈ 1500–2000 at room temperature, 6000 with peak engineering.
-- Sub-µm (200–500 nm): εr drops, then rebounds. At ~200–260 nm, εr can be 3000–5000 under DC bias > 4 V/µm — this is the sweet spot for thin-layer MLCCs ([[adv-mater-2026-grain-boundary]]).
+- Sub-µm (200–500 nm): εr drops, then rebounds. At ~200–260 nm, εr can be 3000–5000 under DC bias > 4 V/µm — this is the sweet spot for thin-layer MLCCs (An et al., *Adv. Mater.* 2026, [doi:10.1002/adma.202507233](https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202507233)).
 - Below ~150 nm: εr collapses as grains lose ferroelectricity (insufficient long-range order).
 
 ## Powder synthesis

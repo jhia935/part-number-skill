@@ -25,7 +25,7 @@ The most useful single-source comparison of **BME C0G** (CaZrO₃-based, Class I
 
 **Dielectric constants:**
 - PME C0G (BaNdTi): k ≈ 70
-- BME C0G ([[cazro3-dielectric|CaZrO₃-based]]): k ≈ 31
+- BME C0G ([[cazro3|CaZrO₃-based]]): k ≈ 31
 
 **Yet BME C0G achieves higher capacitance / smaller size** because much thinner dielectric layers are achievable:
 - PME C0G 1206 / 10 nF: dielectric thickness 11.6 µm
@@ -57,7 +57,7 @@ Both BME C0G and BME X7R portfolios passed with zero failures across multiple pa
 ## Concepts discussed
 - [[bme-vs-pme]]
 - [[bme-reliability-model]]
-- [[cazro3-dielectric]]
+- [[cazro3]]
 - [[core-shell-batio3]]
 - [[bme-sintering-atmosphere]]
 - [[re-oxidation-anneal]]
