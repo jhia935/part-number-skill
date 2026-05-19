@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "wiki": {
+      "source": "JISUlicious/llm-wiki",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/wiki/SKILL.md",
+      "computedHash": "2dcc4c00f0aa1d514e9ad48266e5bfb26841d32d2a97207e18e61a7c09bc0d0b"
+    }
+  }
+}
