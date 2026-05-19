@@ -2,3 +2,9 @@
 *.swp
 *.swo
 *~
+
+# Local Claude Code skill installs (use skills-lock.json to pin versions)
+.claude/
+
+# Obsidian per-user workspace state
+.obsidian/
