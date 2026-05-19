@@ -11,6 +11,30 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | Core-shell structure deep-dive — chemistry, kinetics, coating, electrical link
+
+Per `/wiki ingest` directive to search for core-shell structure and its relation to characteristics, MLCC process (especially material stage and firing).
+
+New raw source:
+- arXiv:1111.3738 (Nuzhnyy et al. 2011) "High-Frequency Dielectric Spectroscopy of BaTiO₃ Core–Silica Shell Nanocomposites: Problem of Interdiffusion" — three sintering routes (standard, SPS, two-step) on the same BaTiO₃@SiO₂ powder; THz dielectric dispersion correlates with interdiffusion gradient layer thickness.
+
+New wiki concept pages:
+- [[dopant-site-occupancy-batio3]] — A-site (donor) vs B-site (acceptor) substitution; ionic-radius hierarchy (La 1.36 → Yb 1.12 Å); amphoteric window for Dy/Y/Ho/Er at ~1.16 Å gives the modern co-doping playbook.
+- [[core-shell-formation-mechanism]] — solid-state diffusion vs dissolution-reprecipitation debate. Modern consensus (Jeon JACerS 2012, Chen JACerS 2020): dissolution-reprecipitation dominates at high dopant loadings, with a narrow kinetic window that must be hit by sintering recipe.
+- [[dopant-powder-coating]] — material-stage preparation: dry mechanical mixing (legacy) vs wet-chemical surface modification (modern standard) vs co-precipitation (no shell) vs ALD (research). Coating method matters more than total dopant content for shell uniformity.
+
+Updated existing page:
+- [[core-shell-batio3]] — substantially expanded with quantitative shell thickness (10–50 nm), rare-earth concentration in shell (~3–10 mol%), Mg/RE molar ratio (0.5–2), and a detailed table linking shell properties to each electrical characteristic (εr(T) flattening, DC-bias stability, IR/MTTF, aging, DF).
+
+New wiki source page:
+- [[arxiv-batio3-silica-interdiffusion]] — quantitative process anchors for three sintering routes; fresnoite formation in TSS; THz spectroscopy probes interdiffusion gradient layer.
+
+Key insights: (1) **amphoteric rare-earth window** (Dy/Y/Ho/Er, ionic radius ~1.16 Å) is the chemistry sweet spot — same dopant produces donor + acceptor populations in a tuned ratio for automatic carrier compensation; (2) **core-shell forms by dissolution-reprecipitation**, not Fickian diffusion — sintering recipe matters far more than just hold time; (3) **dopant coating method** is one of the biggest Tier-1 vs Tier-2 differentiators (wet-chemical 3–10 nm coating vs dry-mixed bulk dopant); (4) the same nominal "X7R 10 µF" can have wildly different DC-bias / aging behavior depending on shell quality — explains the [[vishay-x7r-cap-drift-dc-bias|3-vendor benchmark]] variation.
+
+Updated `wiki/index.md` (3 new concept entries + 1 new source).
+
+---
+
 ## [2026-05-20] ingest | MLCC sintering process — 5 new concept pages, 2 new source pages
 
 Per `/wiki ingest` directive to search for MLCC process material, especially sintering. Targeted gaps not covered in the earlier sintering-physics pass: industrial process recipes, alternative methods, equipment-aware modeling.

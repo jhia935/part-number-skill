@@ -55,6 +55,9 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[esr-esl-srf]] — Parasitics, equivalent-circuit impedance, decoupling rules.
 - [[failure-modes-mlcc]] — Cracks (mechanical/thermal/flex), arcing, mitigation hierarchy.
 - [[core-shell-batio3]] — Rare-earth-doped microstructure that makes thin-layer BME work.
+- [[core-shell-formation-mechanism]] — Dissolution-reprecipitation vs solid-state diffusion; the firing-stage kinetics.
+- [[dopant-site-occupancy-batio3]] — A vs B site, amphoteric rare-earths, Y/Ho/Dy/Er ionic-radius window.
+- [[dopant-powder-coating]] — Material-stage wet-chemical / sol-gel dopant delivery onto BaTiO₃ particles.
 - [[dc-bias-aging]] — Slow capacitance drift under continuous DC bias, distinct from natural aging and from VCC.
 - [[oxygen-vacancy-migration]] — Schottky-barrier-collapse mechanism behind BME IR degradation.
 - [[ferroelectric-domain-wall]] — Where most of MLCC εr comes from; explains VCC, aging, and grain-size effects.
@@ -115,6 +118,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[nasa-time-dependent-ir-2013-prb]] — Liu PRB 2013, exponential IR-degradation law derivation + E_k 1.6/2.8 eV fits.
 - [[cold-sintering-annual-review-mse]] — Guo, Randall et al. 2019, authoritative cold-sintering review.
 - [[llnl-particle-rigid-body-sintering]] — LLNL, rigid-body particle rearrangement in early-stage sintering.
+- [[arxiv-batio3-silica-interdiffusion]] — Nuzhnyy et al. 2011, BaTiO₃@SiO₂ core-shell composites; interdiffusion creates strong THz dielectric dispersion.
 
 ## Comparisons
 
