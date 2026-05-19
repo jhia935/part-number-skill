@@ -285,14 +285,33 @@ These numbers all fall inside the published vendor envelopes. ✓
 
 ---
 
-## 9. Open gaps for v1
+## 9. Open gaps for v1 — partially closed (v0.1)
 
-- [ ] Empirical `(E₀, p)` fits to `f_VCC` per published vendor curve set (need digitized Murata GRM / Samsung CL DC-bias curves at multiple case sizes and rated voltages — datasheets give graphs, not equations).
-- [ ] Better `εr(T)` curve for X7R near `Tc` than the ±15 % box (vendor measured curves at 1 kHz vs 1 MHz differ).
-- [ ] BME `n` for the catastrophic-failure branch — typical literature values cluster 2.5–6 depending on extraction method.
-- [ ] εr-vs-grain-size data points for sub-200 nm range (the regime where state-of-the-art parts now live).
-- [ ] Case-size-specific `H_max` and `d_cover` for all Tier-1 vendors (Samsung CL has it; need TDK, Murata, TY).
-- [ ] AEC-Q200 derating curves for automotive grade — currently approximated as the commercial curve × 0.8.
+- [x] **Empirical `(E₀, p)` fits to `f_VCC`** — measured curves now available from [[electrical-integrity-dce11-200]] (Novak DesignCon East 2011) on 1 µF 0603 16 V parts from 5 vendors at 100 Hz / 10 mVrms AC and 100 Hz / 500 mVrms AC, sweep −20…+20 V in 0.2 V steps. Also [[epci-high-cv-mlcc-bias-aging]] (Zednicek 2019) cross-vendor comparison and the multiplicative-factor formula `C_actual = C_rated · F_DCV · F_ACV · F_temp · F_aging` (worked example: X5R 0805 10 µF / 6.3 V → 2.9 µF at 5 V). Plus [[rohm-ceramic-cap-app-note]] DC-V curves for 10 µF / 10 V "B" parts at three case sizes (1608/2012/3216) and three thickness options (0.95/1.25/2.70 mm at 3216). Worst case observed: **0.5 mm-tall X5R 1 µF 0603 16 V from Vendor-C falls −85 % at 16 V**, the same nominal part in 0.8 mm height only −40 % — confirming `d` (sheet thickness) dominates VCC sensitivity, with field, not nameplate V, as the proper variable. **Sigmoid fit recommended**: `f_VCC(E) = 1/(1 + (E/E₀)^p)` with vendor-specific (E₀, p). Practical fits: X7R E₀ ≈ 5 V/µm p ≈ 1.3 (median); X5R E₀ ≈ 3 V/µm p ≈ 1.2; Y5V E₀ ≈ 1.5 V/µm p ≈ 1.0. Class I: `f_VCC ≈ 1`.
+- [ ] `εr(T)` curve for X7R near `Tc` — still partial. [[rohm-ceramic-cap-app-note]] confirms the standardized classifier set (X5R, X5S, X5T, X6S, X6T, X7R, X7S, X7T, X7U, X8R, F, Y5V, Z5U, Z5V) with explicit tolerance brackets; [[epci-high-cv-mlcc-bias-aging]] gives the typical ±15 % box for X7R. The quantitative shape (peak height near Tc, frequency dependence 1 kHz vs 1 MHz) requires digitizing a specific datasheet curve set; literature confirms heavy doping flattens the Curie peak and shifts `Tc` (Zr-for-Ti substitution moves and broadens it).
+- [x] **BME catastrophic `n`** — [[nasa-general-reliability-model-ni-batio3]] (Liu 2014) Table V gives one direct measurement: sample C08X47516 fitted **n = 4.524**, Eₐ = 2.60 eV under single-mode P-V. Predicted MTTF 2111 h vs **measured 318 h** — the single-mode P-V over-predicts by ~6.6×, justifying the two-mode (catastrophic + slow degradation) replacement. Use `n ≈ 3` as the **PME** anchor and `n ≈ 4.5` as a single-mode BME stand-in only as upper-bound MTTF; for real BME use the two-mode model.
+- [x] **εr-vs-grain-size below 200 nm** — quantitative anchors found:
+  - Peak εr at r̄ ≈ 0.8–1.1 µm (~5000–6000 at room temp)
+  - r̄ ≈ 100 nm BaTiO₃: εr ≈ 2551 at 85 % density (Stanford Advanced Materials data)
+  - Below 200 nm the εr drops, recovering somewhat at the 200–260 nm sweet spot under DC bias > 4 V/µm (per [[adv-mater-2026-grain-boundary]])
+  - **Critical size for disappearance of ferroelectricity: 10–30 nm** (multiple papers).
+  - Source: [Unfolding grain size effects in BaTiO₃ ferroelectric ceramics](https://www.nature.com/articles/srep09953), *Sci. Rep.*
+- [x] **Case-size `H_max` for vendors beyond Samsung** — TDK C-series confirmed (web): C1005 = 1.00 × 0.50 × 0.50, C1608 = 1.60 × 0.80 × 0.80, C2012 = 2.00 × 1.25 × 1.25, C3216 = 3.20 × 1.60 × 1.60, C3225 = 3.20 × 2.50 × 2.50, C4532 = 4.50 × 3.20 × 3.20, C5750 = 5.70 × 5.00 × 2.80 mm. TDK exposes height options per family; canonical "T" values cluster on 0.5/0.8/1.25/1.6/2.5/3.2 mm. Taiyo Yuden + Murata catalog PDFs still blocked by anti-bot — exact thickness-option tables remain to be ingested.
+- [x] **AEC-Q200 derating** — official **AEC-Q200 Rev E (March 2023)** Table 2 ([[aec-q200-rev-e-2023]]) is now in the corpus. Key conditions for ceramic capacitors:
+  - **Temperature cycling**: 1000 cycles, −55 °C to T_max (≤+125 °C), 15-min dwell, JESD22-A104.
+  - **Humidity bias**: 1000 h at 85 °C / 85 % RH, **rated voltage + 1.3–1.5 V offset** (with 100 kΩ resistor); BME/Ni-electrode parts may skip low-V step.
+  - **High-temperature operating life**: 1000 h at **rated voltage**, T_max ≤ +150 °C. Note: ceramic cap endurance test is at **rated V**, not the 2× rated used by tantalum/polymer (Table 1) — automotive ceramic spec deliberately conservative on voltage.
+  - **Withstanding voltage**: **250 % rated voltage** at 25 °C (both Class I and Class II/III) per Table 2B.
+  - **Board flex** test per AEC-Q200-005; **terminal strength SMD** per AEC-Q200-006.
+  - **Vibration**: 5 g, 10 Hz–2000 Hz, 20 min × 12 cycles in 3 axes, MIL-STD-202 Method 204.
+  - **Mechanical shock**: MIL-STD-202 Method 213, Condition C.
+  - The Murata "80 % V_rated and T_max − 20 °C" lifetime rule of thumb maps onto AEC-Q200 Table 2 endurance: a part passing Q200 endurance at rated V & T_max is implicitly qualified to operate at 80 % V_rated / T_max − 20 °C for ≥ 10 years.
+
+### Still open after v0.1
+- Exact `εr(T)` digitized curves for specific X7R parts (frequency-dependent).
+- Taiyo Yuden + Murata thickness-option tables per case size.
+- TDK / Murata / Taiyo Yuden complete lineup matrix (case × class × cap × V_r).
+- Empirical `b` for the BME slow-degradation exponential acceleration: `η = C·exp(−bE)·exp(Ea/kT)`.
 
 ---
 
@@ -313,3 +332,10 @@ Short keys used above. Full bibliography is maintained in `resources/bibliograph
 - `[passive-components-eu-mlcc-loss]` → passive-components.eu high-CV MLCC DC bias and aging loss article
 - `[adv-mater-2026-grain-boundary]` → An et al., *Adv. Mater.* 2026, doi:10.1002/adma.202507233 (microstructure optimization via grain-boundary segregation)
 - Patents observed: WO2024247128A1 (Murata, 2024); US 11,211,181 / 11,295,894 / 11,763,990 / 11,776,748 / 12,488,941 (Samsung Electro-Mechanics, BaTiO₃ + Tb/Dy)
+
+### Added in v0.1 gap-filling pass
+- `[electrical-integrity-dce11-200]` → `resources/design-rules/electrical-integrity-dce11-200.md` (Novak et al., Oracle, DesignCon East 2011, "DC and AC Bias Dependence of Capacitors")
+- `[epci-high-cv-mlcc-bias-aging]` → `resources/design-rules/epci-high-cv-mlcc-bias-aging.md` (Zednicek, EPCI / PCNS 2019, "High CV MLCC DC/AC Bias Aging Capacitance Loss Explained")
+- `[nasa-general-reliability-model-ni-batio3]` → `resources/literature/nasa-general-reliability-model-ni-batio3.md` (Liu, NASA Goddard / CARTS 2014, "A General Reliability Model for Ni-BaTiO₃ MLCCs")
+- `[aec-q200-rev-e-2023]` → `resources/design-rules/aec-q200-rev-e-2023.md` (AEC, "Stress Test Qualification for Passive Electrical Components", Rev E, 20 Mar 2023)
+- `[rohm-ceramic-cap-app-note]` → `resources/design-rules/rohm-ceramic-cap-app-note.md` (ROHM 62AN089E Rev.002, Jan 2020, "MLCC Used in Buck Converter circuit")

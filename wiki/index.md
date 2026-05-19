@@ -14,11 +14,13 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 ### Companies
 - [[murata]] — World's largest MLCC manufacturer; BME pioneer (1982); ~100 nm BaTiO₃ powder.
 - [[samsung-electro-mechanics]] — Largest Korean MLCC house (SEMCO); active Tb-Dy dopant patent activity.
-- [[tdk]] — Japanese Tier-1, broad commercial + automotive lineup *(stub — pending catalog ingest)*.
+- [[tdk]] — Japanese Tier-1, broad commercial + automotive lineup; full C-series dimensional table now captured.
 - [[taiyo-yuden]] — Japanese Tier-1, miniaturization leadership at small case sizes *(stub)*.
-- [[kemet]] — US/Yageo subsidiary; ArcShield HV MLCC; canonical training references.
-- [[vishay]] — Vitramon-brand PME X7R; only Tier-1 publisher of DC-bias-aging data.
+- [[kemet]] — Yageo subsidiary; ArcShield HV MLCC; canonical training references.
+- [[vishay]] — Vitramon-brand PME X7R; Tier-1 publisher of DC-bias-aging data.
 - [[kyocera-avx]] — Cu-electrode RF MLCCs; classic decoupling-design paper.
+- [[yageo]] — Taiwanese parent of KEMET; AEC-Q200 spec contributor *(stub)*.
+- [[rohm]] — Switching-regulator IC vendor; MLCC application-note authority *(stub)*.
 
 ### Product series
 - [[murata-grm-series]] — General-purpose Murata MLCC; GRM03 through GRM55.
@@ -33,6 +35,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 
 ### Organizations
 - [[nasa-nepp]] — NASA Electronic Parts and Packaging program; primary public sponsor of BME reliability research.
+- [[aec-council]] — Automotive Electronics Council; publisher of AEC-Q200 automotive passive qualification spec.
 
 ## Concepts
 
@@ -46,6 +49,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[esr-esl-srf]] — Parasitics, equivalent-circuit impedance, decoupling rules.
 - [[failure-modes-mlcc]] — Cracks (mechanical/thermal/flex), arcing, mitigation hierarchy.
 - [[core-shell-batio3]] — Rare-earth-doped microstructure that makes thin-layer BME work.
+- [[dc-bias-aging]] — Slow capacitance drift under continuous DC bias, distinct from natural aging and from VCC.
 
 ## Sources
 
@@ -57,6 +61,11 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[samsung-cl-series-mlcc-ds]] — SEMCO datasheet, Rosetta stone for vendor codes.
 - [[nasa-nepp-bme-mlcc-reliability]] — Liu 2013 framework paper.
 - [[nasa-batio3-mlcc-failure-mechanisms]] — Liu & Sampson CARTS 2012 (Outstanding Paper).
+- [[nasa-general-reliability-model-ni-batio3]] — Liu CARTS 2014, BME P-V fitted n=4.5 evidence.
+- [[electrical-integrity-dce11-200]] — Novak DesignCon 2011, cross-vendor measured DC/AC bias data.
+- [[epci-high-cv-mlcc-bias-aging]] — Zednicek 2019, multiplicative-factor formula `C_actual = C·F_DCV·F_ACV·F_T·F_age`.
+- [[aec-q200-rev-e-2023]] — Official AEC-Q200 Rev E ceramic-capacitor stress qualification table.
+- [[rohm-ceramic-cap-app-note]] — ROHM 2020, MLCC size/thickness/V_r DC-bias comparison.
 
 ## Comparisons
 
