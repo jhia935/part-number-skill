@@ -11,6 +11,32 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-19] ingest | Sintering-physics pass — 5 new sources, 6 new concept pages
+
+Directive: research the physics of dielectric material during the sintering process. Targeted five sub-topics — mass transport, grain growth, defect chemistry, Ni co-sintering, phase transition.
+
+New raw sources (in `resources/literature/`):
+- [[epfl-ceramics-sintering-microstructure]] — EPFL TP3 lab guide. The clean teaching reference for solid-state sintering physics: 4 mass-transport mechanisms, Q_surf < Q_GB < Q_volume activation energy hierarchy (α-Al₂O₃ 399/464/616 kJ/mol, ZnO 158/282/376), Young-Laplace curvature driving force, dilatometry protocol.
+- [[arxiv-electron-localization-cation-diffusion]] — Yu et al. arXiv:1808.05198. DFT explanation for why reducing atmosphere accelerates BaTiO₃ grain growth: Ti⁴⁺ → Ti³⁺ + electron localization lowers cation migration barrier 30–50 %.
+- [[arxiv-batio3-cubic-to-tetragonal-md]] — arXiv:1010.6147. First-principles MD of the T_C transition; soft-phonon precursor region above T_C explains εr peak.
+- LLNL particle rigid-body motion in sintering, Cold sintering Annual Review (in resources/literature/, source pages pending).
+
+New wiki concept pages (the deliverable):
+- [[sintering-kinetics-batio3]] — Mass-transport framework + BaTiO₃-specific activation energies (Q ≈ 119–172 kJ/mol for grain growth).
+- [[grain-growth-dopant-pinning]] — Normal vs abnormal grain growth; solute drag, Zener pinning; lanthanide-donor vs acceptor-cation grain-growth behaviors; the Y+Mg co-doping consensus.
+- [[defect-chemistry-batio3]] — Kröger-Vink notation, O₂ ⇌ V_O + 2e' equilibrium, Ti³⁺/Ti⁴⁺ redox, donor/acceptor compensation strategies. The chemistry layer under the BME atmosphere recipe.
+- [[ni-batio3-cosintering-interface]] — The interfacial (Ni, Ba, Ti) liquid alloy at 1000–1100 °C that drives electrode discontinuity; NiO 0.13 wt% solubility limit in BaTiO₃ pins GBs.
+- [[cubic-tetragonal-transition]] — Cooldown through T_C; 90° twin domains relieve stress in coarse grain; **fine grains lack room for 90° twins → εr collapses below ~200 nm** (structural origin of the grain-size cliff).
+- [[sintering-aids-glass]] — BaO-B₂O₃-SiO₂ / ZnO-B₂O₃-SiO₂ glass aids; reduce BaTiO₃ sintering T from 1300 °C to 900 °C; essential for BME Cu C0G firing below Cu melting point.
+
+New wiki source pages: 3 ([[epfl-ceramics-sintering-microstructure]], [[arxiv-electron-localization-cation-diffusion]], [[arxiv-batio3-cubic-to-tetragonal-md]]).
+
+Updated `resources/design-rules/simulator-model.md` §9 (sintering physics anchors), §10 (source registry extended). Updated `wiki/index.md` (new concept and source entries).
+
+Key insights: (1) the entire "core-shell + dopant" engineering effort is downstream of one defect-chemistry fact — Ti³⁺/Ti⁴⁺ equilibrium under reducing atmosphere creates V_O and accelerates cation diffusion; (2) the εr-vs-grain-size cliff at ~200 nm has a clean structural cause (no room for 90° twins to relieve cooldown stress); (3) Ni electrode discontinuity in thin-layer BME isn't a tape/printing defect — it's a Rayleigh-Plateau instability driven by a thin liquid (Ni, Ba, Ti) alloy that forms at 1000–1100 °C.
+
+---
+
 ## [2026-05-19] ingest | Deep-research pass — materials, physics, processes (12+ new sources)
 
 Directive: do a comprehensive web search across MLCC materials, physical behavior, and processes (academic papers + product spec sheets + manufacturer/association technical reports). Eleven major documents collected and ingested. Focus on closing the §9 gaps in `simulator-model.md`.

@@ -60,6 +60,12 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[bme-sintering-atmosphere]] — Reducing-atmosphere co-firing with PO₂ control.
 - [[re-oxidation-anneal]] — Post-sinter step that refills oxygen vacancies and raises IR.
 - [[batio3-powder-synthesis]] — Hydrothermal, solid-state, oxalate, sol-gel routes; size distribution control.
+- [[sintering-kinetics-batio3]] — Mass-transport mechanisms, densification rate, activation-energy hierarchy.
+- [[grain-growth-dopant-pinning]] — Normal/abnormal grain growth, solute drag, Zener pinning, co-doping strategy.
+- [[defect-chemistry-batio3]] — Kröger-Vink notation, V_O equilibria, donor/acceptor compensation.
+- [[ni-batio3-cosintering-interface]] — Interfacial (Ni,Ba,Ti) liquid alloy, electrode discontinuity physics.
+- [[cubic-tetragonal-transition]] — T_C cooldown physics: domain formation, twinning, stress relief vs grain size.
+- [[sintering-aids-glass]] — BBS, ZBS, PBS glass systems; lowering sintering T for Cu BME and LTCC.
 
 ## Sources
 
@@ -82,6 +88,10 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[arxiv-batio3-domain-wall-motion]] — Gurung et al. arXiv 2024, Landau-Ginzburg domain-wall dielectric response.
 - [[nasa-cracking-low-voltage-mlcc]] — Teverovsky NASA NEPP 2018, encyclopedic cracking & process review.
 - [[octopart-tdk-cga8l3c0g-product-guide]] — TDK 2012 full MLCC product line-up (C-series + CGA + CKC).
+- [[epfl-ceramics-sintering-microstructure]] — EPFL TP3 lab guide; canonical solid-state sintering physics.
+- [[arxiv-electron-localization-cation-diffusion]] — Yu et al. 2018, DFT showing why reducing atmosphere accelerates BaTiO₃ grain growth.
+- [[arxiv-batio3-cubic-to-tetragonal-md]] — First-principles MD of the cubic↔tetragonal phase transition.
+- [[nasa-time-dependent-ir-2013-prb]] — Liu PRB 2013, exponential IR-degradation law derivation + E_k 1.6/2.8 eV fits.
 
 ## Comparisons
 

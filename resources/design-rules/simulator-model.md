@@ -326,6 +326,22 @@ These numbers all fall inside the published vendor envelopes. ✓
 - Explicit `b` exponent (V/µm) for the field-acceleration variant `exp(-bE)` of slow degradation — the Liu papers use a constant-V Arrhenius decomposition instead.
 - Quantitative defect-density data: extrinsic defect feature size `r` in the structural model `(1-(r̄/d)^α)^N` — typically lumped into `r̄` as `r ≈ c·r̄` (Liu Eq. 12) without separate fitting.
 
+### Added in v0.3 sintering-physics pass
+- [x] **Mass-transport mechanisms**: surface, GB, volume diffusion + vapor transport. BaTiO₃ grain-growth Q ≈ 119–172 kJ/mol (1.2–1.8 eV). Densification rate model `dρ/dt = (A/T)·exp(-Q/RT)·f(ρ)/D^n`.
+- [x] **Reducing-atmosphere boost to cation diffusion**: Ti⁴⁺ → Ti³⁺ + electron localization lowers Ti migration barrier ~30–50 %. Explains why BME firing accelerates grain growth and why fine-grain control needs aggressive dopant pinning.
+- [x] **Dopant-grain-growth ranking**: lanthanide donors alone → fast growth; divalent acceptor cations (Mg, Mn) → strong inhibition; **Y + Mg co-doping → optimum** (modern core-shell BME formulation).
+- [x] **Aliovalent cation effect** on GB mobility: up to 50× reduction at 0.75 at% Nb⁵⁺ / La³⁺ / Co²⁺ doping.
+- [x] **Ni-BaTiO₃ interfacial liquid**: thin (~10 nm) liquid (Ni, Ba, Ti) alloy at 1000–1100 °C; primary driver of electrode discontinuity in thin-layer BME. NiO solubility in BaTiO₃ ~0.13 wt% at 1250–1330 °C inhibits BaTiO₃ grain growth via Zener pinning.
+- [x] **Sintering aid glass systems**: BaO-B₂O₃-SiO₂ (BBS) / ZnO-B₂O₃-SiO₂ (ZBS) reduce BaTiO₃ sintering T from 1300 °C to 900 °C with 93–95 % density. Essential for [[bme-c0g|BME Cu C0G]] which must fire below Cu melting point (1085 °C).
+- [x] **Phase-transition stress on cooldown**: tetragonal-cubic c/a ≈ 1.01 creates ~100 MPa internal stress; 90° twin domains relieve stress in coarse grain ceramics. In sub-200 nm grain, no room for 90° twins → stress retained → effective tetragonal distortion suppressed → εr collapses. **Structural reason for the εr-vs-grain-size cliff**.
+- [x] **Kröger-Vink defect chemistry framework**: donor-acceptor co-doping balance, V_O concentration vs PO₂, Ti³⁺/Ti⁴⁺ equilibrium. Modern BME formulations use rare-earth (donor) + Mg (acceptor) at matched molar ratio to **trap V_O at grain boundaries** while minimizing free carriers.
+
+### Still open after v0.3
+- Quantitative `εr(T, f)` curves for specific X7R compositions (frequency-dependent), still.
+- Direct comparison of densification curves for BME BaTiO₃ at the actual MLCC firing recipe vs textbook isothermal sintering.
+- εr-vs-r̄ data points in the 50–150 nm range (just below the collapse threshold).
+- Atmosphere-time profile of state-of-the-art commercial BME furnaces (proprietary).
+
 ---
 
 ## 10. Source registry
@@ -352,6 +368,13 @@ Short keys used above. Full bibliography is maintained in `resources/bibliograph
 - `[nasa-general-reliability-model-ni-batio3]` → `resources/literature/nasa-general-reliability-model-ni-batio3.md` (Liu, NASA Goddard / CARTS 2014, "A General Reliability Model for Ni-BaTiO₃ MLCCs")
 - `[aec-q200-rev-e-2023]` → `resources/design-rules/aec-q200-rev-e-2023.md` (AEC, "Stress Test Qualification for Passive Electrical Components", Rev E, 20 Mar 2023)
 - `[rohm-ceramic-cap-app-note]` → `resources/design-rules/rohm-ceramic-cap-app-note.md` (ROHM 62AN089E Rev.002, Jan 2020, "MLCC Used in Buck Converter circuit")
+
+### Added in v0.3 sintering-physics pass
+- `[epfl-ceramics-sintering-microstructure]` → `resources/literature/epfl-ceramics-sintering-microstructure.md` (EPFL LMC TP3 lab guide on solid-state sintering physics)
+- `[arxiv-electron-localization-cation-diffusion]` → `resources/literature/arxiv-electron-localization-cation-diffusion.md` (Yu et al., arXiv:1808.05198, first-principles DFT on reduced-cation diffusion)
+- `[arxiv-batio3-cubic-to-tetragonal-md]` → `resources/literature/arxiv-batio3-cubic-to-tetragonal-md.md` (arXiv:1010.6147, first-principles MD on cubic↔tetragonal transition)
+- `[llnl-particle-rigid-body-sintering]` → `resources/literature/llnl-particle-rigid-body-sintering.md` (LLNL, particle rigid-body motion during sintering)
+- `[cold-sintering-annual-review-mse]` → `resources/literature/cold-sintering-annual-review-mse.md` (Cold sintering, Annual Review of Materials Research)
 
 ### Added in v0.2 deep-research materials/physics/process pass
 - `[escies-bme-mlcc-high-reliability]` → `resources/literature/escies-bme-mlcc-high-reliability.md` (Gurav et al., KEMET, hosted on ESA ESCIES — BME C0G + X7R for high-reliability applications)
