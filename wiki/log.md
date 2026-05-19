@@ -11,6 +11,27 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | MLCC sintering process — 5 new concept pages, 2 new source pages
+
+Per `/wiki ingest` directive to search for MLCC process material, especially sintering. Targeted gaps not covered in the earlier sintering-physics pass: industrial process recipes, alternative methods, equipment-aware modeling.
+
+New wiki concept pages:
+- [[sintering-profile-mlcc]] — multi-stage profile (binder burnout → pre-sinter → fast ramp → peak hold → cooldown → re-oxidation), heating-rate effect on Ni electrode continuity (Polotai JACerS 2007 study: 200–3000 °C/h sweep, 1250 °C / 60 °C/min optimum).
+- [[two-step-sintering]] — Chen-Wang TSS-CW method: ramp to 1300 °C for partial density, drop to 1100 °C and hold; achieves 96 % density at 35 nm grain in BaTiO₃ (vs 1–5 µm grain conventional).
+- [[constrained-sintering-mlcc]] — in-plane shrinkage suppressed by electrode constraint, thickness absorbs slack; LTCC-style 12.7 / 13.9 / 12.8 % anisotropy. Camber/warpage from sintering-kinetics mismatch.
+- [[spark-plasma-sintering]] — SPS / FAST; 99 % density in minutes; εr ≈ 3500 (vs 2000 conventional) due to GB defect reduction.
+- [[cold-sintering]] — Randall group's <300 °C process with transient liquid phase; cold-sintered BaTiO₃ at 90–95 % density.
+
+New wiki source pages:
+- [[cold-sintering-annual-review-mse]] — Guo, Randall et al. *Annu. Rev. Mater. Res.* 2019.
+- [[llnl-particle-rigid-body-sintering]] — LLNL paper on rigid-body particle rearrangement.
+
+Key insights: (1) heating rate is the dominant industrial knob — 60 °C/min through the 1000–1100 °C interfacial-liquid window optimizes Ni-electrode continuity; (2) two-step sintering (Chen-Wang) is the foundation of fine-grain BaTiO₃; (3) constrained sintering creates anisotropic shrinkage in the multilayer stack and residual stress that superposes with the cooldown phase transition; (4) SPS / cold sintering are research frontier but not yet competitive for production MLCC.
+
+Updated `wiki/index.md` (5 new concepts + 2 new sources).
+
+---
+
 ## [2026-05-20] lint | Wiki health check — promote primitives, fix broken links
 
 Per `/wiki lint` directive to investigate need for more primitive concepts/entities.

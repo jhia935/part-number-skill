@@ -68,6 +68,11 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[ni-batio3-cosintering-interface]] — Interfacial (Ni,Ba,Ti) liquid alloy, electrode discontinuity physics.
 - [[cubic-tetragonal-transition]] — T_C cooldown physics: domain formation, twinning, stress relief vs grain size.
 - [[sintering-aids-glass]] — BBS, ZBS, PBS glass systems; lowering sintering T for Cu BME and LTCC.
+- [[sintering-profile-mlcc]] — Industrial heating-rate / multi-stage profile (200 → 3000 °C/h study, 1250 °C peak).
+- [[two-step-sintering]] — Chen-Wang TSS-CW method; density without grain growth (BaTiO₃ at 35 nm grain).
+- [[constrained-sintering-mlcc]] — In-plane vs thickness shrinkage anisotropy; camber/warpage origin.
+- [[spark-plasma-sintering]] — SPS / FAST; 99 % density in minutes, ~doubled εr.
+- [[cold-sintering]] — Sub-300 °C densification with transient liquid phase (Randall group).
 
 ### Primitives (foundational concepts)
 - [[permittivity]] — Dielectric constant εᵣ; the fundamental material property.
@@ -108,6 +113,8 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[arxiv-electron-localization-cation-diffusion]] — Yu et al. 2018, DFT showing why reducing atmosphere accelerates BaTiO₃ grain growth.
 - [[arxiv-batio3-cubic-to-tetragonal-md]] — First-principles MD of the cubic↔tetragonal phase transition.
 - [[nasa-time-dependent-ir-2013-prb]] — Liu PRB 2013, exponential IR-degradation law derivation + E_k 1.6/2.8 eV fits.
+- [[cold-sintering-annual-review-mse]] — Guo, Randall et al. 2019, authoritative cold-sintering review.
+- [[llnl-particle-rigid-body-sintering]] — LLNL, rigid-body particle rearrangement in early-stage sintering.
 
 ## Comparisons
 
