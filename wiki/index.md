@@ -26,9 +26,13 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[murata-grm-series]] — General-purpose Murata MLCC; GRM03 through GRM55.
 - [[samsung-cl-series]] — General-purpose SEMCO MLCC; 11-field part number.
 - [[kemet-arcshield]] — KEMET patented HV MLCC with internal shield electrodes.
+- [[bme-c0g]] — KEMET CaZrO₃-based Class I BME family; PME-killer in C0G/NP0 territory.
 
 ### Materials
 - [[batio3]] — Barium titanate; the dominant Class II/III dielectric base.
+- [[cazro3]] — Calcium zirconate; modern Class I BME C0G dielectric base.
+- [[srtio3]] — Strontium titanate; Curie-point shifter in BST formulations, reliability-physics reference.
+- [[nanbo3]] — Sodium niobate; lead-free X8R/X9R extension, antiferroelectric energy-storage material.
 
 ### People
 - [[donhang-liu]] — NASA Goddard NEPP capacitor reliability specialist; authored the BME reliability framework.
@@ -50,6 +54,12 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[failure-modes-mlcc]] — Cracks (mechanical/thermal/flex), arcing, mitigation hierarchy.
 - [[core-shell-batio3]] — Rare-earth-doped microstructure that makes thin-layer BME work.
 - [[dc-bias-aging]] — Slow capacitance drift under continuous DC bias, distinct from natural aging and from VCC.
+- [[oxygen-vacancy-migration]] — Schottky-barrier-collapse mechanism behind BME IR degradation.
+- [[ferroelectric-domain-wall]] — Where most of MLCC εr comes from; explains VCC, aging, and grain-size effects.
+- [[mlcc-manufacturing-process]] — End-to-end process map from powder to packaged chip.
+- [[bme-sintering-atmosphere]] — Reducing-atmosphere co-firing with PO₂ control.
+- [[re-oxidation-anneal]] — Post-sinter step that refills oxygen vacancies and raises IR.
+- [[batio3-powder-synthesis]] — Hydrothermal, solid-state, oxalate, sol-gel routes; size distribution control.
 
 ## Sources
 
@@ -66,6 +76,12 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[epci-high-cv-mlcc-bias-aging]] — Zednicek 2019, multiplicative-factor formula `C_actual = C·F_DCV·F_ACV·F_T·F_age`.
 - [[aec-q200-rev-e-2023]] — Official AEC-Q200 Rev E ceramic-capacitor stress qualification table.
 - [[rohm-ceramic-cap-app-note]] — ROHM 2020, MLCC size/thickness/V_r DC-bias comparison.
+- [[escies-bme-mlcc-high-reliability]] — Gurav et al. KEMET, BME C0G + X7R high-reliability synthesis.
+- [[nasa-ir-degradation-ni-batio3-2015]] — Liu IEEE TCPMT, Schottky barrier model on 3 commercial BME parts.
+- [[nasa-time-dependent-ir-2013-prb]] — Liu PRB manuscript, exponential leakage law derivation + E_k 1.6/2.8 eV fits.
+- [[arxiv-batio3-domain-wall-motion]] — Gurung et al. arXiv 2024, Landau-Ginzburg domain-wall dielectric response.
+- [[nasa-cracking-low-voltage-mlcc]] — Teverovsky NASA NEPP 2018, encyclopedic cracking & process review.
+- [[octopart-tdk-cga8l3c0g-product-guide]] — TDK 2012 full MLCC product line-up (C-series + CGA + CKC).
 
 ## Comparisons
 

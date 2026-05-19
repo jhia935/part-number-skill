@@ -11,6 +11,43 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-19] ingest | Deep-research pass — materials, physics, processes (12+ new sources)
+
+Directive: do a comprehensive web search across MLCC materials, physical behavior, and processes (academic papers + product spec sheets + manufacturer/association technical reports). Eleven major documents collected and ingested. Focus on closing the §9 gaps in `simulator-model.md`.
+
+New raw sources in `resources/literature/` and `resources/market/`:
+- [[escies-bme-mlcc-high-reliability]] — Gurav et al. (KEMET, ESA ESCIES archive). BME C0G (CaZrO₃) vs PME C0G (BaNd-titanate); 13× HALT MTTF improvement. **Source for CaZrO₃ Class I BME data.**
+- [[nasa-ir-degradation-ni-batio3-2015]] — Liu (IEEE TCPMT 2015). Schottky double-depletion / Heywang-Jonker mechanism for IR degradation; 3 commercial BME 0.47 µF / 50 V / 0805 parts cross-compared with explicit layer counts (98–103), thicknesses (5.8–8.1 µm), grain sizes (0.33–0.40 µm).
+- [[nasa-time-dependent-ir-2013-prb]] — Liu (PRB manuscript 2013). Derives exponential leakage law `I(t) = I₀·exp((t-t₀)/τ_SD)`, exponential barrier collapse `φ(t) = φ(0)·exp(-2Kt)`, K Arrhenius with **E_k ≈ 1.6 eV (commercial BME) vs 2.8 eV (automotive BME)** — direct quantitative anchors for the simulator slow-degradation branch.
+- [[nasa-cracking-low-voltage-mlcc]] — Teverovsky (NASA NEPP 2018). 200+ pages encyclopedic cracking + qualification + processes survey.
+- [[arxiv-batio3-domain-wall-motion]] — Gurung et al. (UConn / arXiv 2024). Landau-Ginzburg domain wall dielectric response in BaTiO₃; DW contribution ~2 orders of magnitude > intrinsic; DW relaxation 10 GHz vs intrinsic 500 GHz.
+- [[octopart-tdk-cga8l3c0g-product-guide]] — TDK 2012 full MLCC product line-up, 62 pages (via Octopart). Closes the TDK side of the case-size geometry table.
+- Murata SimSurfing documents (overview + measurement conditions) → `resources/market/murata-simsurfing-*.md`.
+- IEC 60384-9-1:2005 standard preview (Class II ceramic capacitor blank detail spec) — `resources/design-rules/iec-60384-9-1-2005-sample.md`.
+- ESCIES BME reliability evaluation for space + Wuerth (Zednicek) 2025 capacitor degradation paper.
+- KEMET C1100 CAS-SMD automotive datasheet (`resources/market/kemet-c1100-cas-smd.md`).
+- TDK MLCC temperature characteristics application guide (`resources/market/tdk-mlcc-temperature-characteristics-guide.md`).
+
+New wiki concept pages:
+- [[oxygen-vacancy-migration]] — IR-degradation root mechanism.
+- [[ferroelectric-domain-wall]] — DW physics (the seat of MLCC εr).
+- [[mlcc-manufacturing-process]] — End-to-end process map.
+- [[bme-sintering-atmosphere]] — Reducing atmosphere + PO₂ window (10⁻¹⁰ to 10⁻¹² atm at peak sinter).
+- [[re-oxidation-anneal]] — Post-sinter O-vacancy refill.
+- [[batio3-powder-synthesis]] — Hydrothermal / solid-state / oxalate / sol-gel routes.
+
+New wiki entity pages:
+- Materials: [[cazro3]], [[srtio3]], [[nanbo3]].
+- Series: [[bme-c0g]].
+
+New wiki source pages: 6 (one per major new document).
+
+Updated `resources/design-rules/simulator-model.md` §9 (more gaps closed: CaZrO₃ Class I path, BME E_k 1.6/2.8 eV from Liu PRB, BaTiO₃ powder hierarchy, DW physics, atmosphere recipe), §10 (source registry extended), and `wiki/index.md` (new materials/series/concepts/sources sections).
+
+Key insights: (1) the v0 simulator can now handle Class I (CaZrO₃) separately with `f_VCC ≈ f_AC ≈ f_age ≈ 1, f_T = TCC·(T-25)`; (2) **vendor identity matters** — automotive BME runs E_k ~2.8 eV vs commercial 1.6 eV, an order of magnitude difference in degradation rate at 165 °C; (3) the entire MLCC εr observed at MHz is **DW contribution** — once DWs are pinned (by DC bias), εr drops to the intra-domain intrinsic value, which is ~2 orders of magnitude smaller. This is the mechanistic origin of the sigmoid VCC curve.
+
+---
+
 ## [2026-05-19] ingest | Gap-filling pass — 5 new sources
 
 Directive: comprehensive web search to fill the open gaps documented in `resources/design-rules/simulator-model.md` §9. Five new authoritative documents collected and ingested:

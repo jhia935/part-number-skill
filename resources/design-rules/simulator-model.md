@@ -307,11 +307,24 @@ These numbers all fall inside the published vendor envelopes. ✓
   - **Mechanical shock**: MIL-STD-202 Method 213, Condition C.
   - The Murata "80 % V_rated and T_max − 20 °C" lifetime rule of thumb maps onto AEC-Q200 Table 2 endurance: a part passing Q200 endurance at rated V & T_max is implicitly qualified to operate at 80 % V_rated / T_max − 20 °C for ≥ 10 years.
 
-### Still open after v0.1
-- Exact `εr(T)` digitized curves for specific X7R parts (frequency-dependent).
-- Taiyo Yuden + Murata thickness-option tables per case size.
-- TDK / Murata / Taiyo Yuden complete lineup matrix (case × class × cap × V_r).
-- Empirical `b` for the BME slow-degradation exponential acceleration: `η = C·exp(−bE)·exp(Ea/kT)`.
+### Still open after v0.1 — partially closed in v0.2 (materials/physics/process pass)
+- [partial] Exact `εr(T)` digitized curves for specific X7R parts (frequency-dependent). Found qualitative anchors: BaTiO₃ εr ≈ 9369 at T_C (125 °C peak); DW relaxation frequency ~10 GHz vs intrinsic ~500 GHz ([[arxiv-batio3-domain-wall-motion]]); Curie peak height vs broadness depends on doping level (Nb/Mg/Mn/Y) — heavy doping flattens peak.
+- [partial] Taiyo Yuden + Murata thickness-option tables per case size — TDK case-size table now confirmed via [[octopart-tdk-cga8l3c0g-product-guide]] (C-series 0402-2220 dimensions). Murata SimSurfing tool gives the dynamic answer but not a static table.
+- [closed-ish] TDK / Murata / Taiyo Yuden complete lineup matrix — TDK 2012 catalog (62 pages) now in corpus; Murata SimSurfing referenced (online tool, not static doc).
+- [x] **Empirical `E_k` for the BME slow-degradation acceleration**: [[nasa-time-dependent-ir-2013-prb]] gives **E_k ≈ 1.6 eV (commercial BME B)** vs **E_k ≈ 2.8 eV (automotive BME A)**. Activation-energy-only form `K = K₀·exp(-E_k/kT)` is the working model under constant field; the explicit `exp(-bE)` field-acceleration form maps onto Liu's framework through the Schottky barrier `φ(0)` — a higher field reduces the effective barrier height.
+
+### Added in v0.2 (deep-research materials/physics/process pass)
+- [x] **CaZrO₃ Class I BME dielectric** parameters: εr ≈ 31 (vs BaTiO₃ 1500–6000); BDV > 200 V/µm at 150 °C; no aging, no DC bias derating; IR rises beyond 120 °C. The simulator should treat Class I (C0G/NP0) as a separate code path with `f_VCC ≈ 1, f_AC ≈ 1, f_age ≈ 1, f_T ≈ TCC·(T-25)`.
+- [x] **BaTiO₃ powder size hierarchy**: hydrothermal route → 50–300 nm (Murata 100 nm SOTA); solid-state → 300–500 nm (legacy); sol-gel → 30–100 nm (research). Grain-size constraint `d ≥ (3–5) · r̄` confirmed across multiple references.
+- [x] **IR degradation model** (Liu 2013 PRB): `φ(t) = φ(0)·exp(-2Kt)`, `K = K₀·exp(-E_k/kT)`. Leakage current `I(t) = I₀ · exp((t-t₀)/τ_SD)` with `τ_SD` ≈ 1700–2300 min for BME B at 165 °C/72 V. **At first catastrophic failure**: 55–70 % reduction in barrier height φ.
+- [x] **Domain wall physics** (Gurung et al. 2024): the "εr" of a Class II MLCC is **~2 orders of magnitude** larger due to DW motion than the intra-domain intrinsic value. DC bias pins DWs → εr drops. This is the mechanistic explanation for the sigmoid f_VCC(E) shape and aging.
+- [x] **BME atmosphere recipe**: debinding Ar + 1 vol % O₂ → sintering N₂/H₂ PO₂ 10⁻¹⁰ to 10⁻¹² atm @ 1100–1300 °C → re-oxidation 900–1100 °C PO₂ 10⁻⁸ to 10⁻⁹ atm. The vendor difference in reoxidation step quality maps onto the empirical E_k (1.6 vs 2.8 eV) for slow-degradation acceleration.
+
+### Still open after v0.2
+- Quantitative `εr(T, f)` curves for specific X7R compositions (e.g., εr at −55 °C vs +85 °C at 1 kHz vs 1 MHz on the same part).
+- Murata / Taiyo Yuden lineup matrices (anti-bot blocking direct vendor catalog access).
+- Explicit `b` exponent (V/µm) for the field-acceleration variant `exp(-bE)` of slow degradation — the Liu papers use a constant-V Arrhenius decomposition instead.
+- Quantitative defect-density data: extrinsic defect feature size `r` in the structural model `(1-(r̄/d)^α)^N` — typically lumped into `r̄` as `r ≈ c·r̄` (Liu Eq. 12) without separate fitting.
 
 ---
 
@@ -339,3 +352,18 @@ Short keys used above. Full bibliography is maintained in `resources/bibliograph
 - `[nasa-general-reliability-model-ni-batio3]` → `resources/literature/nasa-general-reliability-model-ni-batio3.md` (Liu, NASA Goddard / CARTS 2014, "A General Reliability Model for Ni-BaTiO₃ MLCCs")
 - `[aec-q200-rev-e-2023]` → `resources/design-rules/aec-q200-rev-e-2023.md` (AEC, "Stress Test Qualification for Passive Electrical Components", Rev E, 20 Mar 2023)
 - `[rohm-ceramic-cap-app-note]` → `resources/design-rules/rohm-ceramic-cap-app-note.md` (ROHM 62AN089E Rev.002, Jan 2020, "MLCC Used in Buck Converter circuit")
+
+### Added in v0.2 deep-research materials/physics/process pass
+- `[escies-bme-mlcc-high-reliability]` → `resources/literature/escies-bme-mlcc-high-reliability.md` (Gurav et al., KEMET, hosted on ESA ESCIES — BME C0G + X7R for high-reliability applications)
+- `[nasa-ir-degradation-ni-batio3-2015]` → `resources/literature/nasa-ir-degradation-ni-batio3-2015.md` (Liu, IEEE TCPMT Vol 5 No 1, Jan 2015 — Schottky barrier model, three commercial BME comparison)
+- `[nasa-time-dependent-ir-2013-prb]` → `resources/literature/nasa-time-dependent-ir-2013-prb.md` (Liu, NASA NEPP PRB manuscript 2013 — exponential I(t) law derivation, BME A vs BME B E_k fits)
+- `[nasa-cracking-low-voltage-mlcc]` → `resources/literature/nasa-cracking-low-voltage-mlcc.md` (Teverovsky, NASA NEPP 2018, 200+ pages — encyclopedic cracking/processes/qualification review)
+- `[arxiv-batio3-domain-wall-motion]` → `resources/literature/arxiv-batio3-domain-wall-motion.md` (Gurung et al., UConn, arXiv:2407.20354 — Landau-Ginzburg DW dielectric response simulation)
+- `[octopart-tdk-cga8l3c0g-product-guide]` → `resources/market/octopart-tdk-cga8l3c0g.md` (TDK MLCC 2012 product line-up, 62 pages, via Octopart)
+- `[murata-simsurfing-mlcc-conditions]` → `resources/market/murata-simsurfing-mlcc-conditions.md` (Murata SimSurfing measurement-conditions reference)
+- `[murata-simsurfing-overview]` → `resources/market/murata-simsurfing-overview.md` (Murata SimSurfing tool overview)
+- `[iec-60384-9-1-2005-sample]` → `resources/design-rules/iec-60384-9-1-2005-sample.md` (IEC 60384-9-1 Class II blank detail specification, sample preview from standards.iteh.ai)
+- `[escies-reliability-eval-bme-space]` → `resources/literature/escies-reliability-eval-bme-space.md` (additional BME reliability evaluation paper, ESA archive)
+- `[wuerth-capacitor-degradation-failure]` → `resources/literature/wuerth-capacitor-degradation-failure.md` (Zednicek / Wuerth, PCNS 2025, capacitor degradation & failure mechanisms)
+- `[kemet-c1100-cas-smd]` → `resources/market/kemet-c1100-cas-smd.md` (KEMET C-series CAS-SMD ceramic capacitor automotive datasheet)
+- `[tdk-mlcc-temperature-characteristics-guide]` → `resources/market/tdk-mlcc-temperature-characteristics-guide.md` (TDK MLCC temperature-characteristics application guide)
