@@ -11,6 +11,14 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] query | Shrinkage shape-dependence of BaTiO₃ vs alumina
+
+Question: "is shrinkage less related to material shape with batio3?" Filed as [[shrinkage-shape-dependence-batio3-vs-alumina]]. Key pages consulted: [[green-tape-shrinkage-anisotropy]], [[heunisch-2010-tape-cast-anisotropic-shrinkage]], [[hagymasi-ltcc-ferrite-dielectric-cofiring]], [[batio3-powder-synthesis]], [[constrained-sintering-mlcc]].
+
+Answer: yes — BaTiO₃ is meaningfully less sensitive to powder-shape-driven shrinkage anisotropy than alumina under similar tape-casting conditions. The reason traces to BT synthesis (hydrothermal/oxalate produce equiaxed grains) and crystal habit, not sintering physics. The Heunisch K_xy = 1.9-12.7 alumina range does not transfer to BT — Raj 1999 measured BT anisotropy at ~1 under conditions that gave alumina K_xy ≫ 1. In a finished MLCC, the dominant anisotropy source is constrained sintering in the laminate (lateral suppressed 4×, thickness enhanced 2.5×, per Hagymási), not intrinsic green-tape powder anisotropy.
+
+---
+
 ## [2026-05-20] ingest | Extended shrinkage coverage — SOVS, camber, zero-shrinkage LTCC
 
 Per `/wiki ingest extend the understandings on shrinkage of mlcc. Do more web search and ingest`.

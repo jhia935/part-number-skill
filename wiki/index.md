@@ -161,4 +161,4 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 
 ## Queries
 
-_No queries yet._
+- [[shrinkage-shape-dependence-batio3-vs-alumina]] — BaTiO₃ does not show the powder-shape-driven anisotropy that alumina does (Heunisch K_xy 1.9-12.7 vs BT ≈ 1); finished-MLCC anisotropy comes from lamination constraint, not green-tape powder shape.
