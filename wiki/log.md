@@ -11,6 +11,32 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | Final-pass gap-filling — all remaining suggestions
+
+Per `/wiki ingest` directive to continue with the remaining gap-filling suggestions surfaced in the previous query.
+
+New raw sources:
+- AEC-Q104 Rev A (Nov 28, 2025) — official AEC MCM qualification standard
+- Sci. Rep. 9953 (2015) "Unfolding grain size effects in BaTiO₃ ferroelectric ceramics" — open-access cross-method survey
+
+New wiki concept pages (5):
+- [[murata-spice-library-and-curves]] (**High priority**) — practical bridge: SPICE netlist structure example + digitized DC-bias / TCC / aging tables from the public Murata GRM Series Data PDF. Concrete values for C0G/X7R/Y5V at 50 V; SRF lookup by case+value+class.
+- [[kemet-k-sim-tool]] (**Medium**) — KEMET / Yageo K-SIM characterization tool. Broader cap-type coverage than SimSurfing (ceramic + tantalum + polymer + film + Al-electrolytic). Built-in lifetime model `L = L_rated · (V_r/V)^n · 2^((T_r-T)/10)` for non-ceramic.
+- [[s-parameter-de-embedding-mlcc]] (**Medium**) — TRL / OST / series-pair de-embedding methodology. Quantitative ESL hierarchy: 0.05–0.1 nH (LICC) to 1.0–2.5 nH (1206 standard mount). Mounting-loop ESL dominates chip ESL for cases ≤ 1206.
+- [[nano-grain-batio3-epsilon-r]] (**Low**) — quantitative εr vs grain size in the 5 µm → 10 nm range. εr peak at 0.8–1.1 µm (~5000–6000), drops below 1000 at 50 nm, c/a → 1.000 at 100 nm. Critical size for ferroelectric collapse: 10–30 nm. Dead-layer model.
+
+New wiki source pages (2):
+- [[srep-batio3-grain-size-unfolding]] — Sci. Rep. 2015 cross-method study.
+- [[aec-q104-rev-a-2025]] — AEC-Q104 framework for MCM-embedded MLCCs (30×3 lot sample sizes; "H" category MCM-specific tests; VISM thermal-shock migration).
+
+Key insights: (1) Murata static SPICE = simple R-L-C-R series (typical 10µF/10V/X7R/0805: 9.85µF + 8.5mΩ ESR + 0.43nH ESL + 1.2GΩ IR); dynamic adds behavioral current source for V_DC + T; (2) K-SIM has lifetime model for non-ceramic, defers to AEC-Q200 for MLCC; (3) mounting-loop ESL **dominates** chip ESL for cases ≤ 1206; (4) εr falls below 1000 at 50 nm grain — quantitative reason for thin-layer scaling ceiling; (5) AEC-Q104 matters when MLCCs embedded in automotive power modules.
+
+Updated `wiki/index.md` (5 new app-layer concept entries + 2 new source entries). 0 broken wikilinks (verified).
+
+Wiki now: **114 pages** across 6 categories. The v0–v0.3 simulator-model.md gaps are essentially all documented.
+
+---
+
 ## [2026-05-20] ingest | P0–P3 gap-filling per senior-engineer priority
 
 Per `/wiki ingest` directive to research and ingest gap-fillers prioritized as a senior MLCC engineer would: vendor sim-tool docs (P0), application-layer design rules (P1), PCB layout (P2), and underserved Tier-1 vendor coverage (P3).

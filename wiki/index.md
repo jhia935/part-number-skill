@@ -100,8 +100,12 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 
 ### Application-layer design rules
 - [[vendor-spice-models]] — Murata SimSurfing, K-SIM, SpiCap, SEAT: static vs dynamic SPICE models, how a simulator consumes them.
+- [[murata-spice-library-and-curves]] — Practical: netlist structure + digitized DC-bias / TCC / aging values from GRM Series data.
+- [[kemet-k-sim-tool]] — KEMET / Yageo K-SIM; what it exposes vs SimSurfing; built-in lifetime model for non-ceramic capacitors.
 - [[decoupling-design-rules]] — PDN target impedance, "myth of 3 cap values", same-value-paralleled approach, ESR-controlled damping.
 - [[mlcc-pcb-layout-rules]] — IPC-7351 pad design, anti-tombstoning, flex-zone exclusion, reflow profile.
+- [[s-parameter-de-embedding-mlcc]] — How to separate chip ESL from fixture parasitics; chip-vs-mounting ESL hierarchy.
+- [[nano-grain-batio3-epsilon-r]] — Quantitative εr vs grain size 5 µm → 10 nm; critical size; dead-layer model.
 
 ## Sources
 
@@ -132,6 +136,8 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[llnl-particle-rigid-body-sintering]] — LLNL, rigid-body particle rearrangement in early-stage sintering.
 - [[arxiv-batio3-silica-interdiffusion]] — Nuzhnyy et al. 2011, BaTiO₃@SiO₂ core-shell composites; interdiffusion creates strong THz dielectric dispersion.
 - [[taiyo-yuden-mlcc-whitepaper]] — TY mid-2010s flagship; documents 100-470 µF MLCC commercialization, MTTF 10⁴-10⁶ yr claims, acoustic-noise dielectric.
+- [[srep-batio3-grain-size-unfolding]] — Sci. Rep. 9953 (2015), cross-method survey: εr peak at 0.8-1.1 µm, drops below 1000 at 50 nm, c/a → 1.000 at 100 nm.
+- [[aec-q104-rev-a-2025]] — Official AEC-Q104 Rev A (Nov 2025); MCM qualification framework for capacitors-embedded-in-modules.
 
 ## Comparisons
 
