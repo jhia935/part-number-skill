@@ -3,6 +3,8 @@ title: Cubic→Tetragonal Phase Transition (BaTiO₃ Cooldown)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - arxiv-batio3-cubic-to-tetragonal-md.md
   - arxiv-batio3-domain-wall-motion.md

@@ -3,6 +3,8 @@ title: C0G / NP0 (Class I Ultra-Stable Dielectric)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: high
 sources:
   - escies-bme-mlcc-high-reliability.md
   - psma-ceramic-capacitor-basics.md

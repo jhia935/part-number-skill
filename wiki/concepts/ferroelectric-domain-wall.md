@@ -3,6 +3,8 @@ title: Ferroelectric Domain Wall (DW)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - arxiv-batio3-domain-wall-motion.md
   - vishay-x7r-cap-drift-dc-bias.md

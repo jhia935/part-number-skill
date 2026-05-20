@@ -3,6 +3,8 @@ title: Sintering Aids & Liquid-Phase Sintering Glass Systems
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources: []
 tags:
   - paper

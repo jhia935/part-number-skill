@@ -3,6 +3,8 @@ title: Dopant Site Occupancy in BaTiO₃ (A vs B Site)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources: []
 tags:
   - paper

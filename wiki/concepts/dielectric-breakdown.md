@@ -3,6 +3,8 @@ title: Dielectric Breakdown
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - escies-bme-mlcc-high-reliability.md
   - psma-ceramic-capacitor-basics.md

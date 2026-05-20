@@ -3,6 +3,8 @@ title: Dissipation Factor (DF, tan δ)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - psma-ceramic-capacitor-basics.md
   - samsung-cl-series-mlcc-ds.md

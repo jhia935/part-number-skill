@@ -3,6 +3,8 @@ title: DC-Bias Aging
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - vishay-x7r-cap-drift-dc-bias.md
   - electrical-integrity-dce11-200.md

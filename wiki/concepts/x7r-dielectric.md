@@ -3,6 +3,8 @@ title: X7R (Class II Workhorse Dielectric)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: high
 sources:
   - psma-ceramic-capacitor-basics.md
   - escies-bme-mlcc-high-reliability.md

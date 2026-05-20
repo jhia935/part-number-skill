@@ -3,6 +3,8 @@ title: X5R (Class II Lower-Temp Dielectric)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - rohm-ceramic-cap-app-note.md
   - epci-high-cv-mlcc-bias-aging.md

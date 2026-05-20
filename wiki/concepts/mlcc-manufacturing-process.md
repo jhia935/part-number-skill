@@ -3,6 +3,8 @@ title: MLCC Manufacturing Process (End-to-End)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - escies-bme-mlcc-high-reliability.md
   - nasa-cracking-low-voltage-mlcc.md

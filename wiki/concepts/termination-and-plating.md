@@ -3,6 +3,8 @@ title: Termination & Plating (External Electrode Stack)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - psma-ceramic-capacitor-basics.md
   - kemet-mlcc-design-and-characteristics.md

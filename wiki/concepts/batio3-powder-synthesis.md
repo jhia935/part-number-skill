@@ -3,6 +3,8 @@ title: BaTiO₃ Powder Synthesis Routes
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources: []
 tags:
   - paper

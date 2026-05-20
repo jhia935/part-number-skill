@@ -3,6 +3,8 @@ title: BME MLCC Reliability Model
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - nasa-nepp-bme-mlcc-reliability.md
   - nasa-batio3-mlcc-failure-mechanisms.md

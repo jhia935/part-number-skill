@@ -3,6 +3,8 @@ title: Prokopowicz-Vaskas Equation
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - nasa-nepp-bme-mlcc-reliability.md
   - nasa-time-dependent-ir-2013-prb.md

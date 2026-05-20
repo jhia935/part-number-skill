@@ -3,6 +3,8 @@ title: Polarization Mechanisms in Dielectrics
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - arxiv-batio3-domain-wall-motion.md
 tags:

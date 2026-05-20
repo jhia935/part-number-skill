@@ -3,6 +3,8 @@ title: X8R / X8L / X8G / X9R / X0U / X9V — High-Temperature MLCC Dielectrics
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - escies-bme-mlcc-high-reliability.md
 tags:

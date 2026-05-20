@@ -3,6 +3,8 @@ title: MLCC Failure Modes
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - kemet-mlcc-design-and-characteristics.md
   - psma-ceramic-capacitor-basics.md

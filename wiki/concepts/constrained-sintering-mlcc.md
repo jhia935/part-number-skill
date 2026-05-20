@@ -3,6 +3,8 @@ title: Constrained Sintering in MLCC Multilayer Stack
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources: []
 tags:
   - paper

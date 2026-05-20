@@ -3,6 +3,8 @@ title: Re-oxidation Anneal (Post-Sinter)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - escies-bme-mlcc-high-reliability.md
   - nasa-ir-degradation-ni-batio3-2015.md

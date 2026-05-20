@@ -3,6 +3,8 @@ title: Core-Shell BaTiO₃ Microstructure
 type: concept
 created: 2026-05-19
 updated: 2026-05-20
+status: complete
+importance: high
 sources:
   - nasa-batio3-mlcc-failure-mechanisms.md
   - arxiv-batio3-silica-interdiffusion.md

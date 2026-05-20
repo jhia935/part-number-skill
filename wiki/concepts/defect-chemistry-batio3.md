@@ -3,6 +3,8 @@ title: Defect Chemistry of BaTiO₃ (Kröger-Vink)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - arxiv-electron-localization-cation-diffusion.md
   - nasa-ir-degradation-ni-batio3-2015.md

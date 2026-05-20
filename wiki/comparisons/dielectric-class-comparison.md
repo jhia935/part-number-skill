@@ -3,6 +3,8 @@ title: MLCC Dielectric Class Comparison (Full Family)
 type: comparison
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: high
 sources:
   - psma-ceramic-capacitor-basics.md
   - samsung-cl-series-mlcc-ds.md

@@ -3,6 +3,8 @@ title: EIA RS-198 Dielectric Classes
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - psma-ceramic-capacitor-basics.md
   - samsung-cl-series-mlcc-ds.md

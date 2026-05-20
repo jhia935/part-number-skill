@@ -3,6 +3,8 @@ title: MLCC Sintering Profile (Heating Rate, Peak, Multi-Stage)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - escies-bme-mlcc-high-reliability.md
 tags:

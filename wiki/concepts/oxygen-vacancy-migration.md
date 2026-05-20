@@ -3,6 +3,8 @@ title: Oxygen-Vacancy Migration & IR Degradation
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - nasa-ir-degradation-ni-batio3-2015.md
   - nasa-nepp-bme-mlcc-reliability.md

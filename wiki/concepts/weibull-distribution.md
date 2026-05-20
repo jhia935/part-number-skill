@@ -3,6 +3,8 @@ title: Weibull Distribution (Reliability)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - nasa-nepp-bme-mlcc-reliability.md
 tags:

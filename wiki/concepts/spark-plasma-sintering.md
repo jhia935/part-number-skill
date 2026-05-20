@@ -3,6 +3,8 @@ title: Spark Plasma Sintering (SPS / FAST)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources: []
 tags:
   - paper

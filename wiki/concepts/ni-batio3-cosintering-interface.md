@@ -3,6 +3,8 @@ title: Ni-BaTiO₃ Co-Sintering Interface
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources: []
 tags:
   - paper

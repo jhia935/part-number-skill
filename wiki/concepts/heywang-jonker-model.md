@@ -3,6 +3,8 @@ title: Heywang-Jonker Model (Schottky Grain-Boundary Barrier)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - nasa-ir-degradation-ni-batio3-2015.md
   - nasa-time-dependent-ir-2013-prb.md

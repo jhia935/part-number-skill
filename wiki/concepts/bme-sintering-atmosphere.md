@@ -3,6 +3,8 @@ title: BME MLCC Sintering Atmosphere (PO₂ Control)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - escies-bme-mlcc-high-reliability.md
   - nasa-ir-degradation-ni-batio3-2015.md

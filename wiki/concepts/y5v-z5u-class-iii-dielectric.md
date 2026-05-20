@@ -3,6 +3,8 @@ title: Y5V / Z5U (Class III High-K Dielectrics)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - rohm-ceramic-cap-app-note.md
   - murata-grm-series-tcc-data.md

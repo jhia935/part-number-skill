@@ -3,6 +3,8 @@ title: Grain Growth & Dopant Pinning in BaTiO₃
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - epfl-ceramics-sintering-microstructure.md
 tags:

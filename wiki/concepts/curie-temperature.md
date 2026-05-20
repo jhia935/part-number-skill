@@ -3,6 +3,8 @@ title: Curie Temperature (T_C)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: high
 sources:
   - vishay-x7r-cap-drift-dc-bias.md
   - arxiv-batio3-cubic-to-tetragonal-md.md

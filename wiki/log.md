@@ -11,6 +11,32 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] lint | Wiki health check + frontmatter cleanup
+
+Scan summary:
+- 0 broken wikilinks (verified)
+- 0 orphan pages (every non-index/log/overview page has at least one inbound wikilink)
+- 0 unresolved contradictions
+- 0 index inconsistencies (every page indexed; no dangling index references)
+- 0 entity classification tag violations (every `type: entity` page carries exactly one of `company | series | material | standard | person | org`)
+- 56 pages were missing `status:` and `importance:` frontmatter fields
+
+Auto-fix applied (option 2 — fix + audit):
+- Added `status: complete` to all 56 pages that needed it.
+- Added `importance: high` to **24 simulator-core pages**: mlcc-capacitance-equation, eia-rs-198-dielectric-classes, dielectric-class-comparison, dc-bias-derating, aging-class-2, bme-reliability-model, case-size-geometry, esr-esl-srf, core-shell-batio3, x7r-dielectric, c0g-npo-dielectric, mlcc-manufacturing-process, bme-sintering-atmosphere, failure-modes-mlcc, dc-bias-aging, curie-temperature, temperature-coefficient-of-capacitance, vendor-spice-models, decoupling-design-rules, heywang-jonker-model, oxygen-vacancy-migration, bme-vs-pme, permittivity, insulation-resistance.
+- Added `importance: medium` to the remaining 32 pages (supporting concepts).
+
+Final distribution: **52 importance:high**, **51 importance:medium**, **3 importance:low**, **101 status:complete**, **5 status:draft** (intentional entity stubs: nanbo3, srtio3, intel, rohm, tdk).
+
+Tag hygiene unchanged: 84 `paper` tags, 10 `company`, 5 `series`, 4 `material`, 2 `org`, 1 `person`. All within Tag Policy bounds.
+
+Suggestions logged (not auto-fixed):
+- 5 entity stubs (`nanbo3`, `srtio3`, `intel`, `rohm`, `tdk`) could be expanded with more research.
+- 23 concept pages have ≤ 1 `sources:` frontmatter entry while having multiple references in the body — could be polished by lifting body references into frontmatter.
+- Some "Murata"/"KEMET" mentions inside markdown URL captions (e.g., `[Murata WO...](url)`) appear as unlinked entity references to the lint scan. Most are intentional citation captions.
+
+---
+
 ## [2026-05-20] ingest | Final-pass gap-filling — all remaining suggestions
 
 Per `/wiki ingest` directive to continue with the remaining gap-filling suggestions surfaced in the previous query.

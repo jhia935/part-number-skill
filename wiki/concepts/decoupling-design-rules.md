@@ -3,6 +3,8 @@ title: Decoupling Capacitor Design Rules (PDN Target Impedance)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: high
 sources:
   - kyocera-avx-esr-esl-decoupling.md
 tags:

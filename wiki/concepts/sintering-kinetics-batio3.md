@@ -3,6 +3,8 @@ title: Sintering Kinetics & Mass Transport (BaTiO₃)
 type: concept
 created: 2026-05-19
 updated: 2026-05-19
+status: complete
+importance: medium
 sources:
   - epfl-ceramics-sintering-microstructure.md
   - arxiv-electron-localization-cation-diffusion.md

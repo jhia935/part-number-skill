@@ -3,6 +3,8 @@ title: MLCC PCB Layout & Mechanical Handling Rules
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - kemet-mlcc-design-and-characteristics.md
   - psma-ceramic-capacitor-basics.md

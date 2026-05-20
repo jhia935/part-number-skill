@@ -3,6 +3,8 @@ title: Core-Shell Formation Mechanism (Sintering Kinetics)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - arxiv-batio3-silica-interdiffusion.md
 tags:

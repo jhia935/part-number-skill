@@ -3,6 +3,8 @@ title: Nano-Grain BaTiO₃ εᵣ (50–150 nm Regime)
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - srep-batio3-grain-size-unfolding.md
 tags:

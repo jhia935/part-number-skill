@@ -3,6 +3,8 @@ title: Murata SPICE Library & Sample DC-Bias Curves
 type: concept
 created: 2026-05-20
 updated: 2026-05-20
+status: complete
+importance: medium
 sources:
   - murata-grm-series-tcc-data.md
 tags:
