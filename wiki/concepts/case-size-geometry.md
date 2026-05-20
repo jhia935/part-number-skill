@@ -32,6 +32,50 @@ The outer case size sets a hard envelope on `L`, `W`, `H`. Internal geometry —
 
 Source: [[samsung-cl-series-mlcc-ds]] §2.
 
+### The naming-convention pitfall
+The **same digits in EIA and metric encode different physical sizes**. EIA codes derive from **0.01-inch units** (`0805` = 0.080" × 0.050"); metric codes derive from **0.1-mm units** (`2012` = 2.0 × 1.2 mm — which happens to be the same physical part as EIA `0805`). The collision becomes dangerous because **`0603` exists in both schemes with very different meanings**:
+
+| Bare digits | EIA reading | Metric reading | Volume ratio |
+|---|---|---|---|
+| `0201` | 0.6 × 0.3 mm | 0.2 × 0.1 mm | **27×** |
+| `0402` | 1.0 × 0.5 mm | 0.4 × 0.2 mm | **31×** |
+| `0603` | **1.6 × 0.8 mm** (workhorse) | **0.6 × 0.3 mm** (ultra-tiny) | **~7×** |
+| `0805` | 2.0 × 1.25 mm | 0.8 × 0.5 mm | **6×** |
+| `1206` | 3.2 × 1.6 mm | 1.2 × 0.6 mm | **11×** |
+
+A BOM or datasheet that says `"0603"` without context has bitten plenty of engineers.
+
+### Recommended disambiguation: `i` / `m` suffix
+Suffixes `i` (inch-derived EIA) and `m` (metric) make the intent explicit:
+
+| Input | Resolves to | Notes |
+|---|---|---|
+| `0805` | EIA 0805 (= 2012m) | assumed EIA; **no warning** (the metric form `0805m` doesn't exist as a standard) |
+| `0805i` | EIA 0805 | explicit EIA |
+| `2012m` | EIA 0805 | explicit metric, same physical part |
+| `0603` | EIA 0603 (= 1608m) | assumed EIA; **emit a warning** because `0603m` is a real different size |
+| `0603i` | EIA 0603 | explicit workhorse cap, 1.6 × 0.8 mm |
+| `0603m` | EIA 0201 | explicit metric, tiny 0.6 × 0.3 mm |
+| `1608m` | EIA 0603 | unambiguous metric form for the workhorse |
+
+The simulator's size-resolver follows this convention: bare 4-digit input is treated as EIA but **warns** for the collision-prone codes (`0201`, `0402`, `0603`, `0805`, `1206`). Explicit `i` / `m` suffixed input never warns.
+
+### SEMCO internal size code
+[[samsung-electro-mechanics|SEMCO]] CL-series part numbers use a **2-digit internal index** (field 2 of the 11-field PN) that's independent of either EIA or metric digits:
+
+| SEMCO field | EIA | Metric | mm |
+|---|---|---|---|
+| `03` | 0201 | 0603 | 0.6 × 0.3 |
+| `05` | 0402 | 1005 | 1.0 × 0.5 |
+| `10` | 0603 | 1608 | 1.6 × 0.8 |
+| `21` | 0805 | 2012 | 2.0 × 1.25 |
+| `31` | 1206 | 3216 | 3.2 × 1.6 |
+| `32` | 1210 | 3225 | 3.2 × 2.5 |
+| `43` | 1812 | 4532 | 4.5 × 3.2 |
+| `55` | 2220 | 5750 | 5.7 × 5.0 |
+
+The simulator's [[samsung-cl-series|SEMCO]] encoder takes either user-side notation (with or without `i`/`m` suffix) and emits the correct 2-digit SEMCO field.
+
 ## Margins & overlap area
 For BME construction, [[nasa-nepp-bme-mlcc-reliability]] Table II:
 

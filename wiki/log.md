@@ -11,6 +11,18 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] update | Size-code i/m disambiguation convention
+
+Documented the EIA-vs-metric size-code collision and the `i`/`m` suffix disambiguation convention used by the MLCC simulator's size resolver.
+
+Updates:
+- [[case-size-geometry]] — added "naming-convention pitfall" section with collision table (digits `0201`/`0402`/`0603`/`0805`/`1206` have 6–31× volume mismatch between EIA and metric readings). Added "Recommended disambiguation" section with `i` / `m` suffix rules. Added SEMCO 2-digit internal code table (separately from EIA/metric — independent index).
+- [[samsung-cl-series]] — extended size-code table with metric column; added cross-reference to disambiguation convention.
+
+Rationale: the bare `0603` notation is ambiguous (EIA = 1.6 × 0.8 mm workhorse vs metric = 0.6 × 0.3 mm ultra-tiny), and BOMs / engineering tools without disambiguation have caused real production mix-ups. The simulator's resolver now accepts `0603` (assumed EIA, with warning), `0603i` (explicit EIA), or `0603m` (explicit metric) — and the wiki documents the convention for future engineers.
+
+---
+
 ## [2026-05-20] ingest | Sintering/firing publications — 2 concept pages + 1 source
 
 Per `/wiki ingest` directive to add more sintering/firing research papers and publications. Most Wiley / ScienceDirect papers were paywalled but one open-access EPJ Web of Conferences paper covers both DEM simulation and synchrotron nano-CT of MLCC sintering — the methodological foundation for the bigger 2021 Acta Mater paper.

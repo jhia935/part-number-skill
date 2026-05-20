@@ -30,16 +30,18 @@ Example: `CL 10 B 104 K B 8 N N N C`
 11. Packaging type
 
 ## Size codes
-| SEMCO | EIA | L × W (mm) |
-|---|---|---|
-| 03 | 0201 | 0.6 × 0.3 |
-| 05 | 0402 | 1.0 × 0.5 |
-| 10 | 0603 | 1.6 × 0.8 |
-| 21 | 0805 | 2.0 × 1.25 |
-| 31 | 1206 | 3.2 × 1.6 |
-| 32 | 1210 | 3.2 × 2.5 |
-| 43 | 1812 | 4.5 × 3.2 |
-| 55 | 2220 | 5.7 × 5.0 |
+| SEMCO | EIA | Metric | L × W (mm) |
+|---|---|---|---|
+| 03 | 0201 | 0603 | 0.6 × 0.3 |
+| 05 | 0402 | 1005 | 1.0 × 0.5 |
+| 10 | 0603 | 1608 | 1.6 × 0.8 |
+| 21 | 0805 | 2012 | 2.0 × 1.25 |
+| 31 | 1206 | 3216 | 3.2 × 1.6 |
+| 32 | 1210 | 3225 | 3.2 × 2.5 |
+| 43 | 1812 | 4532 | 4.5 × 3.2 |
+| 55 | 2220 | 5750 | 5.7 × 5.0 |
+
+The SEMCO 2-digit internal code is **independent of either EIA or metric notation**. When wiring the SEMCO encoder into a tool, accept user-side input in either form and use the `i`/`m` suffix convention (`0805i` for EIA, `2012m` for metric) to avoid the [[case-size-geometry|EIA-vs-metric collision]] for the `0201`–`1206` digit range. See [[case-size-geometry]] §"Recommended disambiguation".
 
 ## Variants in the broader SEMCO catalog
 - **Automotive (AEC-Q200)**: same prefix, "P" control code; SEMCO publishes a separate January 2024 automotive catalog.
