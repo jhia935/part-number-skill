@@ -11,6 +11,28 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | Sintering/firing publications — 2 concept pages + 1 source
+
+Per `/wiki ingest` directive to add more sintering/firing research papers and publications. Most Wiley / ScienceDirect papers were paywalled but one open-access EPJ Web of Conferences paper covers both DEM simulation and synchrotron nano-CT of MLCC sintering — the methodological foundation for the bigger 2021 Acta Mater paper.
+
+New raw source:
+- Yan, Martin, Bouvard et al. (EPJ Web Conf. 140, 13006, 2017) — open access (CC-BY 4.0). Couples in-situ X-ray tomography with DEM simulation; demonstrates on Cu powder (ESRF) and Ni-BaTiO₃ MLCC (Argonne nano-CT). Quantitative Parhami-McMeeking contact force model.
+
+New wiki concept pages (2):
+- [[master-sintering-curve]] — Su-Johnson MSC framework (*JACerS* 1996) built on Hansen et al. combined-stage model. Density-independent normalized curve via `Θ = ∫(1/T)·exp(-Q/RT)dt`. Activation energies for BaTiO₃ from Lee *et al.* 2026: 350–500 kJ/mol below 1200 °C, breaks down above 1200 °C as final-stage mechanism transitions. Limitations + Reed-Hill 2017 critique.
+- [[binder-burnout-debinding]] — first firing step (200–600 °C). PVB / PMMA / PVA polymer chemistry; zero/first-order Arrhenius kinetics (Eₐ ≈ 150–250 kJ/mol for PVB); diffusion-limited gas evolution; Ar + 1 vol % O₂ atmosphere as BME-compatible compromise (74% binder removal, ~1600 ppm O on Ni). BBO defect-mode catalog: bloating, parallel-plate crack, delamination, residual carbon, NiO scale. References 2024 *Appl. Thermal Eng.* CFD paper.
+
+New wiki source page:
+- [[epj-in-situ-xray-tomography-dem]] — Grenoble + ESRF + Argonne + Jülich collaboration's open-access methodological paper. Companion to the Okuma 2021 *Acta Mater.* MLCC nano-CT paper.
+
+Key insights: (1) Master Sintering Curve is the industrial benchmark methodology but **breaks down above ~1200 °C** for BaTiO₃ — exactly where industrial MLCC sintering happens; (2) **binder burnout** is the most under-credited firing-stage failure source — many defects that look like sintering problems trace back to BBO atmosphere or rate choices; (3) Ni-BaTiO₃ MLCC discontinuity is set **early in sintering** by initial powder packing heterogeneity, not just the peak-T mechanism — DEM + synchrotron nano-CT confirm this.
+
+Updated `wiki/index.md` (2 new concept entries + 1 new source). 0 broken wikilinks (verified).
+
+Wiki: **112 pages** across 6 categories.
+
+---
+
 ## [2026-05-20] lint | Wiki health check + frontmatter cleanup
 
 Scan summary:

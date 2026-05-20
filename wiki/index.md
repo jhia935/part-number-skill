@@ -76,6 +76,8 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[constrained-sintering-mlcc]] — In-plane vs thickness shrinkage anisotropy; camber/warpage origin.
 - [[spark-plasma-sintering]] — SPS / FAST; 99 % density in minutes, ~doubled εr.
 - [[cold-sintering]] — Sub-300 °C densification with transient liquid phase (Randall group).
+- [[master-sintering-curve]] — Su-Johnson MSC; activation energies for BaTiO₃; breaks down above 1200 °C.
+- [[binder-burnout-debinding]] — First firing step (200–600 °C); PVB kinetics; Ar+1%O₂ window; BBO defect modes.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
@@ -138,6 +140,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[taiyo-yuden-mlcc-whitepaper]] — TY mid-2010s flagship; documents 100-470 µF MLCC commercialization, MTTF 10⁴-10⁶ yr claims, acoustic-noise dielectric.
 - [[srep-batio3-grain-size-unfolding]] — Sci. Rep. 9953 (2015), cross-method survey: εr peak at 0.8-1.1 µm, drops below 1000 at 50 nm, c/a → 1.000 at 100 nm.
 - [[aec-q104-rev-a-2025]] — Official AEC-Q104 Rev A (Nov 2025); MCM qualification framework for capacitors-embedded-in-modules.
+- [[epj-in-situ-xray-tomography-dem]] — Yan/Martin/Bouvard et al. EPJ Web Conf 2017; coupling in-situ synchrotron tomography with DEM for high-T sintering of Cu + Ni-BaTiO₃ MLCC.
 
 ## Comparisons
 
