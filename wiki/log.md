@@ -2,12 +2,31 @@
 title: Activity Log
 type: log
 created: 2026-05-19
-updated: 2026-05-19
+updated: 2026-05-20
 ---
 
 # Activity Log
 
 Chronological record of wiki operations. Newest entries first.
+
+---
+
+## [2026-05-20] update | Size-code default flipped to JIS metric
+
+Reversed the resolver default per user direction ("Default to metric. No suffix means JIS. With warning of course"). Bare 4-digit input is now read as a **JIS metric** code, not EIA.
+
+New resolver behavior:
+- **No suffix → assumed JIS metric.** `2012` → EIA 0805 (workhorse, 2.0 × 1.25 mm). `1608` → EIA 0603. `0603` → EIA 0201 (with warning, since `0603i` is also a real EIA size).
+- **`Xi` suffix → explicit EIA** (`0805i` → 2.0 × 1.25 mm, `0603i` → 1.6 × 0.8 mm).
+- **`Xm` suffix → explicit metric** (redundant with bare but unambiguous).
+- **Warning** fires on bare collision-prone codes (`0201`, `0402`, `0603`) where both EIA and metric readings exist with different physical sizes.
+- **Rejects** bare codes that only have an EIA reading (`0805`, `1206`, `1210`, `1812`, `2220`) with a helpful hint pointing at `Xi` or the metric equivalent — under the new default, bare `0805` is *not* a standard JIS metric size, so silently falling back to EIA would defeat the convention.
+
+Updates:
+- [[case-size-geometry]] — "Recommended disambiguation" table rewritten to reflect JIS-metric default; added ERROR rows for `0805` / `1206` to make the strictness explicit.
+- [[samsung-cl-series]] — disambiguation paragraph rewritten; explains that the SEMCO 2-digit field is consumed from whichever resolved EIA equivalent the user input maps to.
+
+Rationale: JIS metric is the global engineering standard outside the US, and the bare "0805" / "0603" notation is the most common source of cross-team confusion. Defaulting to metric pushes ambiguous bare codes into either an explicit warning (for the `0201`/`0402`/`0603` triple, where both readings exist) or an outright error (for the larger EIA-only codes). This is stricter than the previous EIA default — by design.
 
 ---
 

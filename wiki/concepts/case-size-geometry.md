@@ -2,7 +2,7 @@
 title: MLCC Case Sizes & Internal Geometry
 type: concept
 created: 2026-05-19
-updated: 2026-05-19
+updated: 2026-05-20
 status: complete
 importance: high
 sources:
@@ -45,20 +45,26 @@ The **same digits in EIA and metric encode different physical sizes**. EIA codes
 
 A BOM or datasheet that says `"0603"` without context has bitten plenty of engineers.
 
-### Recommended disambiguation: `i` / `m` suffix
-Suffixes `i` (inch-derived EIA) and `m` (metric) make the intent explicit:
+### Recommended disambiguation: `i` / `m` suffix (default = JIS metric)
+**No suffix means JIS metric.** Suffixes `i` (inch-derived EIA) and `m` (metric) make the intent explicit. The resolver warns when bare input is ambiguous and refuses bare input that is only valid as EIA.
 
 | Input | Resolves to | Notes |
 |---|---|---|
-| `0805` | EIA 0805 (= 2012m) | assumed EIA; **no warning** (the metric form `0805m` doesn't exist as a standard) |
-| `0805i` | EIA 0805 | explicit EIA |
+| `2012` | EIA 0805 (= 2012m) | bare → assumed JIS metric, no collision |
 | `2012m` | EIA 0805 | explicit metric, same physical part |
-| `0603` | EIA 0603 (= 1608m) | assumed EIA; **emit a warning** because `0603m` is a real different size |
-| `0603i` | EIA 0603 | explicit workhorse cap, 1.6 × 0.8 mm |
+| `0805i` | EIA 0805 | explicit EIA (workhorse, 2.0 × 1.25 mm) |
+| `0805` | **ERROR** | not a standard JIS metric size; hint: use `0805i` or `2012` |
+| `0603` | EIA 0201 (= 0603m) | bare → assumed JIS metric (0.6 × 0.3 mm); **warning** because `0603i` is a real different size |
 | `0603m` | EIA 0201 | explicit metric, tiny 0.6 × 0.3 mm |
-| `1608m` | EIA 0603 | unambiguous metric form for the workhorse |
+| `0603i` | EIA 0603 | explicit workhorse cap, 1.6 × 0.8 mm |
+| `1608` | EIA 0603 (= 1608m) | unambiguous metric form for the workhorse |
+| `1206` | **ERROR** | not standard JIS metric; hint: use `1206i` or `3216` |
 
-The simulator's size-resolver follows this convention: bare 4-digit input is treated as EIA but **warns** for the collision-prone codes (`0201`, `0402`, `0603`, `0805`, `1206`). Explicit `i` / `m` suffixed input never warns.
+The simulator's size-resolver follows this convention:
+- **Default = JIS metric.** Bare 4-digit input is read as a metric code.
+- **Warns** for the collision-prone bare codes (`0201`, `0402`, `0603`) where both EIA and metric readings exist with different physical sizes — the user should disambiguate.
+- **Rejects** bare codes that are only valid as EIA (`0805`, `1206`, `1210`, `1812`, `2220`) with a helpful hint pointing at the `i` suffix or metric equivalent.
+- Explicit `i` / `m` suffixed input never warns.
 
 ### SEMCO internal size code
 [[samsung-electro-mechanics|SEMCO]] CL-series part numbers use a **2-digit internal index** (field 2 of the 11-field PN) that's independent of either EIA or metric digits:
