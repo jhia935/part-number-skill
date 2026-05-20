@@ -124,6 +124,8 @@ Output:
 - [[ni-electrode-paste-formulation]] — recipe-level details for paste design.
 - [[cu-electrode-mlcc]] — Cu-based base-metal systems.
 - [[constrained-sintering-mlcc]] — the constraint physics.
+- [[dielectric-shrinkage-in-mlcc-stack]] — the **dielectric-centric view** of how the electrode modifies the ceramic's shrinkage (anisotropy, stress reversal, pore alignment, density gradient).
+- [[edge-vs-internal-layer-effects]] — position-dependent constraint asymmetry.
 - [[bordia-scherer-composite-sintering]] — analytical foundation for additive retardation.
 - [[skorohod-olevsky-viscous-sintering]] — continuum-mechanics model for the full prediction.
 - [[failure-modes-mlcc]] — electrode discontinuity and delamination as failure modes.

@@ -11,6 +11,34 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-21] ingest | Effect of metal electrode on ceramic shrinkage in the alternating-layer MLCC stack
+
+Per `/wiki ingest investigate effect of metal electrode to shrinkage of ceramic in alternating layer structure in bme mlcc sintering`.
+
+This drilled into how the alternating Ni / BT / Ni / BT … lamination specifically reshapes the **ceramic layer's** shrinkage (not the metal's). Re-mined Chapters 4, 5, and 7 of the existing [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan thesis]] for primary data, supplemented by Olevsky 2013 JACerS multilayer-porous-structure framework, Tzeng-Jean 2002 alumina/glass/alumina sandwich, and Bouvard-Martin 2014 JECS follow-up (search snippets; not fetched).
+
+Key primary data from Yan thesis Ch. 4 + 5 + 7:
+1. **Strain anisotropy** of BT dielectric layer ~0.1 absolute (axial − radial) after the cycle — in-plane suppression, thickness enhancement via Poisson coupling.
+2. **Stress reversal**: BT compressive in Stage A (Ni shrinking, BT cold) → BT tensile in Stage C (after 1050 °C, BT densifying). Compressive-then-tensile reversal accelerates BT particle rearrangement early and constrains it late.
+3. **Pore orientation in BT** (FIB-nT): preferentially elongated parallel to the layer plane; fraction along casting direction rises from 3 % (green) to 11 % (sintered).
+4. **Density gradient in BT**: surface/interface region denser (~60 %) than middle (~39 %) in the green layer — the OPPOSITE of free thin-film-on-rigid-substrate behavior, because in MLCC the "substrate" (Ni) is itself shrinking and compressing the BT interface region.
+5. **Edge vs internal layer**: top edge electrode discontinuity 56.1 % vs internal 60.4 %; explicitly noted by Yan that small-sample experiments systematically underestimate constraint anisotropy.
+6. **DEM electrode-thickness sensitivity** (Yan Ch. 7.7): h_Ni 0.2 µm → 24.3 % discontinuity vs 1.0 µm → 2.3 %.
+7. **DEM heating-rate sensitivity** (Ch. 7.4): 1 °C/min → 14.5 % vs 50 °C/min → 1.1 % discontinuity.
+8. **Particle-pair anisotropy** (Ch. 7.9): BT-BT vertical contacts grow more than horizontal; Ni-Ni vertical contacts grow less than horizontal. The metal-and-ceramic anisotropy are inverted at the particle scale.
+
+New concept pages (2):
+- [[dielectric-shrinkage-in-mlcc-stack]] — central new concept. Synthesizes the five mechanisms above with quantitative tables. Companion to [[metal-electrode-shrinkage-effect]] — that page was electrode-centric, this one is dielectric-centric.
+- [[edge-vs-internal-layer-effects]] — position-dependent constraint asymmetry; cover-layer design as engineered compensation; epistemic warning about extrapolating small-sample data.
+
+Updates:
+- [[constrained-sintering-mlcc]] — added Yan Ch. 7 DEM table (heating rate / electrode thickness / green density / BT additive effect on Ni discontinuity) plus the BT-BT vs Ni-Ni inverted pair anisotropy.
+- [[metal-electrode-shrinkage-effect]] — cross-ref to the new dielectric-centric page.
+
+Bottom line: the **alternating layer structure** transforms the ceramic layer's shrinkage in five qualitatively distinct ways — (1) macroscopic anisotropy (ε_a > ε_r by ~0.1), (2) stress-reversal during the cycle, (3) in-plane pore alignment, (4) interface-region densification rather than thin-film-style depletion, (5) layer-position asymmetry. Free-tape sintering is **not predictive** of stack-scale dielectric shrinkage; constrained-sintering physics (SOVS or Bordia-Scherer) is required to capture all five.
+
+---
+
 ## [2026-05-21] ingest | Metal-electrode effect on BME MLCC shrinkage
 
 Per `/wiki ingest investigate effect of metal electrode to shrinkage in bme mlcc sintering`.

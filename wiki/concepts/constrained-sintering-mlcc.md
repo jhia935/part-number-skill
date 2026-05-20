@@ -52,6 +52,19 @@ For a fully constrained film (zero lateral strain rate), SOVS predicts thickness
 
 For an anisotropic microstructure that develops during constrained sintering (elongated pores, aligned grain boundaries), both `η_a` and `ν_v` become anisotropic — the material remembers its own constraint history.
 
+## Quantitative DEM data on the BT/Ni/BT trilayer
+
+[[yan-thesis-2013-mlcc-sintering-nanotomography|Yan thesis Ch. 7]] simulated the BT/Ni/BT trilayer with DEM and quantified four engineering knobs on the resulting **Ni electrode discontinuity** (the dominant failure mode the constraint creates):
+
+| Variable | Range | Discontinuity |
+|---|---|---|
+| Heating rate | 1 → 50 °C/min | 14.5 % → **1.1 %** |
+| Electrode thickness `h_Ni` | 0.2 → 1.0 µm | 24.3 % → **2.3 %** |
+| Ni green density `D₀` | 0.40 → 0.55 | 7.0 % → 2.3 %, then **rising** at 0.60 |
+| BT inclusion in Ni (10 vol% / 50 nm) | none → with | 4.4 % → **2.8 %** |
+
+The trilayer simulation also revealed pair-scale anisotropy in the ceramic: **BT-BT vertical contacts grow more than horizontal** (favored by compressive stress in Stage A), and **Ni-Ni vertical contacts grow LESS than horizontal** (hindered by tensile stress on Ni). See [[dielectric-shrinkage-in-mlcc-stack]] §6 for the contact-size data.
+
 ## Camber prediction
 The Jean-Chang formula gives bilayer curvature directly from the differential strain rate. See [[cofiring-camber-bilayer]] for the equations and the two-stage camber-generation mechanism (BBO stage + sintering stage). For high-fidelity simulation, the SOVS-FE solver in [[shi-2023-jecs-sovs-bilayer-modeling|Shi 2023]] runs the full warpage trajectory in tractable CPU time.
 
@@ -104,6 +117,9 @@ Smaller inclusions and better dispersion dramatically amplify the retardation. T
 - [[hagymasi-ltcc-ferrite-dielectric-cofiring]]
 - [[shi-2023-jecs-sovs-bilayer-modeling]]
 - [[rahaman-ceramic-processing-sintering-textbook]]
+- [[dielectric-shrinkage-in-mlcc-stack]]
+- [[edge-vs-internal-layer-effects]]
+- [[metal-electrode-shrinkage-effect]]
 
 ## References
 - Olevsky, "Sintering of Multilayered Porous Structures: Part I — Constitutive Models", *J. Am. Ceram. Soc.* 96 (2013) 2295–2304.

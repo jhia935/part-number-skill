@@ -87,6 +87,8 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[metal-electrode-shrinkage-effect]] — How Ni / Cu inner electrodes drive in-plane vs thickness shrinkage in BME MLCC; four engineering knobs (nano-BT additive, refractory-metal dopants, Ni particle size, h_Ni / h_BT ratio).
 - [[ni-electrode-paste-formulation]] — Industry-standard Ni paste recipe (55 vol% Ni, 7 wt% nano-BT, 41 vol% terpineol); five formulation axes.
 - [[cu-electrode-mlcc]] — Cu-electrode base-metal MLCC (mostly Class I C0G); sintering 900-960 °C with glass-aided dielectric; KYOCERA-AVX / Murata RF lineups.
+- [[dielectric-shrinkage-in-mlcc-stack]] — How alternating Ni/BT lamination reshapes the ceramic layer's shrinkage: macroscopic anisotropy, stress reversal, pore orientation, through-thickness density gradient, layer-position effects.
+- [[edge-vs-internal-layer-effects]] — Top/bottom cover layers vs internal layers; one-sided vs bilateral constraint; cover-layer design as designed compensation.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
