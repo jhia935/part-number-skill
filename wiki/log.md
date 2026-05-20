@@ -11,6 +11,33 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | P0–P3 gap-filling per senior-engineer priority
+
+Per `/wiki ingest` directive to research and ingest gap-fillers prioritized as a senior MLCC engineer would: vendor sim-tool docs (P0), application-layer design rules (P1), PCB layout (P2), and underserved Tier-1 vendor coverage (P3).
+
+New raw source:
+- Taiyo Yuden MLCC Whitepaper (mid-2010s flagship) — documents 100–470 µF commercialization, MTTF 10⁴–10⁶ yr claims, acoustic-noise-suppression dielectric, soft-termination, full product family naming.
+
+New wiki concept pages:
+- [[vendor-spice-models]] (**P0**) — Murata SimSurfing, K-SIM, SpiCap, SEAT-MLCC, myCAP. Static R-L-C vs dynamic (R-L-C + behavioral current source for V_DC + T) models. How a simulator should consume them: direct SPICE bridge / parameter extraction / Touchstone. Lists what vendor models do NOT capture (aging, reliability, mechanical) — i.e., what our simulator must add.
+- [[decoupling-design-rules]] (**P1**) — PDN target impedance Z_target = ΔV_max / I_max; "myth of three capacitor values" debunked (modern MLCC ESL is geometry-not-value); same-value parallel approach; anti-resonance ESR damping `ESR_req ≥ √(L_1/C_2)`; mounting-via inductance dominance; Bandini Mountain on-die resonance.
+- [[mlcc-pcb-layout-rules]] (**P2**) — IPC-7351 pad geometry (Levels A/B/C); anti-tombstoning rules (symmetric pads, identical thermal mass); flex-zone exclusion (no MLCCs >0805 within 5 mm of cutouts/screws); soft-termination decision rules; JEDEC J-STD-020E reflow profile; MSL bake-out. Concrete pad-dimension table for 0402–2220.
+
+New wiki source page:
+- [[taiyo-yuden-mlcc-whitepaper]] — quantitative anchors for TY's 100–470 µF MLCC technology; product family naming (PMK/AMK/JMK/LMK/EMK/GMK/TMK/HMK); soft-termination + acoustic-noise-suppression details.
+
+Updated entity pages:
+- [[taiyo-yuden]] — promoted from stub to complete with full product family table, milestones (330 µF in 2013, 470 µF in 2014, 1200+ layers in 1812), differentiated technologies.
+- [[yageo]] — promoted from stub to complete with full automotive product portfolio (AC, AS, AQ, AC Array, AC HiCap, AC HiTemp), KEMET-brand continuation, AEC-Q200 sub-committee role, quality framework details.
+
+Notable findings: (1) **Murata's dynamic SPICE model** is unique — static R-L-C plus behavioral current source for runtime adjustment to V_DC and T; reproduces measured DC/DC ripple "very nearly identical to measured"; (2) the **"3-capacitor-value rule" is obsolete** for MLCC because ESL doesn't scale with capacitance value in modern parts (mounting geometry dominates); same-value paralleled banks avoid anti-resonance; (3) **Taiyo Yuden documented MTTF 10⁴–10⁶ years** for premium high-CV parts — consistent with the Liu reliability framework at the high-quality end; (4) Yageo's AC/AS/AQ series structure exposes a useful boardflex / RF / general decomposition pattern.
+
+Updated `wiki/index.md` (new "Application-layer design rules" section + new source entry). 0 broken wikilinks (verified).
+
+Wiki now has **107 pages** across 6 categories.
+
+---
+
 ## [2026-05-20] ingest | Full TCC family — comparison table + per-class deep dives
 
 Per `/wiki ingest` directive to expand temperature characteristics beyond X7R to all ranges and investigate TCC.

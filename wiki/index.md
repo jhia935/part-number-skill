@@ -98,6 +98,11 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[weibull-distribution]] — Two-parameter Weibull for TTF statistics.
 - [[termination-and-plating]] — Cu/Ni/Sn external electrode stack.
 
+### Application-layer design rules
+- [[vendor-spice-models]] — Murata SimSurfing, K-SIM, SpiCap, SEAT: static vs dynamic SPICE models, how a simulator consumes them.
+- [[decoupling-design-rules]] — PDN target impedance, "myth of 3 cap values", same-value-paralleled approach, ESR-controlled damping.
+- [[mlcc-pcb-layout-rules]] — IPC-7351 pad design, anti-tombstoning, flex-zone exclusion, reflow profile.
+
 ## Sources
 
 - [[kemet-mlcc-design-and-characteristics]] — KEMET/PSMA 2019, construction + failure modes + ArcShield.
@@ -126,6 +131,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[cold-sintering-annual-review-mse]] — Guo, Randall et al. 2019, authoritative cold-sintering review.
 - [[llnl-particle-rigid-body-sintering]] — LLNL, rigid-body particle rearrangement in early-stage sintering.
 - [[arxiv-batio3-silica-interdiffusion]] — Nuzhnyy et al. 2011, BaTiO₃@SiO₂ core-shell composites; interdiffusion creates strong THz dielectric dispersion.
+- [[taiyo-yuden-mlcc-whitepaper]] — TY mid-2010s flagship; documents 100-470 µF MLCC commercialization, MTTF 10⁴-10⁶ yr claims, acoustic-noise dielectric.
 
 ## Comparisons
 
