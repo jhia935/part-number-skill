@@ -84,6 +84,9 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[cofiring-camber-bilayer]] — Jean-Chang camber formula; two-stage camber generation (BBO + sintering); SOVS-FE prediction.
 - [[zero-shrinkage-ltcc]] — Sacrificial-layer, self-constrained, HeraLock, and pressure-assisted approaches to suppress lateral shrinkage.
 - [[bordia-scherer-composite-sintering]] — Foundational rigid-inclusion-retardation model (1987-1988); first-order bound `\dot ε_c/\dot ε_m = 1 − v_i`.
+- [[metal-electrode-shrinkage-effect]] — How Ni / Cu inner electrodes drive in-plane vs thickness shrinkage in BME MLCC; four engineering knobs (nano-BT additive, refractory-metal dopants, Ni particle size, h_Ni / h_BT ratio).
+- [[ni-electrode-paste-formulation]] — Industry-standard Ni paste recipe (55 vol% Ni, 7 wt% nano-BT, 41 vol% terpineol); five formulation axes.
+- [[cu-electrode-mlcc]] — Cu-electrode base-metal MLCC (mostly Class I C0G); sintering 900-960 °C with glass-aided dielectric; KYOCERA-AVX / Murata RF lineups.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
@@ -154,6 +157,8 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[shi-2023-jecs-sovs-bilayer-modeling]] — Shi/Giuntini et al. JECS 2023; efficient FE-implementation of SOVS model with solid-like shell elements and Aquilanti-Mundim viscosity; bilayer warpage benchmarks at 4-8% error.
 - [[hagymasi-ltcc-ferrite-dielectric-cofiring]] — Hagymási/Roosen Electroceramics conf; DuPont 951 + BaFe₁₂O₁₉ self-constrained sintering with 12.8%→33.1% thickness redistribution.
 - [[lester-2017-sandia-sovs-verification]] — Sandia SAND2017-12933R; implicit-scheme SOVS verification of bilayer bars.
+- [[polotai-2007-cr-doping-ni-electrode-mlcc]] — Penn State 2007; 1 wt% Cr in Ni decouples shrinkage from continuity by suppressing the (Ni,Ba,Ti) interfacial alloy without changing densification kinetics.
+- [[sugimura-hirao-2009-batio3-additive-ni-electrode]] — Noritake industry paper; 30 nm BT at 10 mass% achieves > 75 % Ni film coverage on the dielectric.
 
 ## Comparisons
 

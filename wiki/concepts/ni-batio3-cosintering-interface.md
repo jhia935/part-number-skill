@@ -7,6 +7,8 @@ status: complete
 importance: medium
 sources:
   - yan-thesis-2013-mlcc-sintering-nanotomography.md
+  - polotai-2007-cr-doping-ni-electrode-mlcc.md
+  - sugimura-hirao-2009-batio3-additive-ni-electrode.md
 tags:
   - paper
 ---
@@ -47,6 +49,10 @@ The Ni onset is **450 °C below** the BT onset. Pure Ni paste shrinks ~25–35 %
 Mismatch → in-plane tensile stress on the Ni at intermediate T, then compressive stress on the Ni at peak T (when BT catches up and shrinks the matrix around the now-dense Ni) → cracks, delamination, **or** the Rayleigh-Plateau electrode break-up.
 
 ## Process counter-measures
+The four levers below operate **independently** — premium paste recipes use multiple at once. See [[metal-electrode-shrinkage-effect]] and [[ni-electrode-paste-formulation]] for the full picture.
+
+0. **Refractory-metal doping of the Ni alloy** (1 wt% Cr, V, Mo, or Re): [[polotai-2007-cr-doping-ni-electrode-mlcc|Polotai 2007]] — Cr segregates to the Ni/BT interface and **chemically suppresses the (Ni, Ba, Ti) alloy layer** at peak T without changing the Ni shrinkage curve. Pure-Ni and Ni-1 wt% Cr pastes have **identical densification curves**, but Cr-doped MLCCs have markedly better electrode continuity at 1200–1250 °C. Caveat: Cr diffuses into adjacent BT grains and creates V_O — modest IR penalty.
+
 1. **Add 50 nm BaTiO₃ powder to the Ni paste** (typical 5–20 vol%): delays Ni sintering / shrinkage until the dielectric catches up.
 
    Quantified retardation (DEM simulations, [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan thesis 2013, Ch. 6]] at relative density D = 0.70):

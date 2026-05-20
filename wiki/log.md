@@ -11,6 +11,34 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-21] ingest | Metal-electrode effect on BME MLCC shrinkage
+
+Per `/wiki ingest investigate effect of metal electrode to shrinkage in bme mlcc sintering`.
+
+Two new sources captured:
+- Polotai, Jeong, Yang, Dickey, Randall, Pinceloup, Gurav, *J. Electroceramics* 18 (2007), DOI 10.1007/s10832-007-9124-4 — Cr-1 wt% addition to Ni electrode. Extracted via academia.edu HTML.
+- Sugimura & Hirao, *J. Ceram. Soc. Jpn.* 117 (2009) 1039 — BT nanoparticle additive effect on Ni paste. Captured via J-STAGE WebFetch citation; Noritake industry paper.
+
+Key extracted findings:
+- **Polotai 2007 decoupling**: Ni-1 wt% Cr and pure Ni have **identical densification curves** but Cr-doped MLCCs have markedly better electrode continuity. Cr's mechanism is **interfacial segregation that chemically suppresses the (Ni,Ba,Ti) liquid alloy layer**, not a shrinkage-rate change. ~8 nm interfacial alloy seen in undoped samples is absent where Cr segregates at the interface (6.8 at% Cr / 93.2 at% Ni). Tested on 0805 / 300 layer / 1 µm dielectric+electrode MLCC at 1200-1250 °C / 5 h.
+- **Sugimura-Hirao 2009 sweet spot**: 30 nm BT at 10 mass% loading in 0.2 µm Ni paste → > 75 % Ni film coverage. Smaller BT outperforms larger BT dramatically at the same mass% — 50 nm and 100 nm require much higher loadings to reach the same coverage.
+
+New wiki source pages (2):
+- [[polotai-2007-cr-doping-ni-electrode-mlcc]] — full mechanism, VC-SEM / HR-TEM / EELS methodology, decoupling between shrinkage and continuity.
+- [[sugimura-hirao-2009-batio3-additive-ni-electrode]] — empirical industry recipe + onset-temperature shift mechanism.
+
+New wiki concept pages (3):
+- [[metal-electrode-shrinkage-effect]] — central new concept: the four engineering knobs (nano-BT additive / refractory-metal dopant / Ni particle size / electrode thickness ratio) and how the metal electrode constrains lateral but not thickness shrinkage in the stack. Three sintering regimes (stage 1 tensile / stage 2 transition / stage 3 compressive) and the Ni-vs-BT 450 °C onset gap.
+- [[ni-electrode-paste-formulation]] — recipe-level details: 55 vol% Ni + 7 wt% nano-BT + 41 vol% terpineol + 4 vol% resin. Five axes: powder size, BT additive, refractory dopants, organic vehicle, anti-oxidation.
+- [[cu-electrode-mlcc]] — Cu-electrode base-metal class (mostly Class I C0G); sintering window 900-960 °C with glass-aided BT/CZT dielectric; KYOCERA-AVX / Murata RF lineups; reoxidation step largely absent.
+
+Updates:
+- [[ni-batio3-cosintering-interface]] — added Cr-doping counter-measure as item 0 with explicit Polotai decoupling note (Cr suppresses interfacial alloy without changing shrinkage curve).
+
+Bottom-line answer to user's question: in BME MLCC, the metal electrode affects shrinkage through **four largely independent levers**: (1) nano-BT additive content / size — Bordia-Scherer composite-sintering retardation, dominant lever for shifting Ni shrinkage onset; (2) refractory-metal dopants like Cr — interfacial chemistry only, no shrinkage effect; (3) Ni particle size — sets shrinkage onset T and additive sensitivity; (4) electrode/dielectric thickness ratio h_Ni/h_BT — geometric constraint. The metal electrode is **the structural source of lateral-vs-thickness shrinkage asymmetry** in the finished chip (suppresses lateral by ~4×, enhances thickness by ~2.5× per Hagymási analog data).
+
+---
+
 ## [2026-05-20] query | Shrinkage shape-dependence of BaTiO₃ vs alumina
 
 Question: "is shrinkage less related to material shape with batio3?" Filed as [[shrinkage-shape-dependence-batio3-vs-alumina]]. Key pages consulted: [[green-tape-shrinkage-anisotropy]], [[heunisch-2010-tape-cast-anisotropic-shrinkage]], [[hagymasi-ltcc-ferrite-dielectric-cofiring]], [[batio3-powder-synthesis]], [[constrained-sintering-mlcc]].
