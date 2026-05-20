@@ -55,6 +55,11 @@ The mechanism is the *areal density of aligned particles*: thinner films lock in
 ### 3. Binder MW and casting speed — weak levers
 Heunisch tested PVB binders ranging from 19 to 150 × 10³ g/mol and casting speeds from 10 to 250 mm/s. **Both had only minor influence** within the tested ranges. Binder choice matters for tape *handling* (strength, flexibility) and for [[binder-burnout-debinding|burnout chemistry]], not for shrinkage anisotropy.
 
+### A note on BaTiO₃ specifically
+The Heunisch results were measured on **alumina**. Surveys of tape-cast BaTiO₃ tapes report that BT — when fabricated from hydrothermally synthesized pseudo-spherical powder — **does not exhibit the anisotropy seen in alumina** under the same casting conditions. The most likely reason is that commercial BT powder is closer to equiaxed than the platelet-shaped α-Al₂O₃ used in Heunisch's worst case.
+
+Source: Raj 1999 (*J. Am. Ceram. Soc.* 82:1199 — "Anisotropic Shrinkage in Tape-Cast Alumina"), and recent aqueous-tape-cast BT MLCC reports. So for BME MLCC dielectric tape, **the powder-shape contribution to anisotropy is small** in practice — the lateral/thickness asymmetry that does occur is more often driven by [[constrained-sintering-mlcc|lamination constraint]] than by intrinsic green-tape anisotropy.
+
 ## Quantitative MLCC dielectric data
 
 From the [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan thesis (2013)]] dilatometry of Samsung X5R BT-based MLCC chips:
@@ -111,7 +116,9 @@ The numbers above are for **free-tape sintering** (dilatometer measurement of a 
 - In-plane: constrained by the BT matrix all the way around → lateral shrinkage is *suppressed* relative to free.
 - Thickness: under-constrained, free to absorb the difference → z-shrinkage is *enhanced* relative to free.
 
-LTCC measurements on tape-on-substrate quote: free 17% / constrained 12.7% (x) / 13.9% (y) / 12.8% (z) — see [[constrained-sintering-mlcc]]. For a symmetric MLCC stack with electrodes top and bottom, the camber cancels by symmetry but the lateral suppression / thickness enhancement remains.
+LTCC measurements quantify this directly: [[hagymasi-ltcc-ferrite-dielectric-cofiring|Hagymási]]'s DT/FT/DT sandwich was 12.7 % (x) / 13.9 % (y) / 12.8 % (z) free, but 3.25 % / 2.97 % / **33.1 %** when constrained — lateral suppressed ~4× and thickness enhanced ~2.5×. The total volume shrinkage is approximately conserved. For a symmetric MLCC stack with electrodes top and bottom, the camber cancels by symmetry but the lateral suppression / thickness enhancement remains.
+
+This redistribution is predicted directly by the [[skorohod-olevsky-viscous-sintering|SOVS continuum model]] via the viscous Poisson ratio `ν_v`. See [[zero-shrinkage-ltcc]] for the most extreme constrained case (lateral ~0.2 %).
 
 ## Implications for the simulator
 
@@ -125,9 +132,14 @@ The simulator's [[case-size-geometry|green→fired shrinkage]] logic should:
 ## References
 
 - [[heunisch-2010-tape-cast-anisotropic-shrinkage]]
+- [[hagymasi-ltcc-ferrite-dielectric-cofiring]]
 - [[yan-thesis-2013-mlcc-sintering-nanotomography]]
+- [[shi-2023-jecs-sovs-bilayer-modeling]]
 - [[mistler-twiname-tape-casting-textbook]]
 - [[rahaman-ceramic-processing-sintering-textbook]]
 - [[binder-burnout-debinding]]
 - [[constrained-sintering-mlcc]]
 - [[ni-batio3-cosintering-interface]]
+- [[green-density-vs-shrinkage]]
+- [[skorohod-olevsky-viscous-sintering]]
+- Raj, "Anisotropic Shrinkage in Tape-Cast Alumina: Role of Processing Parameters and Particle Shape", *J. Am. Ceram. Soc.* 82 (1999) 1199.

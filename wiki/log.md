@@ -11,6 +11,40 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | Extended shrinkage coverage — SOVS, camber, zero-shrinkage LTCC
+
+Per `/wiki ingest extend the understandings on shrinkage of mlcc. Do more web search and ingest`.
+
+Three open-access sources downloaded and processed:
+- Shi, Giuntini, van Dommelen, Geers, Remmers — *J. Eur. Ceram. Soc.* 43 (2023) 4939-4949 — open access (CC BY), 29 pp. Efficient FE implementation of SOVS for bilayers.
+- Hagymási, Roosen, Karmazin, Dernovsek, Haas — SEE Electroceramics conf. (~2008), 8 pp. DuPont 951 + BaFe₁₂O₁₉ constrained sintering with quantitative free vs constrained shrinkage data.
+- Lester (Sandia) — SAND2017-12933R, public-domain US government report, 6 pp. SOVS implicit-scheme verification.
+
+Web-search snippets supplemented additional sources (Jean-Chang 1997 camber theory; Raj 1999 alumina anisotropic shrinkage; DuPont US 5,474,741 zero-shrink patent; HeraLock HL2000 technology). All paywalled to direct fetch — captured via search-snippet synthesis.
+
+New wiki source pages (3):
+- [[shi-2023-jecs-sovs-bilayer-modeling]] — full SOVS equations (`dε_i/dt = σ'/(2ηφ) + (trσ − 3P_L)/(18ηψ)·I`); φ(ρ)=ρ², ψ(ρ)=(2/3)ρ³/(1−ρ), P_L(ρ)=(3α/r_p)ρ²; bilayer warpage benchmarks; **CPU cost reduction 3 orders of magnitude** over legacy McHugh-Riedel.
+- [[hagymasi-ltcc-ferrite-dielectric-cofiring]] — definitive source for the "12.8%→33.1% thickness redistribution" numbers. Green densities 72%/53% with organic content 11.4/18.0 wt%. Two-stage camber: BBO-driven (binder gradient) suppressed by 0.5 K/min ramp + sintering-driven (η-mismatch).
+- [[lester-2017-sandia-sovs-verification]] — short Sandia memo confirming new implicit scheme resolves bilayer-bar warpage that legacy McHugh-Riedel required unrealistic meshes to capture.
+
+New wiki concept pages (4):
+- [[skorohod-olevsky-viscous-sintering]] — full constitutive equation, viscosity-function options (quadratic / Arrhenius / Aquilanti-Mundim), free vs constrained-shrinkage predictions, validated benchmarks, simulator-implementation recipe.
+- [[cofiring-camber-bilayer]] — Jean-Chang formula `κ ∝ Δε̇·t·h₁h₂(h₁+h₂)/(h₁+h₂)³·f(η_ratio,h_ratio)`; two camber-generation stages (BBO + sintering); mitigation hierarchy.
+- [[zero-shrinkage-ltcc]] — four approaches (sacrificial alumina tape, self-constrained windows, HeraLock HL2000, pressure-assisted); table comparing achievable lateral shrinkage (HeraLock 0.2%, sacrificial <0.5%, self-constrained 2-4%).
+- [[green-density-vs-shrinkage]] — derives `s_linear = 1 − (ρ_g/ρ_f)^(1/3)` from mass conservation; populates the full ρ_g 0.45→0.80 table; validates against Hagymási numbers (DT 72% → 12.8% z-shrinkage measured matches 10% predicted + 2-3% drying/burnout).
+
+Updates:
+- [[constrained-sintering-mlcc]] — replaced unattributed "12.7/13.9/12.8 %" data with sourced Hagymási numbers; added SOVS thickness-amplification factor `1/(1−2ν_v)` derivation; added Jean-Chang camber cross-ref.
+- [[green-tape-shrinkage-anisotropy]] — added Raj 1999 caveat that **BaTiO₃ does NOT show the anisotropy that alumina does** under similar casting conditions (BT powder is closer to equiaxed than platelet α-Al₂O₃); added Hagymási free→constrained numbers; added SOVS cross-ref.
+
+Bottom-line synthesis of all shrinkage learnings now in the wiki:
+- **Total green→fired linear shrinkage** ≈ drying (2-4%) + burnout (1-3%) + sintering (`1 − (ρ_g/ρ_f)^(1/3)`, 9-15% typical) ≈ **12-22%** for typical tapes.
+- **Constrained sintering redistributes** that budget: in-plane suppressed by ~4×, thickness enhanced by ~2.5× (Hagymási). The volume integral is conserved.
+- **Predictive modeling**: SOVS + FE (Shi 2023) gives chip-scale dimensional prediction with bilayer warpage at 4-8% error on a laptop.
+- **Engineering levers** (ranked by leverage): green density (set by binder content + powder packing) → shrinkage matching of cofired layers (set by sintering-aid + electrode-paste BT-additive) → BBO ramp rate (suppresses binder-gradient camber) → lamination pressure → external constraint.
+
+---
+
 ## [2026-05-20] ingest | Web search — MLCC/ceramic shrinkage + binder/metal ratio
 
 Per `/wiki ingest web search for academic publications and text book for mlcc/ceramic shrinkage. Also look for relation between shrinkage and binder/metal ratio in green sheet`.

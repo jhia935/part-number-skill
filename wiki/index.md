@@ -79,6 +79,11 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[master-sintering-curve]] — Su-Johnson MSC; activation energies for BaTiO₃; breaks down above 1200 °C.
 - [[binder-burnout-debinding]] — First firing step (200–600 °C); PVB kinetics; Ar+1%O₂ window; BBO defect modes.
 - [[green-tape-shrinkage-anisotropy]] — Drying + burnout + sintering shrinkage stages; powder shape, tape thickness, binder/metal content trade-offs.
+- [[green-density-vs-shrinkage]] — Mass-conservation `1 − (ρ_g/ρ_f)^(1/3)` relation; binder content sets green density which sets sintering shrinkage.
+- [[skorohod-olevsky-viscous-sintering]] — Continuum sintering model: `dε_i/dt = σ'/(2ηφ) + (tr σ − 3P_L)/(18ηψ)·I`; predicts free + constrained shrinkage.
+- [[cofiring-camber-bilayer]] — Jean-Chang camber formula; two-stage camber generation (BBO + sintering); SOVS-FE prediction.
+- [[zero-shrinkage-ltcc]] — Sacrificial-layer, self-constrained, HeraLock, and pressure-assisted approaches to suppress lateral shrinkage.
+- [[bordia-scherer-composite-sintering]] — Foundational rigid-inclusion-retardation model (1987-1988); first-order bound `\dot ε_c/\dot ε_m = 1 − v_i`.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
@@ -146,6 +151,9 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[heunisch-2010-tape-cast-anisotropic-shrinkage]] — Heunisch/Dellert/Roosen JECS 2010; particle shape dominates green-tape shrinkage anisotropy (K_xy 1.9–12.7).
 - [[mistler-twiname-tape-casting-textbook]] — Mistler & Twiname (ACerS/Wiley 2000); standard practitioner reference for tape casting.
 - [[rahaman-ceramic-processing-sintering-textbook]] — Rahaman textbooks; canonical graduate sintering science incl. constrained-sintering chapters.
+- [[shi-2023-jecs-sovs-bilayer-modeling]] — Shi/Giuntini et al. JECS 2023; efficient FE-implementation of SOVS model with solid-like shell elements and Aquilanti-Mundim viscosity; bilayer warpage benchmarks at 4-8% error.
+- [[hagymasi-ltcc-ferrite-dielectric-cofiring]] — Hagymási/Roosen Electroceramics conf; DuPont 951 + BaFe₁₂O₁₉ self-constrained sintering with 12.8%→33.1% thickness redistribution.
+- [[lester-2017-sandia-sovs-verification]] — Sandia SAND2017-12933R; implicit-scheme SOVS verification of bilayer bars.
 
 ## Comparisons
 

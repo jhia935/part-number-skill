@@ -7,6 +7,8 @@ status: complete
 importance: medium
 sources:
   - yan-thesis-2013-mlcc-sintering-nanotomography.md
+  - hagymasi-ltcc-ferrite-dielectric-cofiring.md
+  - shi-2023-jecs-sovs-bilayer-modeling.md
 tags:
   - paper
 ---
@@ -19,12 +21,17 @@ When a dielectric green tape is **constrained** by an adjacent layer (Ni electro
 
 In an unconstrained free body, sintering shrinks isotropically: same percent linear shrinkage in x, y, z. In a constrained body, the in-plane direction can't shrink (held by the constraining layer) and the **same volumetric shrinkage has to happen entirely in the z (thickness) direction**.
 
-Typical MLCC values (LTCC-style measurements, similar physics):
-- Casting direction (x): 12.7 %
-- Cross direction (y): 13.9 %
-- **Thickness direction (z): 12.8 %** (close to free; the case-size lateral is more constrained than the cross direction because of substrate constraints)
+Quantitative data from [[hagymasi-ltcc-ferrite-dielectric-cofiring|Hagymási et al.]] on a DT/FT/DT sandwich (DuPont 951 + BaFe₁₂O₁₉ ferrite):
 
-Compared to the **free sintering** expectation of ~17 % linear in all three directions, lateral shrinkage is suppressed ~30 % and thickness absorbs the slack.
+| | Free DT shrinkage | Constrained DT/FT/DT shrinkage |
+|---|---|---|
+| x (cast) | 12.7 % | **3.25 %** |
+| y (cross) | 13.9 % | **2.97 %** |
+| z (thick) | 12.8 % | **33.1 %** |
+
+Lateral shrinkage **suppressed by ~4×**; thickness shrinkage **enhanced by ~2.5×**. Volume shrinkage approximately conserved. This is the canonical experimental signature of constrained sintering.
+
+For a symmetric MLCC stack, **camber cancels by symmetry** (electrodes on both faces), but the stress state and the lateral/thickness asymmetry remain.
 
 ## Camber and warpage
 If a bilayer has two materials with different sintering kinetics (e.g., dielectric tape vs Ni-electrode tape, or two tapes with different shrinkage onset temperatures), they tension each other in plane during sintering. The faster-shrinking layer pulls the slower into tension; the slower layer pushes the faster into compression. The bilayer bows ("camber") to balance the resulting moment.
@@ -35,12 +42,18 @@ For MLCC stacks (3-D alternating dielectric/electrode), the camber is suppressed
 - Residual stresses that show up post-sintering as bow, twist, or built-in stress fields that modify [[cubic-tetragonal-transition|tetragonal domain formation]]
 
 ## Constitutive model
-The continuum-mechanics framework for constrained sintering ([Olevsky JACerS 2013](https://ceramics.onlinelibrary.wiley.com/doi/10.1111/jace.12375)):
-- Uniaxial viscosity `η_a` (resistance to deformation in the constrained direction)
-- Viscous Poisson's ratio `ν_v` (coupling between in-plane and thickness deformation)
-- Free sintering strain rate `\dot{\varepsilon}_s` (the would-be isotropic shrinkage)
+The continuum-mechanics framework is the [[skorohod-olevsky-viscous-sintering|Skorohod-Olevsky Viscous Sintering (SOVS)]] model:
+- Shear viscosity `η(T) · φ(ρ)` (resistance to distortion)
+- Bulk viscosity `η(T) · ψ(ρ)` (resistance to volume change)
+- Sintering stress `P_L(ρ) = (3α / r_p) ρ²` — the thermodynamic driving force from surface-tension reduction
+- Viscous Poisson's ratio `ν_v = (3ψ - 2φ) / (6ψ + 2φ)` (couples lateral and thickness strain)
+
+For a fully constrained film (zero lateral strain rate), SOVS predicts thickness strain rate amplified by `1 / (1 − 2ν_v) ≈ 10×` (for typical `ν_v ≈ 0.45`). This matches the Hagymási observation: free 12.8 % thickness → constrained 33.1 % thickness, a 2.6× enhancement of the already-amplified-by-anisotropy thickness shrinkage.
 
 For an anisotropic microstructure that develops during constrained sintering (elongated pores, aligned grain boundaries), both `η_a` and `ν_v` become anisotropic — the material remembers its own constraint history.
+
+## Camber prediction
+The Jean-Chang formula gives bilayer curvature directly from the differential strain rate. See [[cofiring-camber-bilayer]] for the equations and the two-stage camber-generation mechanism (BBO stage + sintering stage). For high-fidelity simulation, the SOVS-FE solver in [[shi-2023-jecs-sovs-bilayer-modeling|Shi 2023]] runs the full warpage trajectory in tractable CPU time.
 
 ## Composite-sintering retardation (Bordia-Scherer)
 
@@ -83,7 +96,13 @@ Smaller inclusions and better dispersion dramatically amplify the retardation. T
 - [[case-size-geometry]]
 - [[failure-modes-mlcc]]
 - [[green-tape-shrinkage-anisotropy]]
+- [[green-density-vs-shrinkage]]
+- [[cofiring-camber-bilayer]]
+- [[zero-shrinkage-ltcc]]
+- [[skorohod-olevsky-viscous-sintering]]
 - [[yan-thesis-2013-mlcc-sintering-nanotomography]]
+- [[hagymasi-ltcc-ferrite-dielectric-cofiring]]
+- [[shi-2023-jecs-sovs-bilayer-modeling]]
 - [[rahaman-ceramic-processing-sintering-textbook]]
 
 ## References
