@@ -7,6 +7,7 @@ status: complete
 importance: medium
 sources:
   - escies-bme-mlcc-high-reliability.md
+  - yan-thesis-2013-mlcc-sintering-nanotomography.md
 tags:
   - paper
 ---
@@ -56,6 +57,19 @@ Lower peak T → less densification, residual porosity → mechanical weakness, 
 
 Modern commercial BME formulations tune **dopants and sintering aids** to hit full density at **1100–1250 °C** (the lower end of the historical 1200–1350 °C window). Some Cu-electrode systems hit density at **900–960 °C** (below Cu's 1085 °C melting point) using [[sintering-aids-glass|glass aids]].
 
+## Shrinkage budget through the profile
+
+From dilatometry on Samsung X5R-grade 1206 chips ([[yan-thesis-2013-mlcc-sintering-nanotomography|Yan 2013]] Ch. 3, Fig. 3.6):
+
+| Profile segment | Linear shrinkage | Notes |
+|---|---|---|
+| Stages 1–2 (25 → 950 °C) | **~0%** at the chip scale | Ni densifies between 450–950 °C but is geometrically constrained; macroscopic shrinkage is undetectable |
+| Stage 3 (950 → 1150 °C) | **6–7%** linear | BT initial-stage sintering; rate peaks at 1150 °C |
+| Stage 4 (1150 °C, 0 → 30 min hold) | additional ~5–6% → **~12% total** | Bulk of intermediate-stage densification |
+| Stage 4 (> 30 min) | flat | No further shrinkage; only grain growth |
+
+**End-to-end chip-scale linear shrinkage is ~12%.** This is what sets the green-sheet → fired-chip dimensional conversion for case-size and layer-count budgeting (see [[case-size-geometry]] and [[green-tape-shrinkage-anisotropy]]).
+
 ## Atmosphere transitions
 See [[bme-sintering-atmosphere]] for the PO₂ profile. Critical transitions:
 - **Stage 1 → 2**: oxidizing (binder burnout) → reducing (sinter). Inhabits a narrow Ar + low-O₂ window.
@@ -77,6 +91,7 @@ A flat single-stage profile (ramp + hold + cool) can't satisfy all the competing
 - [[grain-growth-dopant-pinning]]
 - [[two-step-sintering]]
 - [[mlcc-manufacturing-process]]
+- [[green-tape-shrinkage-anisotropy]]
 
 ## References
 - Polotai, Yang, Dickey, Randall, "Utilization of Multiple-Stage Sintering to Control Ni Electrode Continuity in Ultrathin Ni–BaTiO₃ Multilayer Capacitors", *J. Am. Ceram. Soc.* 90:12 (2007) 3811–3817.

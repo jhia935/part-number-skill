@@ -5,7 +5,8 @@ created: 2026-05-20
 updated: 2026-05-20
 status: complete
 importance: medium
-sources: []
+sources:
+  - heunisch-dellert-roosen-2010-anisotropic-shrinkage.md
 tags:
   - paper
 ---
@@ -76,9 +77,27 @@ Total binder-burnout segment: typically **2–4 hours**.
 
 The defect-mode catalog in [[failure-modes-mlcc]] traces back to binder-burnout process windows for many cases that look like sintering defects.
 
+## Binder content vs shrinkage in the green tape
+
+A higher binder loading directly raises **drying** and **burnout** shrinkage contributions. From the standard tape-casting recipe in [[heunisch-2010-tape-cast-anisotropic-shrinkage|Heunisch 2010]]:
+- 4.73 wt% PVB binder + 4.47 wt% plasticizer (≈ 9 wt% organics) → ~3–4% drying shrinkage + ~1–3% burnout shrinkage before sintering even begins.
+- Sintering then contributes another 6–12% linear (per [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan 2013]] dilatometry of BT MLCC chips).
+
+**Total green-to-fired linear shrinkage** is roughly additive across the three stages:
+| Stage | Linear shrinkage | Set by |
+|---|---|---|
+| Drying | 2–4% | binder + solvent + plasticizer fraction |
+| Burnout | 1–3% | binder + plasticizer fraction (organic vol%) |
+| Sintering | 6–12% | green density (powder vol%); 12% for typical Samsung X5R 1206 [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan]] |
+
+Higher binder loading → more drying + burnout shrinkage **and** weaker green tape (because powder vol% is lower at fixed slurry total). Most MLCC houses hold the organic fraction at ~8–10 wt% and tune solids loading to land the total green-to-fired shrinkage at the design point. See [[green-tape-shrinkage-anisotropy]] for the full breakdown.
+
+**Binder MW** (within typical PVB ranges 19–150 × 10³ g/mol) has only a minor effect on shrinkage anisotropy — particle shape and tape thickness matter much more (Heunisch 2010).
+
 ## Implications for the simulator
 - Binder-burnout is **before** the simulator's nominal "operating point" — but it affects the **defect density** `r` in [[bme-reliability-model|reliability factor `(r̄/d)^α`]] by leaving residual pores or carbon inclusions.
 - Recipes that under-debind: higher `r` → worse reliability at fixed nominal layer thickness.
+- Total green-to-fired shrinkage (drying + burnout + sintering) is what the simulator's case-size and layer-count budget must use — not just the sintering shrinkage in isolation. See [[green-tape-shrinkage-anisotropy]].
 - Vendor "process quality" parameters in the simulator should include implicit assumptions about binder-burnout quality.
 
 ## Cross-references
@@ -88,6 +107,7 @@ The defect-mode catalog in [[failure-modes-mlcc]] traces back to binder-burnout 
 - [[failure-modes-mlcc]]
 - [[bme-reliability-model]]
 - [[constrained-sintering-mlcc]]
+- [[green-tape-shrinkage-anisotropy]]
 
 ## References
 - "Numerical investigations of the binder burnout process during the MLCC manufacturing", *Appl. Thermal Eng.* 2024, doi:10.1016/j.applthermaleng.2024.125330

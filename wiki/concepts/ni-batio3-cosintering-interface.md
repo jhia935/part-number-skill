@@ -2,10 +2,11 @@
 title: Ni-BaTiO₃ Co-Sintering Interface
 type: concept
 created: 2026-05-19
-updated: 2026-05-19
+updated: 2026-05-20
 status: complete
 importance: medium
-sources: []
+sources:
+  - yan-thesis-2013-mlcc-sintering-nanotomography.md
 tags:
   - paper
 ---
@@ -34,14 +35,32 @@ Conversely, residual NiO (from partial oxidation of the Ni electrode or NiO-dope
 - The Ni/NiO ratio in the electrode/dielectric system thus has a **tight, two-sided design window**.
 
 ## Shrinkage matching (the other interfacial problem)
-Even before any chemical reaction, the two layers shrink at different rates during sintering:
-- Pure Ni paste: shrinks ~ 25–35 % linearly between 600 and 1100 °C
-- BaTiO₃ green: shrinks ~ 15–20 % over the same range, with the bulk of shrinkage in a narrow 1100–1300 °C window
+Even before any chemical reaction, the two layers shrink at different rates during sintering. Direct dilatometry of Samsung X5R-grade powders from [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan 2013]]:
 
-Mismatch → in-plane tensile stress on the layer that shrinks more (typically Ni at intermediate T, BaTiO₃ at peak T) → cracks, delamination, **or** the Rayleigh-Plateau electrode break-up.
+| Material | Onset T | Max-rate T | Effectively done by |
+|---|---|---|---|
+| Pure Ni paste | ~450 °C | ~900 °C | ~1150 °C (rate ≈ 0; grain coarsening dominates above 900 °C) |
+| BaTiO₃ X5R | ~900–950 °C | ~1150 °C | post-30 min hold at 1150 °C |
+
+The Ni onset is **450 °C below** the BT onset. Pure Ni paste shrinks ~25–35 % linearly between 600 and 1100 °C while the BT skeleton is still rigid; the BT skeleton then shrinks 6–7 % linear between 950 and 1150 °C and another ~5–6 % during a 30-min hold at 1150 °C (~12 % total at the chip level).
+
+Mismatch → in-plane tensile stress on the Ni at intermediate T, then compressive stress on the Ni at peak T (when BT catches up and shrinks the matrix around the now-dense Ni) → cracks, delamination, **or** the Rayleigh-Plateau electrode break-up.
 
 ## Process counter-measures
 1. **Add 50 nm BaTiO₃ powder to the Ni paste** (typical 5–20 vol%): delays Ni sintering / shrinkage until the dielectric catches up.
+
+   Quantified retardation (DEM simulations, [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan thesis 2013, Ch. 6]] at relative density D = 0.70):
+
+   | BT-in-Ni vol% | BT particle size | Retarding factor (free-Ni / composite rate) |
+   |---|---|---|
+   | 0 | — | 1.0 |
+   | 5 | 60 nm | ~1.5 |
+   | 20 | 300 nm | 2 |
+   | 20 | 100 nm | ~4 |
+   | 20 | 60 nm | **7** |
+
+   **Smaller inclusions → much stronger retardation per vol%.** Agglomerated nano-BT loses most of the benefit. Industry pastes hit 5–15 vol% nano-BT (10–30 nm), well-dispersed.
+
 2. **Bimodal Ni powder** size distribution: tighter shrinkage profile than monomodal.
 3. **Multiple-stage sintering** (Yan et al., "Multiple Stage Sintering to Control Ni Electrode Continuity in Ultra-Thin Ni–BaTiO₃ MLC"): a low-T hold ~1000 °C lets the (Ni, Ba, Ti) liquid drain off before reaching peak T, suppressing Rayleigh-Plateau break-up.
 4. **Fast heating** through the 1000–1100 °C window: kinetically suppresses the interfacial liquid film formation.

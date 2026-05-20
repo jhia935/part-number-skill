@@ -2,7 +2,7 @@
 title: Wiki Index
 type: index
 created: 2026-05-19
-updated: 2026-05-19
+updated: 2026-05-20
 ---
 
 # Wiki Index
@@ -78,6 +78,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[cold-sintering]] — Sub-300 °C densification with transient liquid phase (Randall group).
 - [[master-sintering-curve]] — Su-Johnson MSC; activation energies for BaTiO₃; breaks down above 1200 °C.
 - [[binder-burnout-debinding]] — First firing step (200–600 °C); PVB kinetics; Ar+1%O₂ window; BBO defect modes.
+- [[green-tape-shrinkage-anisotropy]] — Drying + burnout + sintering shrinkage stages; powder shape, tape thickness, binder/metal content trade-offs.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
@@ -141,6 +142,10 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[srep-batio3-grain-size-unfolding]] — Sci. Rep. 9953 (2015), cross-method survey: εr peak at 0.8-1.1 µm, drops below 1000 at 50 nm, c/a → 1.000 at 100 nm.
 - [[aec-q104-rev-a-2025]] — Official AEC-Q104 Rev A (Nov 2025); MCM qualification framework for capacitors-embedded-in-modules.
 - [[epj-in-situ-xray-tomography-dem]] — Yan/Martin/Bouvard et al. EPJ Web Conf 2017; coupling in-situ synchrotron tomography with DEM for high-T sintering of Cu + Ni-BaTiO₃ MLCC.
+- [[yan-thesis-2013-mlcc-sintering-nanotomography]] — Full Yan PhD thesis (TU Darmstadt / Grenoble 2013, 235 pp); chip-scale 12% shrinkage, Ni-vs-BT 450 °C onset gap, DEM retardation factor table.
+- [[heunisch-2010-tape-cast-anisotropic-shrinkage]] — Heunisch/Dellert/Roosen JECS 2010; particle shape dominates green-tape shrinkage anisotropy (K_xy 1.9–12.7).
+- [[mistler-twiname-tape-casting-textbook]] — Mistler & Twiname (ACerS/Wiley 2000); standard practitioner reference for tape casting.
+- [[rahaman-ceramic-processing-sintering-textbook]] — Rahaman textbooks; canonical graduate sintering science incl. constrained-sintering chapters.
 
 ## Comparisons
 

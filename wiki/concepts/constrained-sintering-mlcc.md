@@ -5,7 +5,8 @@ created: 2026-05-20
 updated: 2026-05-20
 status: complete
 importance: medium
-sources: []
+sources:
+  - yan-thesis-2013-mlcc-sintering-nanotomography.md
 tags:
   - paper
 ---
@@ -41,8 +42,29 @@ The continuum-mechanics framework for constrained sintering ([Olevsky JACerS 201
 
 For an anisotropic microstructure that develops during constrained sintering (elongated pores, aligned grain boundaries), both `η_a` and `ν_v` become anisotropic — the material remembers its own constraint history.
 
+## Composite-sintering retardation (Bordia-Scherer)
+
+The classical model for a sintering matrix with **rigid (or slow-sintering) inclusions** ([[rahaman-ceramic-processing-sintering-textbook|Rahaman]] Ch. 10, [[mistler-twiname-tape-casting-textbook|Mistler-Twiname]] for the tape-casting side, originally Bordia & Scherer 1988 and Scherer 1987):
+
+$$
+\frac{\dot{\varepsilon}_c}{\dot{\varepsilon}_{m,\text{free}}} \;=\; 1 \,-\, v_i
+$$
+
+where `v_i` is the inclusion volume fraction. The composite shrinks **at most** by the factor (1 − v_i) of the free matrix rate. In practice, **inclusions retard far more strongly** than this linear bound predicts, because they substitute matrix-matrix contacts (which sinter) by matrix-inclusion contacts (which don't).
+
+Quantitative numbers from [[yan-thesis-2013-mlcc-sintering-nanotomography|Yan 2013, DEM Ch. 6]] for Ni-matrix + nano-BT-inclusion composites at relative density D = 0.70:
+
+| BT inclusion vol% | BT particle size | Retarding factor (free / composite) |
+|---|---|---|
+| 5 | 60 nm | ~1.5 |
+| 20 | 300 nm | 2 |
+| 20 | 100 nm | ~4 |
+| 20 | 60 nm | **7** |
+
+Smaller inclusions and better dispersion dramatically amplify the retardation. This is the engineering basis for **nano-BT-doped Ni paste** in MLCC: 5–15 vol% well-dispersed nano-BT slows the Ni shrinkage enough to align with the dielectric's shrinkage curve.
+
 ## Mitigation strategies for MLCC
-1. **Shrinkage-matched paste**: add ~5–20 vol% BaTiO₃ to the Ni paste so the Ni shrinkage curve overlaps the dielectric's (see [[ni-batio3-cosintering-interface]]).
+1. **Shrinkage-matched paste**: add ~5–20 vol% nano-BaTiO₃ (10–30 nm) to the Ni paste so the Ni shrinkage curve overlaps the dielectric's (see [[ni-batio3-cosintering-interface]] for the quantified retardation table).
 2. **Sintering-aid tuning**: lower the dielectric sintering T with [[sintering-aids-glass|glass aids]] to bring it into the Ni shrinkage window.
 3. **Pre-sintered powder**: use pre-calcined dielectric powder with reduced shrinkage on firing.
 4. **Symmetric stack design**: keep electrode/dielectric symmetric top-to-bottom so the part doesn't bow.
@@ -60,6 +82,9 @@ For an anisotropic microstructure that develops during constrained sintering (el
 - [[mlcc-manufacturing-process]]
 - [[case-size-geometry]]
 - [[failure-modes-mlcc]]
+- [[green-tape-shrinkage-anisotropy]]
+- [[yan-thesis-2013-mlcc-sintering-nanotomography]]
+- [[rahaman-ceramic-processing-sintering-textbook]]
 
 ## References
 - Olevsky, "Sintering of Multilayered Porous Structures: Part I — Constitutive Models", *J. Am. Ceram. Soc.* 96 (2013) 2295–2304.

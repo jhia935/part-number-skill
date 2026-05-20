@@ -11,6 +11,37 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-20] ingest | Web search — MLCC/ceramic shrinkage + binder/metal ratio
+
+Per `/wiki ingest web search for academic publications and text book for mlcc/ceramic shrinkage. Also look for relation between shrinkage and binder/metal ratio in green sheet`.
+
+Web searches surfaced one full-text open-access source (TU Darmstadt PhD thesis by Z. Yan, the methodological foundation behind the existing [[epj-in-situ-xray-tomography-dem]] conference paper) and one paywalled paper that fetched cleanly via academia.edu (Heunisch, Dellert, Roosen JECS 2010 — particle shape dominates anisotropic shrinkage). Other top hits (Fu 2015 JACerS, Sugimura-Hirao 2009 J. Ceram. Soc. Jpn, Kang 2008 Ceram. Int., Co-firing behaviors 2016) were paywalled / 403-Forbidden on direct fetch — captured via search snippets and Yan-thesis cross-references.
+
+New raw sources:
+- `resources/literature/pdf/tu-darmstadt-mlcc-sintering-thesis.pdf` (Yan, 2013; 235 pp; CC-BY 4.0 via TUprints) + extracted `.md`.
+- `resources/literature/heunisch-dellert-roosen-2010-anisotropic-shrinkage.md` (WebFetch summary of the JECS 2010 paper from academia.edu).
+
+New wiki source pages (4):
+- [[yan-thesis-2013-mlcc-sintering-nanotomography]] — full thesis behind the Grenoble + Argonne MLCC sintering imaging program. Quantitative dilatometry: Ni paste densifies 450–950 °C, BT 950–1150 °C (450 °C onset gap); 1206 chip linear shrinkage **~12% total**, of which 6–7% from 950→1150 °C ramp and 5–6% from 30-min hold at 1150 °C. DEM Ch. 6 quantifies BT-in-Ni inclusion retardation: at 20 vol% / 60 nm BT, retarding factor is **7×**.
+- [[heunisch-2010-tape-cast-anisotropic-shrinkage]] — anisotropy factor K_xy = **1.9 (spherical) / 8.4 (standard) / 12.7 (platelet)** powders, all at d₅₀ ≈ 4 µm. Thickness shrinkage 6–11% vs in-plane 2.7–4%, depending on blade gap. Binder MW had only minor effect — powder shape dominates.
+- [[mistler-twiname-tape-casting-textbook]] — bibliographic page for the standard ACerS/Wiley 2000 reference (chapter outline; not raw-ingested).
+- [[rahaman-ceramic-processing-sintering-textbook]] — bibliographic page for the standard graduate sintering textbooks (constrained sintering Ch. 10/11; not raw-ingested).
+
+New concept page:
+- [[green-tape-shrinkage-anisotropy]] — synthesizes the three additive shrinkage stages (drying 2–4% / burnout 1–3% / sintering 6–12% linear) and splits the binder/metal-ratio question into two regimes: (1) dielectric tape — binder loading sets drying + burnout contributions, powder vol% sets sintering shrinkage, powder *shape* sets anisotropy; (2) Ni paste — binder/Ni ratio is a rheology knob, but the shrinkage knob is the nano-BT inclusion content (5–15 vol% well-dispersed 10–30 nm BT in industry pastes).
+
+Updates to existing concept pages:
+- [[ni-batio3-cosintering-interface]] — added the Yan DEM retardation-factor table (5 vol% / 60 nm → 1.5×; 20 vol% / 60 nm → **7×**) and replaced the qualitative "Ni shrinks 25–35%, BT shrinks 15–20%" paragraph with the quantitative onset table from Yan dilatometry.
+- [[constrained-sintering-mlcc]] — added Bordia-Scherer linear bound `\dot ε_c / \dot ε_m,free = 1 − v_i` plus the Yan DEM-quantified retardation table; added the textbook reference pages to cross-refs.
+- [[binder-burnout-debinding]] — added "Binder content vs shrinkage" section with the three-stage shrinkage budget (2–4% drying + 1–3% burnout + 6–12% sintering).
+- [[sintering-profile-mlcc]] — added a "Shrinkage budget through the profile" table mapping linear shrinkage to each profile stage.
+
+Key user-facing answer to the original question ("relation between shrinkage and binder/metal ratio in green sheet"):
+1. **Dielectric tape (BaTiO₃):** binder loading mainly affects drying + burnout shrinkage (~3–7 % combined). Sintering shrinkage (~6–12 %) is set by green density (powder vol%) rather than binder. Powder **shape** — not binder MW — dominates shrinkage **anisotropy** (Heunisch K_xy: 1.9 spherical vs 12.7 platelet).
+2. **Ni electrode paste:** the binder/Ni ratio is primarily a printing-rheology knob. The sintering-shrinkage engineering knob is the **nano-BT additive content** (Bordia-Scherer composite-sintering theory). Quantitatively (Yan DEM): a few vol% 60 nm BT gives ~1.5× retardation; 20 vol% 60 nm BT gives **7×**. Smaller and better-dispersed inclusions amplify the effect dramatically.
+
+---
+
 ## [2026-05-20] update | Size-code default flipped to JIS metric
 
 Reversed the resolver default per user direction ("Default to metric. No suffix means JIS. With warning of course"). Bare 4-digit input is now read as a **JIS metric** code, not EIA.
