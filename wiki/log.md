@@ -11,6 +11,14 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-21] query | Capacitance simulation from recipe + geometry
+
+Question: "given ni paste, bto green sheet with some additive composition, sheet thickness, overlap, and stack layers count, capacitance of mlcc can be simulated?" Filed as [[capacitance-simulation-from-recipe-and-geometry]]. Key pages consulted: [[mlcc-capacitance-equation]], [[dielectric-shrinkage-in-mlcc-stack]], [[layer-thickness-and-metal-ceramic-ratio]], [[skorohod-olevsky-viscous-sintering]], [[shi-2023-jecs-sovs-bilayer-modeling]], [[ni-electrode-paste-formulation]], [[green-density-vs-shrinkage]], [[dc-bias-derating]], [[vendor-spice-models]], [[bme-reliability-model]], [[case-size-geometry]].
+
+Answer: yes, in three accuracy tiers — (1) geometric back-of-envelope `C = εr · ε0 · A · N / d` with default 20 % discontinuity allowance gets ±15-20 %; (2) material-corrected adds DC-bias / TCC / aging / grain-size sub-models for ±10 % (same fidelity as commercial vendor SPICE tools); (3) SOVS-coupled process-physics with per-recipe `η(T)` calibration gets ±5 % and is the research frontier. The wiki has the conceptual scaffolding for all three. Gaps: predicting `εr,nominal` from dopant composition (needs DFT or vendor calibration), and predicting reliability from recipe (needs accelerated-life-test calibration of the Liu BME framework constants). Bottleneck for Tier 3 isn't modeling capability — it's the irreducible measurement of `η(T)` from free-tape dilatometry per recipe.
+
+---
+
 ## [2026-05-21] update | Layer thickness and metal/ceramic ratio detail
 
 User-requested follow-up to the alternating-layer ingest: add the quantitative scaling on layer thickness and metal/ceramic ratio.
