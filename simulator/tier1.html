@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLCC Capacitance Simulator — Tier 1+</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --panel: #ffffff;
+    --border: #d8d8de;
+    --text: #1d1d1f;
+    --muted: #6e6e76;
+    --accent: #4f5fd4;
+    --warn-bg: #fff4d6;
+    --warn-border: #d8a800;
+    --err-bg: #ffe1e1;
+    --err-border: #d63030;
+    --info-bg: #e3eeff;
+    --info-border: #4f5fd4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px; font-size: 14px;
+  }
+  h1 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+  h2 { margin: 16px 0 8px; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .container { display: grid; grid-template-columns: 340px 1fr; gap: 16px; max-width: 1400px; margin: 0 auto; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .inputs { position: sticky; top: 16px; align-self: start; max-height: calc(100vh - 32px); overflow-y: auto; }
+  .row { display: grid; grid-template-columns: 110px 1fr 60px; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .row label { font-size: 12px; color: var(--muted); }
+  .row input[type=range] { width: 100%; }
+  .row .val { font-variant-numeric: tabular-nums; text-align: right; font-size: 12px; }
+  .row select { width: 100%; padding: 4px 6px; font-size: 12px; }
+  .row.full { grid-template-columns: 1fr; }
+  .row.full select { grid-column: 1 / -1; }
+  .row.dual { grid-template-columns: 110px 1fr; }
+  .toggle-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .toggle-row input { margin: 0; }
+  .topline {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .stat { padding: 10px 12px; background: #f0f1f4; border-radius: 6px; }
+  .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat .value { font-size: 20px; font-weight: 600; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .stat .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .stat.primary { background: #eaeefc; }
+  .stat.primary .value { color: var(--accent); font-size: 24px; }
+  .warnings { margin-bottom: 16px; }
+  .warning {
+    padding: 8px 10px; border-left: 3px solid; border-radius: 4px;
+    margin-bottom: 6px; font-size: 12px;
+  }
+  .warning.error { background: var(--err-bg); border-color: var(--err-border); }
+  .warning.warn { background: var(--warn-bg); border-color: var(--warn-border); }
+  .warning.info { background: var(--info-bg); border-color: var(--info-border); }
+  .four-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .chart-cell { background: #fafafa; border: 1px solid var(--border); border-radius: 6px; padding: 8px; height: 200px; }
+  .stack-and-derived { display: grid; grid-template-columns: 280px 1fr; gap: 12px; margin-bottom: 12px; }
+  .stack-svg-wrap { background: #fafafa; border: 1px solid var(--border); border-radius: 6px; padding: 8px; }
+  .derived table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .derived td { padding: 4px 6px; border-bottom: 1px solid #f0f0f0; }
+  .derived td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+  .derived td.label { color: var(--muted); }
+  .vendor-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+  .vendor-table th, .vendor-table td { padding: 5px 8px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+  .vendor-table th { font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 500; }
+  .vendor-table td.match { color: var(--accent); font-weight: 600; }
+  .footer { font-size: 11px; color: var(--muted); margin-top: 16px; padding: 8px 0; }
+  .footer a { color: var(--accent); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<aside class="panel inputs">
+  <h1>MLCC Capacitance Simulator</h1>
+  <div class="footer" style="margin-top: -8px;">Tier 1 (geometric) + DC bias / TCC overlay</div>
+
+  <h2>Geometry</h2>
+  <div class="row full">
+    <select id="caseSize"></select>
+  </div>
+  <div class="row full">
+    <select id="dieClass"></select>
+  </div>
+
+  <h2>Layer dimensions</h2>
+  <div class="row">
+    <label>h_BT green (µm)</label>
+    <input type="range" id="hBT" min="0.3" max="10" step="0.1" value="2.0">
+    <span class="val" id="hBT_val"></span>
+  </div>
+  <div class="row">
+    <label>h_Ni green (µm)</label>
+    <input type="range" id="hNi" min="0.2" max="3" step="0.1" value="1.0">
+    <span class="val" id="hNi_val"></span>
+  </div>
+  <div class="row">
+    <label>Layer count N<sub>e</sub></label>
+    <input type="range" id="Ne" min="10" max="1000" step="1" value="300">
+    <span class="val" id="Ne_val"></span>
+  </div>
+  <div class="row">
+    <label>Cover (µm/side)</label>
+    <input type="range" id="cover" min="20" max="100" step="1" value="40">
+    <span class="val" id="cover_val"></span>
+  </div>
+
+  <h2>Process factors</h2>
+  <div class="row">
+    <label>Coverage</label>
+    <input type="range" id="coverage" min="0.70" max="0.98" step="0.01" value="0.85">
+    <span class="val" id="coverage_val"></span>
+  </div>
+  <div class="row">
+    <label>Shrinkage s</label>
+    <input type="range" id="sTotal" min="0.05" max="0.20" step="0.01" value="0.12">
+    <span class="val" id="sTotal_val"></span>
+  </div>
+  <div class="row">
+    <label>Discontinuity</label>
+    <input type="range" id="disc" min="0.00" max="0.40" step="0.01" value="0.20">
+    <span class="val" id="disc_val"></span>
+  </div>
+
+  <h2>Operating point (Tier 2 overlay)</h2>
+  <div class="toggle-row">
+    <input type="checkbox" id="tier2on" checked>
+    <label for="tier2on">Apply DC bias + TCC corrections</label>
+  </div>
+  <div class="row">
+    <label>V_DC (V)</label>
+    <input type="range" id="vdc" min="0" max="50" step="0.5" value="0">
+    <span class="val" id="vdc_val"></span>
+  </div>
+  <div class="row">
+    <label>T_op (°C)</label>
+    <input type="range" id="top" min="-55" max="150" step="1" value="25">
+    <span class="val" id="top_val"></span>
+  </div>
+</aside>
+
+<main class="panel">
+
+<div class="topline">
+  <div class="stat primary"><div class="label">Capacitance (derated)</div><div class="value" id="out_C">—</div><div class="sub" id="out_C_sub">—</div></div>
+  <div class="stat"><div class="label">Nominal (Tier 1)</div><div class="value" id="out_Cnom">—</div><div class="sub">at 25 °C, 0 V</div></div>
+  <div class="stat"><div class="label">d_fired</div><div class="value" id="out_dfired">—</div><div class="sub">post-sinter dielectric</div></div>
+  <div class="stat"><div class="label">Volumetric</div><div class="value" id="out_vol">—</div><div class="sub" id="out_vol_sub">µF/mm³</div></div>
+</div>
+
+<div class="warnings" id="warnings"></div>
+
+<div class="stack-and-derived">
+  <div class="stack-svg-wrap">
+    <h2 style="margin-top:0">Stack cross-section</h2>
+    <svg id="stack" viewBox="0 0 260 180" style="width:100%; height:auto;"></svg>
+    <div class="footer" id="stack_sub" style="margin-top: 4px;"></div>
+  </div>
+  <div class="derived">
+    <h2 style="margin-top:0">Derived values</h2>
+    <table>
+      <tbody id="derived_tbody"></tbody>
+    </table>
+    <h2>Vendor reference parts</h2>
+    <table class="vendor-table"><tbody id="vendor_tbody"></tbody></table>
+  </div>
+</div>
+
+<div>
+  <h2>Sweep dashboard — C vs each knob</h2>
+  <div class="four-panel">
+    <div class="chart-cell"><canvas id="chart_hBT"></canvas></div>
+    <div class="chart-cell"><canvas id="chart_hNi"></canvas></div>
+    <div class="chart-cell"><canvas id="chart_Ne"></canvas></div>
+    <div class="chart-cell"><canvas id="chart_coverage"></canvas></div>
+  </div>
+</div>
+
+<div class="footer">
+  Source: <code>simulator/tier1.html</code>. Equations and lookup tables traced to wiki concept pages
+  <code>mlcc-capacitance-equation</code>, <code>case-size-geometry</code>, <code>eia-rs-198-dielectric-classes</code>,
+  <code>dc-bias-derating</code>, <code>green-density-vs-shrinkage</code>,
+  <code>layer-thickness-and-metal-ceramic-ratio</code>.
+  This is a Tier 1 estimator — see <code>capacitance-simulation-from-recipe-and-geometry</code> for accuracy bounds (±15–20 % for Tier 1, ±10 % with overlay).
+</div>
+
+</main>
+</div>
+
+<script>
+// ============================================================
+// Lookup tables (from the wiki)
+// ============================================================
+
+// Case dimensions (µm) and H_max — case-size-geometry.md
+const CASES = [
+  { id: '0201_0603', label: 'EIA 0201 / metric 0603 (0.6 × 0.3 mm)', L: 600,  W: 300,  em: 125, sm: 100, Hmax: 330 },
+  { id: '0402_1005', label: 'EIA 0402 / metric 1005 (1.0 × 0.5 mm)', L: 1000, W: 500,  em: 125, sm: 100, Hmax: 550 },
+  { id: '0603_1608', label: 'EIA 0603 / metric 1608 (1.6 × 0.8 mm)', L: 1600, W: 810,  em: 175, sm: 100, Hmax: 900 },
+  { id: '0805_2012', label: 'EIA 0805 / metric 2012 (2.0 × 1.25 mm)', L: 2010, W: 1250, em: 250, sm: 150, Hmax: 1350 },
+  { id: '1206_3216', label: 'EIA 1206 / metric 3216 (3.2 × 1.6 mm)', L: 3200, W: 1600, em: 250, sm: 150, Hmax: 1800 },
+  { id: '1210_3225', label: 'EIA 1210 / metric 3225 (3.2 × 2.5 mm)', L: 3200, W: 2500, em: 250, sm: 150, Hmax: 2800 },
+  { id: '1812_4532', label: 'EIA 1812 / metric 4532 (4.5 × 3.2 mm)', L: 4500, W: 3200, em: 300, sm: 200, Hmax: 3500 },
+  { id: '2220_5750', label: 'EIA 2220 / metric 5750 (5.7 × 5.0 mm)', L: 5700, W: 5000, em: 320, sm: 220, Hmax: 3500 },
+];
+
+// ε_r,nominal — eia-rs-198-dielectric-classes.md
+const CLASSES = [
+  { id: 'C0G', label: 'C0G / NP0 (Class I, ultra-stable)',   er: 30   },
+  { id: 'X5R', label: 'X5R (Class II, −55…+85 °C, ±15 %)',   er: 2500 },
+  { id: 'X7R', label: 'X7R (Class II, −55…+125 °C, ±15 %)',  er: 2200 },
+  { id: 'X8R', label: 'X8R (Class II, −55…+150 °C, ±15 %)',  er: 1800 },
+  { id: 'Y5V', label: 'Y5V (Class III, −30…+85 °C, +22/−82 %)', er: 7000 },
+];
+
+// DC-bias derating sigmoid params — dc-bias-derating.md
+// f_V = 1 / (1 + (E/E0)^p), E in V/µm
+const DCBIAS = {
+  'C0G': { E0: 1e9, p: 1 },      // effectively none
+  'X5R': { E0: 3.0, p: 2 },
+  'X7R': { E0: 4.0, p: 2 },
+  'X8R': { E0: 5.0, p: 2 },
+  'Y5V': { E0: 1.5, p: 1.5 },
+};
+
+// TCC envelopes — eia-rs-198-dielectric-classes.md (simplified piecewise)
+function tccFactor(cls, T) {
+  const dT = T - 25;
+  switch (cls) {
+    case 'C0G': return 1 + 30e-6 * dT;
+    case 'X5R': return 1 - 0.15 * Math.min(1, Math.abs(dT) / 80);   // ±15% by ±80°C
+    case 'X7R': return 1 - 0.15 * Math.min(1, Math.abs(dT) / 100);  // ±15% by ±100°C
+    case 'X8R': return 1 - 0.15 * Math.min(1, Math.abs(dT) / 125);
+    case 'Y5V':
+      if (dT < 0) return 1 + 0.22 * Math.max(-1, dT / 55);          // -30 °C → -22 %
+      return 1 - 0.82 * Math.min(1, dT / 60);                       // +85 °C → -82 %
+    default:    return 1;
+  }
+}
+
+function dcBiasFactor(cls, E_V_per_um) {
+  const p = DCBIAS[cls] || DCBIAS['X7R'];
+  return 1 / (1 + Math.pow(E_V_per_um / p.E0, p.p));
+}
+
+// Vendor reference parts (subset, for quick comparison)
+// Sourced from murata-grm-series, samsung-cl-series, tdk-cga-series wiki pages
+const VENDOR_PARTS = [
+  { case: '0603_1608', cls: 'X7R', V: 50,  C_uF: 0.1,   mfr: 'Murata',  pn: 'GRM188R71H104K' },
+  { case: '0603_1608', cls: 'X7R', V: 16,  C_uF: 1.0,   mfr: 'Murata',  pn: 'GRM188R71C105K' },
+  { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 0.47,  mfr: 'Murata',  pn: 'GRM21BR71H474K' },
+  { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 4.7,   mfr: 'Murata',  pn: 'GRM21BR71H475K' },
+  { case: '0805_2012', cls: 'X5R', V: 25,  C_uF: 10,    mfr: 'Murata',  pn: 'GRM21BR61E106K' },
+  { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 1.0,   mfr: 'Samsung', pn: 'CL21B105KAFNNNE' },
+  { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 1.0,   mfr: 'Murata',  pn: 'GRM31MR71H105K' },
+  { case: '1206_3216', cls: 'X7R', V: 100, C_uF: 0.22,  mfr: 'TDK',     pn: 'C3216X7R2A224K' },
+  { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 10,    mfr: 'Murata',  pn: 'GRM31CR71H106K' },
+  { case: '1210_3225', cls: 'X5R', V: 25,  C_uF: 22,    mfr: 'Murata',  pn: 'GRM32ER61E226M' },
+  { case: '0603_1608', cls: 'C0G', V: 50,  C_uF: 0.001, mfr: 'Murata',  pn: 'GRM1885C1H102J' },
+  { case: '0805_2012', cls: 'C0G', V: 100, C_uF: 0.01,  mfr: 'Murata',  pn: 'GRM2165C2A103J' },
+  { case: '1812_4532', cls: 'X7R', V: 50,  C_uF: 4.7,   mfr: 'TDK',     pn: 'C4532X7R1H475K' },
+  { case: '2220_5750', cls: 'X7R', V: 50,  C_uF: 22,    mfr: 'Murata',  pn: 'GRM55ER71H226K' },
+];
+
+// ============================================================
+// Core computation
+// ============================================================
+
+const EPS0 = 8.854187817e-12; // F/m
+
+function compute(inp) {
+  const c = CASES.find(x => x.id === inp.case);
+  const cls = CLASSES.find(x => x.id === inp.cls);
+
+  // Geometry (all µm internally, convert at the end)
+  const A_overlap_um2 = (c.L - 2 * c.em) * (c.W - 2 * c.sm);
+  const A_eff_um2     = A_overlap_um2 * inp.coverage * (1 - inp.disc);
+  const d_fired_um    = inp.hBT * (1 - inp.sTotal);
+  const hNi_fired_um  = inp.hNi * (1 - inp.sTotal);
+  const H_active_um   = inp.Ne * (d_fired_um + hNi_fired_um);
+  const H_stack_um    = H_active_um + 2 * inp.cover;
+
+  // Tier 1: nominal C
+  const A_eff_m2     = A_eff_um2 * 1e-12;
+  const d_fired_m    = d_fired_um * 1e-6;
+  const C_nominal_F  = cls.er * EPS0 * A_eff_m2 * inp.Ne / d_fired_m;
+
+  // Tier 2 overlay: TCC × DC bias
+  const E_applied    = inp.vdc / d_fired_um; // V/µm
+  const f_T          = tccFactor(inp.cls, inp.top);
+  const f_V          = dcBiasFactor(inp.cls, E_applied);
+  const C_derated_F  = inp.tier2 ? (C_nominal_F * f_T * f_V) : C_nominal_F;
+
+  // Chip envelope volume (mm³): use H_stack vs Hmax; if exceeds, still report
+  const chip_vol_mm3 = (c.L / 1000) * (c.W / 1000) * (H_stack_um / 1000);
+  const vol_density  = (C_derated_F * 1e6) / chip_vol_mm3; // µF/mm³
+
+  // Warnings
+  const warnings = [];
+  if (H_stack_um > c.Hmax) {
+    warnings.push({ level: 'error',
+      msg: `Stack H = ${(H_stack_um/1000).toFixed(2)} mm exceeds H_max ${(c.Hmax/1000).toFixed(2)} mm for ${c.label.split('(')[0].trim()}. Reduce N_e, h_BT, h_Ni, or cover.` });
+  }
+  if (d_fired_um < 0.3) {
+    warnings.push({ level: 'warn',
+      msg: `d_fired = ${d_fired_um.toFixed(2)} µm is below ~0.3 µm grain-size floor — reliability degrades sharply (see core-shell-batio3).` });
+  }
+  if (hNi_fired_um < 0.3) {
+    warnings.push({ level: 'warn',
+      msg: `h_Ni fired = ${hNi_fired_um.toFixed(2)} µm is near the 3-particle floor (~0.3 µm for 100 nm Ni) — electrode discontinuity will be high.` });
+  }
+  const ratio = inp.hNi / inp.hBT;
+  if (ratio < 0.3) {
+    warnings.push({ level: 'info',
+      msg: `h_Ni/h_BT = ${ratio.toFixed(2)} (thin-electrode regime) — weak in-plane constraint; near-isotropic shrinkage.` });
+  }
+  if (ratio > 2.0) {
+    warnings.push({ level: 'info',
+      msg: `h_Ni/h_BT = ${ratio.toFixed(2)} (electrode-dominated) — metal volume fraction high; check stack stiffness assumptions.` });
+  }
+  if (inp.coverage > 0.95) {
+    warnings.push({ level: 'warn',
+      msg: `Coverage ${(inp.coverage*100).toFixed(0)} % leaves very little margin — production-risky shorting between opposing electrodes.` });
+  }
+
+  return {
+    caseRec: c, clsRec: cls,
+    A_overlap_um2, A_eff_um2, d_fired_um, hNi_fired_um, H_active_um, H_stack_um,
+    C_nominal_F, C_derated_F, f_T, f_V, E_applied,
+    chip_vol_mm3, vol_density, warnings,
+  };
+}
+
+// ============================================================
+// Formatting helpers
+// ============================================================
+
+function fmtCap(C) {
+  if (!isFinite(C) || C <= 0) return '—';
+  if (C >= 1e-6)   return (C / 1e-6).toPrecision(3) + ' µF';
+  if (C >= 1e-9)   return (C / 1e-9).toPrecision(3) + ' nF';
+  if (C >= 1e-12)  return (C / 1e-12).toPrecision(3) + ' pF';
+  return C.toExponential(2) + ' F';
+}
+function fmt(x, dec = 2, suf = '') { return (isFinite(x) ? x.toFixed(dec) : '—') + suf; }
+
+// ============================================================
+// Render: top-line, derived, warnings
+// ============================================================
+
+function renderOutputs(r, inp) {
+  document.getElementById('out_C').textContent      = fmtCap(r.C_derated_F);
+  document.getElementById('out_C_sub').textContent  =
+    inp.tier2 ? `at ${inp.top}°C, ${inp.vdc} V (×${(r.f_T*r.f_V).toFixed(2)} from nominal)` : 'Tier 1 only';
+  document.getElementById('out_Cnom').textContent   = fmtCap(r.C_nominal_F);
+  document.getElementById('out_dfired').textContent = fmt(r.d_fired_um, 2, ' µm');
+  document.getElementById('out_vol').textContent    = fmt(r.vol_density, 2);
+  document.getElementById('out_vol_sub').textContent = `µF/mm³ | chip vol ${fmt(r.chip_vol_mm3, 2)} mm³`;
+
+  // Derived table
+  const rows = [
+    ['Case L × W',           `${r.caseRec.L} × ${r.caseRec.W} µm`],
+    ['End / side margin',    `${r.caseRec.em} / ${r.caseRec.sm} µm`],
+    ['A_overlap',            fmt(r.A_overlap_um2 / 1e6, 3, ' mm²')],
+    ['A_eff',                fmt(r.A_eff_um2 / 1e6, 3, ' mm²')],
+    ['Active stack height',  fmt(r.H_active_um / 1000, 3, ' mm')],
+    ['Total stack height',   fmt(r.H_stack_um / 1000, 3, ' mm')],
+    ['Headroom vs H_max',    fmt(100 * (1 - r.H_stack_um / r.caseRec.Hmax), 1, ' %')],
+    ['ε_r,nominal',          `${r.clsRec.er}`],
+    ['TCC factor f_T',       inp.tier2 ? fmt(r.f_T, 3) : '—'],
+    ['DC bias factor f_V',   inp.tier2 ? fmt(r.f_V, 3) : '—'],
+    ['Applied field E',      inp.tier2 ? fmt(r.E_applied, 2, ' V/µm') : '—'],
+  ];
+  document.getElementById('derived_tbody').innerHTML =
+    rows.map(([k, v]) => `<tr><td class="label">${k}</td><td>${v}</td></tr>`).join('');
+
+  // Warnings
+  document.getElementById('warnings').innerHTML = r.warnings.length === 0
+    ? '<div class="warning info">No design-rule violations. Sanity-checked OK.</div>'
+    : r.warnings.map(w => `<div class="warning ${w.level}">${w.msg}</div>`).join('');
+
+  // Vendor table
+  const matches = VENDOR_PARTS
+    .filter(p => p.case === inp.case && p.cls === inp.cls)
+    .sort((a, b) => a.C_uF - b.C_uF);
+  const yourC = r.C_derated_F * 1e6;
+  if (matches.length === 0) {
+    document.getElementById('vendor_tbody').innerHTML =
+      `<tr><td colspan="4" style="color:var(--muted)">No matching vendor parts in built-in table for ${r.caseRec.label.split('(')[0].trim()} ${r.clsRec.id}.</td></tr>`;
+  } else {
+    const header = `<tr><th>Vendor</th><th>P/N</th><th>Rated</th><th>vs your ${fmtCap(r.C_derated_F)}</th></tr>`;
+    const body = matches.map(p => {
+      const ratio = yourC / p.C_uF;
+      const within20 = ratio > 0.8 && ratio < 1.25;
+      const cls = within20 ? 'match' : '';
+      return `<tr><td>${p.mfr}</td><td>${p.pn}</td><td>${p.C_uF} µF / ${p.V} V</td><td class="${cls}">${ratio.toFixed(2)}×</td></tr>`;
+    }).join('');
+    document.getElementById('vendor_tbody').innerHTML = header + body;
+  }
+}
+
+// ============================================================
+// Stack diagram SVG
+// ============================================================
+
+function renderStack(r, inp) {
+  const svg = document.getElementById('stack');
+  const W = 260, H = 180, PAD = 8;
+  const usableH = H - 2 * PAD;
+  // Limit visual layers; if Ne > 10, show 10 + label
+  const Nshow = Math.min(10, inp.Ne);
+  const coverPx = Math.max(6, usableH * (inp.cover / (r.H_stack_um / 2)));  // scale cover proportionally-ish
+  // Simpler: compute per-layer proportions
+  const totalH = inp.cover * 2 + Nshow * (r.d_fired_um + r.hNi_fired_um);
+  const pxPerUm = usableH / totalH;
+  let y = PAD;
+  const parts = [];
+  // Top cover
+  parts.push(`<rect x="${PAD}" y="${y}" width="${W - 2*PAD}" height="${inp.cover * pxPerUm}" fill="#9a9a9a" />`);
+  parts.push(`<text x="${W - PAD - 4}" y="${y + inp.cover * pxPerUm / 2 + 4}" text-anchor="end" font-size="9" fill="white">cover ${inp.cover}µm</text>`);
+  y += inp.cover * pxPerUm;
+  // Active layers
+  for (let i = 0; i < Nshow; i++) {
+    const dPx = r.d_fired_um * pxPerUm;
+    const nPx = r.hNi_fired_um * pxPerUm;
+    parts.push(`<rect x="${PAD}" y="${y}" width="${W - 2*PAD}" height="${dPx}" fill="#dbe2ec" />`);
+    y += dPx;
+    parts.push(`<rect x="${PAD}" y="${y}" width="${W - 2*PAD}" height="${nPx}" fill="#3a3a3a" />`);
+    y += nPx;
+  }
+  // Bottom cover
+  parts.push(`<rect x="${PAD}" y="${y}" width="${W - 2*PAD}" height="${inp.cover * pxPerUm}" fill="#9a9a9a" />`);
+  // Annotation
+  if (inp.Ne > Nshow) {
+    parts.push(`<text x="${W/2}" y="${H/2 + 4}" text-anchor="middle" font-size="11" fill="#1d1d1f" font-weight="600" style="background: white;">showing ${Nshow} of ${inp.Ne} layers</text>`);
+  }
+  svg.innerHTML = parts.join('');
+  document.getElementById('stack_sub').textContent =
+    `BT (light) ${r.d_fired_um.toFixed(2)} µm fired · Ni (dark) ${r.hNi_fired_um.toFixed(2)} µm fired · cover ${inp.cover} µm · total ${(r.H_stack_um/1000).toFixed(2)} mm (H_max ${(r.caseRec.Hmax/1000).toFixed(2)} mm).`;
+}
+
+// ============================================================
+// Four-panel sweep dashboard (Chart.js)
+// ============================================================
+
+const SWEEPS = [
+  { id: 'hBT',      label: 'h_BT (µm)',    min: 0.3,  max: 10,   steps: 60 },
+  { id: 'hNi',      label: 'h_Ni (µm)',    min: 0.2,  max: 3,    steps: 60 },
+  { id: 'Ne',       label: 'N_e',          min: 10,   max: 1000, steps: 60 },
+  { id: 'coverage', label: 'Coverage',     min: 0.70, max: 0.98, steps: 60 },
+];
+
+const charts = {};
+function initCharts() {
+  SWEEPS.forEach(s => {
+    const ctx = document.getElementById('chart_' + s.id).getContext('2d');
+    charts[s.id] = new Chart(ctx, {
+      type: 'line',
+      data: { datasets: [
+        { label: 'C derated', data: [], borderColor: '#4f5fd4', backgroundColor: 'rgba(79,95,212,0.1)', tension: 0.2, pointRadius: 0, borderWidth: 2 },
+        { label: 'Current', data: [], borderColor: '#d63030', backgroundColor: '#d63030', pointRadius: 5, pointHoverRadius: 5, showLine: false },
+      ]},
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: 'C vs ' + s.label, font: { size: 12, weight: '600' }, color: '#6e6e76' },
+        },
+        scales: {
+          x: { type: 'linear', title: { display: true, text: s.label, font: { size: 10 } }, ticks: { font: { size: 9 } } },
+          y: { title: { display: true, text: 'C', font: { size: 10 } }, ticks: { font: { size: 9 }, callback: v => formatYAxis(v) } },
+        },
+      },
+    });
+  });
+}
+
+function formatYAxis(v) {
+  if (v >= 1e-6)   return (v / 1e-6).toPrecision(2) + 'µF';
+  if (v >= 1e-9)   return (v / 1e-9).toPrecision(2) + 'nF';
+  if (v >= 1e-12)  return (v / 1e-12).toPrecision(2) + 'pF';
+  return v.toExponential(1);
+}
+
+function renderCharts(inp) {
+  SWEEPS.forEach(s => {
+    const data = [];
+    const step = (s.max - s.min) / s.steps;
+    for (let i = 0; i <= s.steps; i++) {
+      const x = s.min + i * step;
+      const inp2 = { ...inp, [s.id]: x };
+      const r = compute(inp2);
+      data.push({ x, y: r.C_derated_F });
+    }
+    const r0 = compute(inp);
+    charts[s.id].data.datasets[0].data = data;
+    charts[s.id].data.datasets[1].data = [{ x: inp[s.id], y: r0.C_derated_F }];
+    charts[s.id].update('none');
+  });
+}
+
+// ============================================================
+// Input wiring
+// ============================================================
+
+function readInputs() {
+  return {
+    case: document.getElementById('caseSize').value,
+    cls:  document.getElementById('dieClass').value,
+    hBT:  parseFloat(document.getElementById('hBT').value),
+    hNi:  parseFloat(document.getElementById('hNi').value),
+    Ne:   parseInt(document.getElementById('Ne').value, 10),
+    cover: parseFloat(document.getElementById('cover').value),
+    coverage: parseFloat(document.getElementById('coverage').value),
+    sTotal:   parseFloat(document.getElementById('sTotal').value),
+    disc:     parseFloat(document.getElementById('disc').value),
+    tier2:    document.getElementById('tier2on').checked,
+    vdc:      parseFloat(document.getElementById('vdc').value),
+    top:      parseFloat(document.getElementById('top').value),
+  };
+}
+
+function updateInputDisplays(inp) {
+  document.getElementById('hBT_val').textContent      = inp.hBT.toFixed(1);
+  document.getElementById('hNi_val').textContent      = inp.hNi.toFixed(1);
+  document.getElementById('Ne_val').textContent       = inp.Ne;
+  document.getElementById('cover_val').textContent    = inp.cover;
+  document.getElementById('coverage_val').textContent = inp.coverage.toFixed(2);
+  document.getElementById('sTotal_val').textContent   = inp.sTotal.toFixed(2);
+  document.getElementById('disc_val').textContent     = inp.disc.toFixed(2);
+  document.getElementById('vdc_val').textContent      = inp.vdc.toFixed(1);
+  document.getElementById('top_val').textContent      = inp.top;
+}
+
+function update() {
+  const inp = readInputs();
+  updateInputDisplays(inp);
+  const r = compute(inp);
+  renderOutputs(r, inp);
+  renderStack(r, inp);
+  renderCharts(inp);
+}
+
+// ============================================================
+// Boot
+// ============================================================
+
+function populateDropdowns() {
+  const caseSel = document.getElementById('caseSize');
+  CASES.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id; o.textContent = c.label;
+    caseSel.appendChild(o);
+  });
+  caseSel.value = '0805_2012';
+  const clsSel = document.getElementById('dieClass');
+  CLASSES.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.id; o.textContent = c.label;
+    clsSel.appendChild(o);
+  });
+  clsSel.value = 'X7R';
+}
+
+populateDropdowns();
+initCharts();
+document.querySelectorAll('input, select').forEach(el =>
+  el.addEventListener('input', update));
+update();
+</script>
+
+</body>
+</html>
