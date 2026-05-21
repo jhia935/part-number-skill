@@ -76,6 +76,8 @@ For an MLCC with Ni-layer thickness `h_Ni` and BT-layer thickness `h_BT`, the in
 
 Lower `h_Ni / h_BT` (thinner electrode) relaxes both, but reduces conductive cross-section. The sweet spot is around `h_Ni / h_BT = 0.5–1.0` for state-of-the-art 1 µm dielectric MLCCs.
 
+See [[layer-thickness-and-metal-ceramic-ratio]] for the full quantitative scaling — historical thickness evolution, h_BT and h_Ni sensitivities, three definitions of metal/ceramic ratio, and modern thin-layer benchmark numbers.
+
 ## Why the metal electrode dominates the **lateral** shrinkage but not **thickness**
 
 In a finished MLCC stack the Ni electrode is a **continuous in-plane sheet** between dielectric layers. During sintering:

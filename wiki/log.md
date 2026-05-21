@@ -11,6 +11,23 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-21] update | Layer thickness and metal/ceramic ratio detail
+
+User-requested follow-up to the alternating-layer ingest: add the quantitative scaling on layer thickness and metal/ceramic ratio.
+
+New concept page:
+- [[layer-thickness-and-metal-ceramic-ratio]] — historical h_BT / h_Ni evolution table (PME 1990s → 2020s leading edge); h_BT physical scaling (5 effects of thinning); Yan Ch. 7.7 h_Ni discontinuity table (0.2 → 1.0 µm); h_Ni/h_BT per-layer constraint regimes; three definitions of metal/ceramic ratio (in-paste / per-layer / stack-level); Yan Ch. 7.5 green-density sweet spot (D₀ = 0.55, non-monotonic); modern thin-layer benchmark (h_BT 0.3-0.5 µm, h_Ni 0.4-0.7 µm, stack Ni vol fraction 35-45 %).
+
+Updates:
+- [[dielectric-shrinkage-in-mlcc-stack]] — one-line pointer at the new page.
+- [[metal-electrode-shrinkage-effect]] — one-line pointer at the new page.
+
+Key new numbers surfaced: **the stack Ni volume fraction in a modern thin-layer MLCC is 35-45 %**, vs ~20 % in legacy parts. Almost half the active stack is metal. The chip-scale shrinkage trajectory is no longer dominated by the BT — it's a Ni/BT average weighted by volume. Stack stiffness during cooldown is closer to bulk Ni than to bulk BT.
+
+Also captured the **non-monotonic green-density effect** (Yan Ch. 7.5): D₀ = 0.40 (7.0 % discontinuity) → D₀ = 0.55 (2.3 %, sweet spot) → D₀ = 0.60 (3.1 %, worse again). Below 0.55 too much initial heterogeneity seeds discontinuity; above 0.55 faster sintering creates more shrinkage mismatch.
+
+---
+
 ## [2026-05-21] ingest | Effect of metal electrode on ceramic shrinkage in the alternating-layer MLCC stack
 
 Per `/wiki ingest investigate effect of metal electrode to shrinkage of ceramic in alternating layer structure in bme mlcc sintering`.

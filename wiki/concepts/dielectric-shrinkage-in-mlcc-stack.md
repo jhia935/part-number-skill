@@ -117,6 +117,8 @@ The internal electrode is **more discontinuous** than the edge electrode because
 
 ## How electrode geometry shapes the dielectric shrinkage
 
+(Quantitative scaling tables for `h_BT`, `h_Ni`, `h_Ni / h_BT`, Ni green density, in-paste BT additive, and stack-level metal/ceramic volume fraction live on the dedicated page [[layer-thickness-and-metal-ceramic-ratio]].)
+
 ### Electrode thickness `h_Ni` (Yan DEM Ch. 7.7)
 
 For a fixed BT layer thickness (2.4 µm), varying `h_Ni`:

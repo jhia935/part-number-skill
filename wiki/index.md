@@ -89,6 +89,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[cu-electrode-mlcc]] — Cu-electrode base-metal MLCC (mostly Class I C0G); sintering 900-960 °C with glass-aided dielectric; KYOCERA-AVX / Murata RF lineups.
 - [[dielectric-shrinkage-in-mlcc-stack]] — How alternating Ni/BT lamination reshapes the ceramic layer's shrinkage: macroscopic anisotropy, stress reversal, pore orientation, through-thickness density gradient, layer-position effects.
 - [[edge-vs-internal-layer-effects]] — Top/bottom cover layers vs internal layers; one-sided vs bilateral constraint; cover-layer design as designed compensation.
+- [[layer-thickness-and-metal-ceramic-ratio]] — Quantitative scaling: historical h_BT/h_Ni evolution, three metal/ceramic ratio definitions (in-paste / per-layer / stack-level), Yan DEM data on Ni green density sweet spot (D₀ ≈ 0.55), modern thin-layer benchmark.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
