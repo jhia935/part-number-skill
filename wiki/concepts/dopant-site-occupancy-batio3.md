@@ -5,7 +5,8 @@ created: 2026-05-20
 updated: 2026-05-20
 status: complete
 importance: medium
-sources: []
+sources:
+  - liu-2019-sm-mn-codoped-batio3-permittivity.md
 tags:
   - paper
 ---
@@ -62,6 +63,8 @@ The solubility of rare-earth ions on the **Ba-site** of BaTiO₃ decreases as io
 - [[batio3]]
 - [[perovskite-structure]]
 - [[oxygen-vacancy-migration]]
+- [[epsilon-r-from-dopant-composition]] — uses the amphoteric window to predict T_C shift direction (A-site donors lower T_C; B-site acceptors raise it).
+- [[liu-2019-sm-mn-codoped-batio3-permittivity]] — Sm³⁺ A-site donor + Mn²⁺ B-site acceptor case study.
 
 ## References (web search summaries)
 - ResearchGate: "Site Occupancy of Rare-earth Cations in BaTiO₃"

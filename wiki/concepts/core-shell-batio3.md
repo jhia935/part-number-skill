@@ -94,6 +94,7 @@ The fact that the entire field is still **patenting dopant ratios** in 2024–20
 - [[bme-vs-pme]] — rare-earth doping is part of why BME works
 - [[defect-chemistry-batio3]]
 - [[grain-growth-dopant-pinning]]
+- [[epsilon-r-from-dopant-composition]] — predicts ε_r and T_C from the core-shell dopant package; Liu Sm-Mn slopes are a quantitative anchor.
 
 ## References
 - [[nasa-batio3-mlcc-failure-mechanisms]]

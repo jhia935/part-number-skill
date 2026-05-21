@@ -11,6 +11,28 @@ Chronological record of wiki operations. Newest entries first.
 
 ---
 
+## [2026-05-21] ingest | ε_r and T_C from BaTiO₃ dopant composition
+
+Per the previous query's identified gap: "Predicting `ε_r,nominal` from dopant composition" was flagged as the biggest blocker for Tier 3 of the capacitance simulator. This ingest closes that gap with two foundational sources plus a synthesis concept page.
+
+New sources (2):
+- [[garcia-vanderbilt-1998-batio3-dft-er]] — arXiv cond-mat/9802208 (open access). First-principles DFT + effective Hamiltonian + Monte Carlo calculation of ε_r(T) for BaTiO₃, reproducing Curie-Weiss form and tetragonal-phase anisotropy without empirical adjustment beyond a linear T-rescaling. Methodology basis for any future doped-BaTiO₃ first-principles route.
+- [[liu-2019-sm-mn-codoped-batio3-permittivity]] — *Materials* 12 (2019) 678 (open access, PMC). Quantitative (Ba₁₋ₓSmₓ)(Ti₀.₉₉Mn₀.₀₁)O₃ sweep: ε_r,peak rises from 5,480 to 15,220 and T_C drops from 105 to 20 °C as Sm rises 2 → 7 mol%. Mechanism: charge-neutral 2 Sm_Ba• — Mn_Ti″ defect complex suppresses space-charge polarization. Gives recipe-actionable slopes α_Sm ≈ +1,950 / mol% and β_Sm ≈ −17 °C / mol%.
+
+New concept page:
+- [[epsilon-r-from-dopant-composition]] — synthesizes three prediction routes:
+  1. **DFT + effective Hamiltonian + MC** (García-Vanderbilt) — gold standard for pure BT, combinatorially hard for multi-dopant.
+  2. **Empirical ionic-radius + valence correlations** — production-ready when calibrated. Table of RE ionic radius vs site preference vs T_C direction: La/Sm/Nd (large, A-site donor, lower T_C); Y/Ho/Dy (amphoteric, near 117 pm crossover); Yb/Lu/Er (small, B-site acceptor, raise T_C). Linear-superposition empirical model `ε_r ≈ ε_r⁰ + Σ α_i x_i`, `T_C ≈ T_C⁰ + Σ β_i x_i`.
+  3. **Machine learning on measured datasets** — emerging path (Random Forest / XGBoost / SVR on lab-scale CaZrO3+Y2O3 datasets); bottleneck is dataset availability since vendor data is proprietary.
+
+Updates:
+- [[dopant-site-occupancy-batio3]] — cross-ref to ε_r prediction and Liu source.
+- [[core-shell-batio3]] — cross-ref to the new synthesis page.
+
+Bottom line: the wiki now has the **conceptual scaffolding to predict ε_r,nominal from a BaTiO₃ recipe at Tier-2 fidelity** using empirical ionic-radius + valence correlations plus the Liu Sm slopes as one quantitative calibration point. A practical Tier-3 ML predictor needs 5-10 more co-doping studies ingested as additional calibration data. First-principles Route 1 remains research-only — combinatorially intractable for multi-dopant MLCC recipes.
+
+---
+
 ## [2026-05-21] query | Capacitance simulation from recipe + geometry
 
 Question: "given ni paste, bto green sheet with some additive composition, sheet thickness, overlap, and stack layers count, capacitance of mlcc can be simulated?" Filed as [[capacitance-simulation-from-recipe-and-geometry]]. Key pages consulted: [[mlcc-capacitance-equation]], [[dielectric-shrinkage-in-mlcc-stack]], [[layer-thickness-and-metal-ceramic-ratio]], [[skorohod-olevsky-viscous-sintering]], [[shi-2023-jecs-sovs-bilayer-modeling]], [[ni-electrode-paste-formulation]], [[green-density-vs-shrinkage]], [[dc-bias-derating]], [[vendor-spice-models]], [[bme-reliability-model]], [[case-size-geometry]].

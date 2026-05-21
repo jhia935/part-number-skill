@@ -90,6 +90,7 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[dielectric-shrinkage-in-mlcc-stack]] — How alternating Ni/BT lamination reshapes the ceramic layer's shrinkage: macroscopic anisotropy, stress reversal, pore orientation, through-thickness density gradient, layer-position effects.
 - [[edge-vs-internal-layer-effects]] — Top/bottom cover layers vs internal layers; one-sided vs bilateral constraint; cover-layer design as designed compensation.
 - [[layer-thickness-and-metal-ceramic-ratio]] — Quantitative scaling: historical h_BT/h_Ni evolution, three metal/ceramic ratio definitions (in-paste / per-layer / stack-level), Yan DEM data on Ni green density sweet spot (D₀ ≈ 0.55), modern thin-layer benchmark.
+- [[epsilon-r-from-dopant-composition]] — Three routes for predicting ε_r and T_C from dopant package: DFT, ionic-radius empirical correlations, ML on measured datasets; Sm slopes +1,950 / mol% ε_r and −17 °C / mol% T_C.
 
 ### Dielectric class deep-dives
 - [[c0g-npo-dielectric]] — Class I ultra-stable; CaZrO₃ or BaNd-titanate base; the only "textbook ideal" cap.
@@ -162,6 +163,8 @@ A catalog of all pages in this wiki, organized by category. See [[overview]] for
 - [[lester-2017-sandia-sovs-verification]] — Sandia SAND2017-12933R; implicit-scheme SOVS verification of bilayer bars.
 - [[polotai-2007-cr-doping-ni-electrode-mlcc]] — Penn State 2007; 1 wt% Cr in Ni decouples shrinkage from continuity by suppressing the (Ni,Ba,Ti) interfacial alloy without changing densification kinetics.
 - [[sugimura-hirao-2009-batio3-additive-ni-electrode]] — Noritake industry paper; 30 nm BT at 10 mass% achieves > 75 % Ni film coverage on the dielectric.
+- [[garcia-vanderbilt-1998-batio3-dft-er]] — arXiv 1998; first-principles ε_r(T) of BaTiO₃ via effective Hamiltonian + Monte Carlo; reproduces Curie-Weiss and tetragonal-phase anisotropy.
+- [[liu-2019-sm-mn-codoped-batio3-permittivity]] — *Materials* 2019; quantitative Sm 2-7 mol% + Mn 1 mol% in BT; ε_r,peak 5,500 → 15,000 and T_C 105 → 20 °C slopes.
 
 ## Comparisons
 
