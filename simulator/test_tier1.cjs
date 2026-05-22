@@ -191,22 +191,89 @@ function warningCodes(inp) {
   // we don't know exact vendor h_BT, N_e). The point is to flag if a
   // refactor breaks the math by orders of magnitude.
 
-  // Recipe inputs are reasonable guesses, not the actual proprietary vendor specs.
-  // Tolerances are deliberately loose (~ ±2.5×) — these tests catch math regressions,
-  // not modeling errors. A failure here means C scales the wrong way with one of the inputs.
+  // Recipe inputs (h_BT, h_Ni, N_e) are engineering-plausible guesses, not the actual
+  // proprietary vendor specs. The voltage rating is the main constraint on d_fired
+  // (rule of thumb: d_fired ≥ V_rated / 50 µm for X7R/X5R, looser for C0G), and the
+  // target C plus case A_overlap determines roughly how many layers fit.
+  //
+  // Tolerance ±2.5× catches math regressions (wrong scaling, wrong constants, wrong
+  // case-area lookup). A real Tier-2 fit to vendor parts would require unknown recipe
+  // details these tests deliberately do not pretend to know.
+  //
+  // Span: 7 of 8 case sizes (0402 → 2220), 4 classes (C0G/X5R/X7R/X8R),
+  // voltages 6.3–250 V, capacitances 100 pF → 22 µF (5+ decades).
   const scenarios = [
+    // ===== 0402 — small SMD =====
+    { name: '0402 X5R 1 µF 6.3 V (smartphone bypass)',
+      input: { case: '0402_1005', cls: 'X5R', hBT: 0.6, hNi: 0.4, Ne: 150 },
+      target_uF: 1.0, tol: 2.5 },
+    { name: '0402 X7R 10 nF 25 V',
+      input: { case: '0402_1005', cls: 'X7R', hBT: 3.0, hNi: 0.8, Ne: 15 },
+      target_uF: 0.010, tol: 2.5 },
+
+    // ===== 0603 — common SMD =====
     { name: 'Murata GRM188R71H104K (0603 X7R 0.1 µF 50 V)',
       input: { case: '0603_1608', cls: 'X7R', hBT: 4.0, hNi: 1.2, Ne: 50 },
       target_uF: 0.1, tol: 2.5 },
+    { name: 'Murata GRM188R71C105K (0603 X7R 1 µF 16 V)',
+      input: { case: '0603_1608', cls: 'X7R', hBT: 1.5, hNi: 0.8, Ne: 200 },
+      target_uF: 1.0, tol: 2.5 },
+    { name: '0603 X5R 10 µF 6.3 V (high-CV)',
+      input: { case: '0603_1608', cls: 'X5R', hBT: 0.6, hNi: 0.5, Ne: 440 },
+      target_uF: 10.0, tol: 2.5 },
+    { name: '0603 C0G 100 pF 50 V (RF timing)',
+      input: { case: '0603_1608', cls: 'C0G', hBT: 10.0, hNi: 1.5, Ne: 10 },
+      target_uF: 0.0001, tol: 2.5 },
+    { name: '0603 C0G 1 nF 50 V',
+      input: { case: '0603_1608', cls: 'C0G', hBT: 5.0, hNi: 1.0, Ne: 30 },
+      target_uF: 0.001, tol: 2.5 },
+
+    // ===== 0805 — workhorse =====
     { name: 'Murata GRM21BR71H475K (0805 X7R 4.7 µF 50 V)',
       input: { case: '0805_2012', cls: 'X7R', hBT: 1.2, hNi: 0.8, Ne: 350 },
       target_uF: 4.7, tol: 2.5 },
     { name: 'Murata GRM21BR61E106K (0805 X5R 10 µF 25 V)',
       input: { case: '0805_2012', cls: 'X5R', hBT: 0.8, hNi: 0.7, Ne: 450 },
       target_uF: 10.0, tol: 2.5 },
+    { name: 'Samsung CL21B105KAFNNNE (0805 X7R 1 µF 50 V)',
+      input: { case: '0805_2012', cls: 'X7R', hBT: 1.8, hNi: 1.0, Ne: 120 },
+      target_uF: 1.0, tol: 2.5 },
+    { name: '0805 X7R 1 µF 100 V (industrial)',
+      input: { case: '0805_2012', cls: 'X7R', hBT: 3.0, hNi: 1.2, Ne: 200 },
+      target_uF: 1.0, tol: 2.5 },
     { name: 'Murata GRM2165C2A103J (0805 C0G 10 nF 100 V)',
       input: { case: '0805_2012', cls: 'C0G', hBT: 4.0, hNi: 1.2, Ne: 200 },
       target_uF: 0.01, tol: 3.0 },
+    { name: 'Murata GCM21BR71H105KA73 (0805 X8R 1 µF 50 V automotive)',
+      input: { case: '0805_2012', cls: 'X8R', hBT: 2.0, hNi: 1.0, Ne: 150 },
+      target_uF: 1.0, tol: 2.5 },
+
+    // ===== 1206 — mid-large =====
+    { name: 'Murata GRM31CR71H106K (1206 X7R 10 µF 50 V)',
+      input: { case: '1206_3216', cls: 'X7R', hBT: 1.2, hNi: 0.8, Ne: 300 },
+      target_uF: 10.0, tol: 2.5 },
+    { name: 'Murata GRM31MR71H105K (1206 X7R 1 µF 50 V)',
+      input: { case: '1206_3216', cls: 'X7R', hBT: 2.0, hNi: 1.0, Ne: 60 },
+      target_uF: 1.0, tol: 2.5 },
+    { name: 'TDK C3216X7R2A224K (1206 X7R 220 nF 100 V)',
+      input: { case: '1206_3216', cls: 'X7R', hBT: 3.0, hNi: 1.2, Ne: 30 },
+      target_uF: 0.22, tol: 2.5 },
+    { name: '1206 X7R 100 nF 250 V (high-voltage)',
+      input: { case: '1206_3216', cls: 'X7R', hBT: 10.0, hNi: 1.5, Ne: 20 },
+      target_uF: 0.1, tol: 2.5 },
+
+    // ===== 1210 — large =====
+    { name: 'Murata GRM32ER61E226M (1210 X5R 22 µF 25 V)',
+      input: { case: '1210_3225', cls: 'X5R', hBT: 1.0, hNi: 0.8, Ne: 350 },
+      target_uF: 22.0, tol: 2.5 },
+
+    // ===== 1812 / 2220 — HV and bulk =====
+    { name: 'TDK C4532X7R1H475K (1812 X7R 4.7 µF 50 V)',
+      input: { case: '1812_4532', cls: 'X7R', hBT: 2.0, hNi: 1.2, Ne: 130 },
+      target_uF: 4.7, tol: 2.5 },
+    { name: 'Murata GRM55ER71H226K (2220 X7R 22 µF 50 V)',
+      input: { case: '2220_5750', cls: 'X7R', hBT: 1.5, hNi: 1.0, Ne: 100 },
+      target_uF: 22.0, tol: 2.5 },
   ];
 
   for (const s of scenarios) {

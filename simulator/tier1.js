@@ -43,22 +43,39 @@
 
   const EPS0 = 8.854187817e-12; // F/m
 
-  // Vendor reference parts — subset for sanity comparison
+  // Vendor reference parts — for the UI's vendor lookup table and as anchors
+  // for the test suite's order-of-magnitude calibration. Mostly Murata/TDK/Samsung
+  // standard part numbers. Not exhaustive; covers ~20 common case+class+V+C combos.
   const VENDOR_PARTS = [
-    { case: '0603_1608', cls: 'X7R', V: 50,  C_uF: 0.1,   mfr: 'Murata',  pn: 'GRM188R71H104K' },
-    { case: '0603_1608', cls: 'X7R', V: 16,  C_uF: 1.0,   mfr: 'Murata',  pn: 'GRM188R71C105K' },
-    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 0.47,  mfr: 'Murata',  pn: 'GRM21BR71H474K' },
-    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 4.7,   mfr: 'Murata',  pn: 'GRM21BR71H475K' },
-    { case: '0805_2012', cls: 'X5R', V: 25,  C_uF: 10,    mfr: 'Murata',  pn: 'GRM21BR61E106K' },
-    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 1.0,   mfr: 'Samsung', pn: 'CL21B105KAFNNNE' },
-    { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 1.0,   mfr: 'Murata',  pn: 'GRM31MR71H105K' },
-    { case: '1206_3216', cls: 'X7R', V: 100, C_uF: 0.22,  mfr: 'TDK',     pn: 'C3216X7R2A224K' },
-    { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 10,    mfr: 'Murata',  pn: 'GRM31CR71H106K' },
-    { case: '1210_3225', cls: 'X5R', V: 25,  C_uF: 22,    mfr: 'Murata',  pn: 'GRM32ER61E226M' },
-    { case: '0603_1608', cls: 'C0G', V: 50,  C_uF: 0.001, mfr: 'Murata',  pn: 'GRM1885C1H102J' },
-    { case: '0805_2012', cls: 'C0G', V: 100, C_uF: 0.01,  mfr: 'Murata',  pn: 'GRM2165C2A103J' },
-    { case: '1812_4532', cls: 'X7R', V: 50,  C_uF: 4.7,   mfr: 'TDK',     pn: 'C4532X7R1H475K' },
-    { case: '2220_5750', cls: 'X7R', V: 50,  C_uF: 22,    mfr: 'Murata',  pn: 'GRM55ER71H226K' },
+    // 0402
+    { case: '0402_1005', cls: 'X5R', V: 6.3, C_uF: 1.0,    mfr: 'TDK',     pn: 'C1005X5R0J105K' },
+    { case: '0402_1005', cls: 'X7R', V: 25,  C_uF: 0.010,  mfr: 'Murata',  pn: 'GRM155R71E103KA' },
+    { case: '0402_1005', cls: 'C0G', V: 50,  C_uF: 0.0001, mfr: 'Murata',  pn: 'GRM1555C1H101J' },
+    // 0603
+    { case: '0603_1608', cls: 'X7R', V: 50,  C_uF: 0.1,    mfr: 'Murata',  pn: 'GRM188R71H104K' },
+    { case: '0603_1608', cls: 'X7R', V: 16,  C_uF: 1.0,    mfr: 'Murata',  pn: 'GRM188R71C105K' },
+    { case: '0603_1608', cls: 'X5R', V: 6.3, C_uF: 10,     mfr: 'Murata',  pn: 'GRM188R60J106M' },
+    { case: '0603_1608', cls: 'C0G', V: 50,  C_uF: 0.0001, mfr: 'Murata',  pn: 'GRM1885C1H101J' },
+    { case: '0603_1608', cls: 'C0G', V: 50,  C_uF: 0.001,  mfr: 'Murata',  pn: 'GRM1885C1H102J' },
+    // 0805
+    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 0.47,   mfr: 'Murata',  pn: 'GRM21BR71H474K' },
+    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 4.7,    mfr: 'Murata',  pn: 'GRM21BR71H475K' },
+    { case: '0805_2012', cls: 'X5R', V: 25,  C_uF: 10,     mfr: 'Murata',  pn: 'GRM21BR61E106K' },
+    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 1.0,    mfr: 'Samsung', pn: 'CL21B105KAFNNNE' },
+    { case: '0805_2012', cls: 'X7R', V: 100, C_uF: 1.0,    mfr: 'Murata',  pn: 'GRM21BR72A105K' },
+    { case: '0805_2012', cls: 'C0G', V: 100, C_uF: 0.01,   mfr: 'Murata',  pn: 'GRM2165C2A103J' },
+    { case: '0805_2012', cls: 'X8R', V: 50,  C_uF: 1.0,    mfr: 'Murata',  pn: 'GCM21BR71H105KA73' },
+    // 1206
+    { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 1.0,    mfr: 'Murata',  pn: 'GRM31MR71H105K' },
+    { case: '1206_3216', cls: 'X7R', V: 100, C_uF: 0.22,   mfr: 'TDK',     pn: 'C3216X7R2A224K' },
+    { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 10,     mfr: 'Murata',  pn: 'GRM31CR71H106K' },
+    { case: '1206_3216', cls: 'X7R', V: 250, C_uF: 0.1,    mfr: 'TDK',     pn: 'C3216X7R2E104K' },
+    // 1210
+    { case: '1210_3225', cls: 'X5R', V: 25,  C_uF: 22,     mfr: 'Murata',  pn: 'GRM32ER61E226M' },
+    { case: '1210_3225', cls: 'X7R', V: 100, C_uF: 10,     mfr: 'TDK',     pn: 'C3225X7R2A106K' },
+    // 1812 / 2220 — HV / bulk
+    { case: '1812_4532', cls: 'X7R', V: 50,  C_uF: 4.7,    mfr: 'TDK',     pn: 'C4532X7R1H475K' },
+    { case: '2220_5750', cls: 'X7R', V: 50,  C_uF: 22,     mfr: 'Murata',  pn: 'GRM55ER71H226K' },
   ];
 
   // ============================================================
