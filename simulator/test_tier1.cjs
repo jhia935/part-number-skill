@@ -1,0 +1,259 @@
+// Layer 1 test suite for the Tier 1 capacitance estimator.
+// Runs the pure math in tier1.js against:
+//   - geometric / multiplicative invariants
+//   - TCC and DC-bias envelope edges
+//   - warning trigger thresholds
+//   - vendor-part order-of-magnitude calibration
+//
+// Run:  node simulator/test_tier1.cjs
+
+const t = require('./tier1.js');
+
+let passed = 0, failed = 0;
+const failures = [];
+
+function ok(name, cond, detail) {
+  if (cond) { passed++; }
+  else { failed++; failures.push(`✗ ${name}${detail ? ` — ${detail}` : ''}`); }
+}
+
+function near(a, b, frac) {
+  // True when |a - b| / |b| <= frac
+  if (b === 0) return Math.abs(a) <= frac;
+  return Math.abs(a - b) / Math.abs(b) <= frac;
+}
+
+const inp0 = t.defaultInputs();
+
+// ============================================================
+// 1. Geometric / multiplicative invariants
+// ============================================================
+
+(function geometricInvariants() {
+  const r0 = t.compute({ ...inp0, tier2: false });
+
+  // C scales linearly with N_e
+  const rNe2 = t.compute({ ...inp0, tier2: false, Ne: inp0.Ne * 2 });
+  ok('C ∝ N_e (linear)',
+    near(rNe2.C_nominal_F, 2 * r0.C_nominal_F, 1e-9),
+    `expected 2× C, got ${(rNe2.C_nominal_F / r0.C_nominal_F).toFixed(4)}×`);
+
+  // C scales inversely with d_fired (drives via h_BT)
+  const rHBT2 = t.compute({ ...inp0, tier2: false, hBT: inp0.hBT * 2 });
+  ok('C ∝ 1/h_BT (inverse)',
+    near(rHBT2.C_nominal_F, r0.C_nominal_F / 2, 1e-9),
+    `expected 0.5× C, got ${(rHBT2.C_nominal_F / r0.C_nominal_F).toFixed(4)}×`);
+
+  // C scales with coverage
+  const rCov2 = t.compute({ ...inp0, tier2: false, coverage: inp0.coverage / 2 });
+  ok('C ∝ coverage', near(rCov2.C_nominal_F, r0.C_nominal_F / 2, 1e-9));
+
+  // C scales with (1 - discontinuity)
+  const rD0 = t.compute({ ...inp0, tier2: false, disc: 0 });
+  const rD5 = t.compute({ ...inp0, tier2: false, disc: 0.5 });
+  ok('C ∝ (1 - discontinuity)',
+    near(rD5.C_nominal_F, rD0.C_nominal_F * 0.5, 1e-9),
+    `expected 0.5×, got ${(rD5.C_nominal_F / rD0.C_nominal_F).toFixed(4)}×`);
+
+  // C scales with ε_r — X7R (2200) to C0G (30) is a factor of 73.3
+  const rC0G = t.compute({ ...inp0, tier2: false, cls: 'C0G' });
+  ok('C ∝ ε_r (C0G vs X7R = 30/2200)',
+    near(rC0G.C_nominal_F / r0.C_nominal_F, 30 / 2200, 1e-9));
+
+  // Case area scales A_overlap: 0805 vs 0402
+  const r0402 = t.compute({ ...inp0, tier2: false, case: '0402_1005' });
+  const c0805 = t.CASES.find(c => c.id === '0805_2012');
+  const c0402 = t.CASES.find(c => c.id === '0402_1005');
+  const expectedRatio =
+    ((c0402.L - 2*c0402.em) * (c0402.W - 2*c0402.sm)) /
+    ((c0805.L - 2*c0805.em) * (c0805.W - 2*c0805.sm));
+  ok('C ∝ A_overlap (0402 vs 0805 area ratio)',
+    near(r0402.C_nominal_F / r0.C_nominal_F, expectedRatio, 1e-9));
+
+  // Shrinkage: d_fired = h_BT × (1 - s), so C ∝ 1 / (1 - s).
+  // C(s=0) × 1.0 = C(s=s) × (1-s) → C(s=s) = C(s=0) / (1-s).
+  const rS0 = t.compute({ ...inp0, tier2: false, sTotal: 0 });
+  ok('Higher s_total → smaller d_fired → larger C (factor 1/(1-s))',
+    near(r0.C_nominal_F * (1 - inp0.sTotal), rS0.C_nominal_F, 1e-9),
+    `expected ${(rS0.C_nominal_F).toExponential(4)}, got ${(r0.C_nominal_F * (1 - inp0.sTotal)).toExponential(4)}`);
+})();
+
+// ============================================================
+// 2. TCC envelope edges
+// ============================================================
+
+(function tccEdges() {
+  // f_T = 1 at T = 25 °C (the reference) for all classes
+  for (const cls of ['C0G', 'X5R', 'X7R', 'X8R', 'Y5V']) {
+    ok(`TCC at 25 °C is unity (${cls})`, near(t.tccFactor(cls, 25), 1, 1e-9));
+  }
+
+  // C0G is essentially flat: ±0.5 % over full operating range
+  ok('C0G is flat over [-55, 150]',
+    Math.abs(t.tccFactor('C0G', -55) - 1) < 0.005 && Math.abs(t.tccFactor('C0G', 150) - 1) < 0.005);
+
+  // X5R hits ±15 % limit at +85 °C and -55 °C (asymmetric range, both endpoints).
+  ok('X5R at +85 °C = 0.85',  near(t.tccFactor('X5R', 85),  0.85, 1e-9));
+  ok('X5R at -55 °C = 0.85',  near(t.tccFactor('X5R', -55), 0.85, 1e-9));
+
+  // X7R hits ±15 % at +125 °C and -55 °C.
+  ok('X7R at +125 °C = 0.85', near(t.tccFactor('X7R', 125), 0.85, 1e-9));
+  ok('X7R at -55 °C = 0.85',  near(t.tccFactor('X7R', -55), 0.85, 1e-9));
+
+  // X8R hits ±15 % at +150 °C and -55 °C.
+  ok('X8R at +150 °C = 0.85', near(t.tccFactor('X8R', 150), 0.85, 1e-9));
+  ok('X8R at -55 °C = 0.85',  near(t.tccFactor('X8R', -55), 0.85, 1e-9));
+
+  // Y5V at +85 °C drops to ~18 % (-82 % spec)
+  ok('Y5V at +85 °C ≈ 0.18',  near(t.tccFactor('Y5V', 85), 0.18, 0.05));
+
+  // Y5V at -30 °C drops by ~22 % below nominal
+  ok('Y5V at -30 °C ≈ 0.78',  near(t.tccFactor('Y5V', -30), 0.78, 0.05));
+})();
+
+// ============================================================
+// 3. DC bias envelope edges
+// ============================================================
+
+(function dcBiasEdges() {
+  for (const cls of ['C0G', 'X5R', 'X7R', 'X8R', 'Y5V']) {
+    ok(`DC bias at 0 V/µm is unity (${cls})`, t.dcBiasFactor(cls, 0) === 1);
+  }
+  // C0G stays > 0.999 even at 100 V/µm
+  ok('C0G DC-bias derating negligible at 100 V/µm', t.dcBiasFactor('C0G', 100) > 0.999);
+
+  // X7R at field = E0 = 4 V/µm → exactly 0.5
+  ok('X7R f_V at E = E0 is exactly 0.5',
+    near(t.dcBiasFactor('X7R', t.DCBIAS['X7R'].E0), 0.5, 1e-9));
+
+  // X7R at 2× E0 → 0.2 (1 / (1+4))
+  ok('X7R f_V at 2× E0 ≈ 0.2',
+    near(t.dcBiasFactor('X7R', 2 * t.DCBIAS['X7R'].E0), 0.2, 1e-9));
+
+  // Y5V derates dramatically at low field — at 5 V/µm should be near 1/(1+(5/1.5)^1.5) ≈ 0.142
+  const expected = 1 / (1 + Math.pow(5 / 1.5, 1.5));
+  ok('Y5V f_V at 5 V/µm matches sigmoid',
+    near(t.dcBiasFactor('Y5V', 5), expected, 1e-9));
+
+  // Monotonic decrease with V for all non-C0G
+  for (const cls of ['X5R', 'X7R', 'X8R', 'Y5V']) {
+    const fA = t.dcBiasFactor(cls, 1);
+    const fB = t.dcBiasFactor(cls, 5);
+    const fC = t.dcBiasFactor(cls, 20);
+    ok(`${cls} f_V is monotonically decreasing in V`, fA > fB && fB > fC);
+  }
+})();
+
+// ============================================================
+// 4. Warning trigger thresholds
+// ============================================================
+
+function warningCodes(inp) {
+  return t.compute(inp).warnings.map(w => w.code);
+}
+
+(function warnings() {
+  // Grain-size floor: h_BT × (1 - s_total) < 0.3 µm. With s_total=0.12, threshold ≈ 0.34 µm
+  const trigger = warningCodes({ ...inp0, hBT: 0.3, sTotal: 0.12 });
+  ok('h_BT 0.3 µm fires grain-size-floor warning', trigger.includes('D_GRAIN_FLOOR'));
+
+  const noTrigger = warningCodes({ ...inp0, hBT: 1.0 });
+  ok('h_BT 1.0 µm does NOT fire grain-size warning', !noTrigger.includes('D_GRAIN_FLOOR'));
+
+  // 3-particle electrode floor: h_Ni fired < 0.3 µm
+  const niTrig = warningCodes({ ...inp0, hNi: 0.3 });
+  ok('h_Ni 0.3 µm fires 3-particle floor warning', niTrig.includes('NI_PARTICLE_FLOOR'));
+
+  // H_max exceeded: 1000 layers × default thicknesses in an 0805 (H_max 1.35 mm)
+  const big = warningCodes({ ...inp0, Ne: 1000 });
+  ok('N_e 1000 on 0805 exceeds H_max', big.includes('H_OVER'));
+
+  // h_Ni / h_BT < 0.3 → thin-Ni info
+  const thinNi = warningCodes({ ...inp0, hNi: 0.5, hBT: 5.0 });
+  ok('h_Ni/h_BT = 0.1 fires THIN_NI info', thinNi.includes('THIN_NI'));
+
+  // h_Ni / h_BT > 2.0 → thick-Ni info
+  const thickNi = warningCodes({ ...inp0, hNi: 2.5, hBT: 1.0 });
+  ok('h_Ni/h_BT = 2.5 fires THICK_NI info', thickNi.includes('THICK_NI'));
+
+  // Coverage > 0.95 → margin warning
+  const cov96 = warningCodes({ ...inp0, coverage: 0.96 });
+  ok('Coverage 0.96 fires COVERAGE_HIGH warning', cov96.includes('COVERAGE_HIGH'));
+})();
+
+// ============================================================
+// 5. Vendor calibration (loose — just order-of-magnitude sanity)
+// ============================================================
+
+(function vendorCalibration() {
+  // For each scenario: set realistic recipe inputs and check that
+  // the predicted C is within 2× of the rated value (very loose because
+  // we don't know exact vendor h_BT, N_e). The point is to flag if a
+  // refactor breaks the math by orders of magnitude.
+
+  // Recipe inputs are reasonable guesses, not the actual proprietary vendor specs.
+  // Tolerances are deliberately loose (~ ±2.5×) — these tests catch math regressions,
+  // not modeling errors. A failure here means C scales the wrong way with one of the inputs.
+  const scenarios = [
+    { name: 'Murata GRM188R71H104K (0603 X7R 0.1 µF 50 V)',
+      input: { case: '0603_1608', cls: 'X7R', hBT: 4.0, hNi: 1.2, Ne: 50 },
+      target_uF: 0.1, tol: 2.5 },
+    { name: 'Murata GRM21BR71H475K (0805 X7R 4.7 µF 50 V)',
+      input: { case: '0805_2012', cls: 'X7R', hBT: 1.2, hNi: 0.8, Ne: 350 },
+      target_uF: 4.7, tol: 2.5 },
+    { name: 'Murata GRM21BR61E106K (0805 X5R 10 µF 25 V)',
+      input: { case: '0805_2012', cls: 'X5R', hBT: 0.8, hNi: 0.7, Ne: 450 },
+      target_uF: 10.0, tol: 2.5 },
+    { name: 'Murata GRM2165C2A103J (0805 C0G 10 nF 100 V)',
+      input: { case: '0805_2012', cls: 'C0G', hBT: 4.0, hNi: 1.2, Ne: 200 },
+      target_uF: 0.01, tol: 3.0 },
+  ];
+
+  for (const s of scenarios) {
+    const r = t.compute({ ...t.defaultInputs(), tier2: false, ...s.input });
+    const got_uF = r.C_nominal_F * 1e6;
+    const ratio  = got_uF / s.target_uF;
+    const pass   = ratio >= 1 / s.tol && ratio <= s.tol;
+    ok(s.name,
+      pass,
+      `predicted ${got_uF.toFixed(3)} µF vs rated ${s.target_uF} µF → ratio ${ratio.toFixed(2)}× (tol ±${s.tol}×)`);
+  }
+})();
+
+// ============================================================
+// 6. Tier 2 overlay sanity
+// ============================================================
+
+(function tier2Overlay() {
+  // X7R at 25 °C, 0 V → derated == nominal
+  const r = t.compute({ ...inp0, vdc: 0, top: 25 });
+  ok('Tier 2 with V=0, T=25 → derated == nominal',
+    near(r.C_derated_F, r.C_nominal_F, 1e-9));
+
+  // X7R at 25 V on 2.0 µm h_BT (1.76 fired) → E ≈ 14.2 V/µm → strong derating
+  const r2 = t.compute({ ...inp0, vdc: 25, top: 25 });
+  ok('X7R at 25 V, 25 °C shows derating', r2.C_derated_F < r.C_nominal_F * 0.5);
+
+  // C0G at 25 V should derate by <1 %
+  const r3 = t.compute({ ...inp0, cls: 'C0G', vdc: 25, top: 25 });
+  ok('C0G at 25 V, 25 °C barely derates', r3.f_V > 0.99);
+
+  // Toggling tier2 off bypasses corrections
+  const rOff = t.compute({ ...inp0, vdc: 50, top: 150, tier2: false });
+  ok('tier2:false bypasses TCC/V_DC',
+    near(rOff.C_derated_F, rOff.C_nominal_F, 1e-9));
+})();
+
+// ============================================================
+// Report
+// ============================================================
+
+console.log(`\n${passed + failed} test cases.`);
+console.log(`  passed: ${passed}`);
+console.log(`  failed: ${failed}`);
+if (failed > 0) {
+  console.log('\nFailures:');
+  failures.forEach(f => console.log('  ' + f));
+  process.exit(1);
+}
+console.log('\nAll green.');
