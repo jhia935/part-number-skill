@@ -1,6 +1,6 @@
 ---
 name: mlcc-part
-description: Decode, cross-reference, and search MLCC (multi-layer ceramic capacitor) part numbers across vendors. Use this skill whenever the user mentions an MLCC part number (Murata GRM/GCM/GJM, Samsung SEMCO CL, TDK C-series, KEMET C-spec), asks to find an equivalent part at another vendor, or describes capacitor specs in plain English ("0805 X7R 1µF 50V", "10uF X5R for a 6.3V rail", "what is GRM21BR71H475K"). Handles three operations: natural-language spec → part list, part number → structured specs, part number → cross-vendor equivalents.
+description: "Decode, cross-reference, and search MLCC (multi-layer ceramic capacitor) part numbers across vendors. Use this skill whenever the user mentions an MLCC part number (Murata GRM/GCM/GJM, Samsung SEMCO CL, TDK C-series, KEMET C-spec), asks to find an equivalent part at another vendor, or describes capacitor specs in plain English ('0805 X7R 1µF 50V', '10uF X5R for a 6.3V rail', 'what is GRM21BR71H475K'). Three operations — natural-language spec to part list, part number to structured specs, part number to cross-vendor equivalents. Usage: /mlcc-part <pn> for decode+cross; /mlcc-part decode <pn>; /mlcc-part cross <pn>; /mlcc-part search <spec text>."
 ---
 
 # MLCC part number skill
