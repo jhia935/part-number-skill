@@ -24,10 +24,14 @@
     "1825": "1812_4532",
     "2220": "2220_5750"
   },
+  "_voltage_note": "KEMET commercial C-spec uses 2-char voltage codes. Verified entries from real part-number lookups on Newark / Digi-Key: 9P=6.3V (C0402C106M9PACTU).",
   "voltage": {
-    "5R": 4.0,  "5C": 6.3,  "8C": 10,  "1C": 16,  "3R": 25,
-    "5G": 35,   "5R": 50,   "1H": 50,  "1K": 100, "2W": 200,
-    "3K": 250,  "5G": 500,  "1Y": 630, "1J": 1000
+    "5R": 4.0,  "5C": 6.3,  "9P": 6.3,
+    "8C": 10,
+    "1C": 16,   "3R": 25,
+    "5G": 35,   "1H": 50,
+    "1K": 100,  "2W": 200,  "3K": 250,
+    "1Y": 630,  "1J": 1000
   },
   "dielectric_to_class": {
     "G": "C0G",
