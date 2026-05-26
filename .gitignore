@@ -4,7 +4,9 @@
 *~
 
 # Local Claude Code skill installs (use skills-lock.json to pin versions)
-.claude/
+.claude/*
+# …but project-authored skills under .claude/skills/ ARE versioned.
+!.claude/skills/
 
 # Obsidian per-user workspace state
 .obsidian/

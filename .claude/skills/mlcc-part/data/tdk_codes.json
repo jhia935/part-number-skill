@@ -1,0 +1,36 @@
+{
+  "_comment": "TDK C-series part-number grammar. Variable length depending on extension suffix. Source: TDK MLCC catalog + tdk.com partnumber description PDF.",
+  "vendor": "TDK",
+  "prefixes": ["C", "CGA"],
+  "fields_c_series": [
+    { "name": "prefix",        "start": 0,  "len": 1, "note": "'C' for general purpose" },
+    { "name": "size",          "start": 1,  "len": 4, "note": "metric, e.g., 2012" },
+    { "name": "class",         "start": 5,  "len": 3, "note": "X7R, X5R, C0G literal" },
+    { "name": "voltage",       "start": 8,  "len": 2 },
+    { "name": "capacitance",   "start": 10, "len": 3 },
+    { "name": "tolerance",     "start": 13, "len": 1 },
+    { "name": "thickness_mm100","start": 14,"len": 3, "optional": true, "note": "thickness in 0.01mm units, e.g., 085 = 0.85mm" },
+    { "name": "packaging",     "start": 17, "len": 1, "optional": true },
+    { "name": "control",       "start": 18, "len": 1, "optional": true }
+  ],
+  "size_to_case": {
+    "1005": "0402_1005",
+    "1608": "0603_1608",
+    "2012": "0805_2012",
+    "3216": "1206_3216",
+    "3225": "1210_3225",
+    "4532": "1812_4532",
+    "5750": "2220_5750"
+  },
+  "class_literal": ["C0G", "X5R", "X6S", "X7R", "X7S", "X7T", "X7U", "X8R", "X8L", "Y5V", "NP0", "U2J"],
+  "voltage": {
+    "0G": 4.0, "0J": 6.3,
+    "1A": 10,  "1C": 16,  "1E": 25, "1V": 35, "1H": 50,
+    "2A": 100, "2E": 250, "2W": 450, "2J": 630,
+    "3A": 1000, "3D": 2000, "3F": 3000
+  },
+  "tolerance": {
+    "B": "±0.1 pF", "C": "±0.25 pF", "D": "±0.5 pF",
+    "F": "±1%", "G": "±2%", "J": "±5%", "K": "±10%", "M": "±20%", "Z": "+80/-20%"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "_comment": "Samsung Electro-Mechanics CL-series part-number field grammar. 15-char fixed length. Source: wiki/entities/samsung-cl-series.md plus Mouser/LCSC verification.",
+  "vendor": "Samsung",
+  "prefix": "CL",
+  "length": 15,
+  "fields": [
+    { "name": "prefix",      "start": 0,  "len": 2 },
+    { "name": "size",        "start": 2,  "len": 2 },
+    { "name": "tcc",         "start": 4,  "len": 1 },
+    { "name": "capacitance", "start": 5,  "len": 3 },
+    { "name": "tolerance",   "start": 8,  "len": 1 },
+    { "name": "voltage",     "start": 9,  "len": 1 },
+    { "name": "thickness",   "start": 10, "len": 1 },
+    { "name": "plating",     "start": 11, "len": 1 },
+    { "name": "control",     "start": 12, "len": 1 },
+    { "name": "reserved",    "start": 13, "len": 1 },
+    { "name": "packaging",   "start": 14, "len": 1 }
+  ],
+  "size_to_case": {
+    "03": "0201_0603",
+    "05": "0402_1005",
+    "10": "0603_1608",
+    "21": "0805_2012",
+    "31": "1206_3216",
+    "32": "1210_3225",
+    "43": "1812_4532",
+    "55": "2220_5750"
+  },
+  "tcc_to_class": {
+    "A": "X5R",
+    "B": "X7R",
+    "X": "X6S",
+    "F": "Y5V",
+    "C": "C0G",
+    "P": "C0G", "R": "C0G", "S": "C0G", "T": "C0G", "U": "C0G"
+  },
+  "voltage": {
+    "S": 2.5, "R": 4.0, "Q": 6.3, "P": 10, "O": 16, "A": 25, "L": 35,
+    "B": 50,  "T": 75,  "C": 100, "D": 200, "E": 250, "G": 500,
+    "H": 630, "I": 1000, "J": 2000, "K": 3000
+  },
+  "tolerance": {
+    "B": "±0.1 pF", "C": "±0.25 pF", "D": "±0.5 pF",
+    "F": "±1%", "G": "±2%", "J": "±5%", "K": "±10%", "M": "±20%", "Z": "+80/-20%"
+  },
+  "plating": {
+    "A": "Pd/Ag (PME)",
+    "N": "Ni/Cu (BME)",
+    "G": "Cu/Cu"
+  },
+  "control": {
+    "N": "Normal (consumer/general)",
+    "P": "Automotive (AEC-Q200)",
+    "L": "LICC (low-inductance)",
+    "A": "Array",
+    "B": "Array",
+    "C": "High-Q (RF)"
+  }
+}

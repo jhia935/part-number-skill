@@ -1,0 +1,13 @@
+{
+  "_comment": "EIA RS-198 dielectric class lookup with nominal εr and operating range. εr values are class averages, not part-specific.",
+  "classes": [
+    { "id": "C0G", "tier": "Class I",  "er": 30,   "T_min": -55, "T_max": 125, "tcc_pct": 0.3,  "notes": "NP0, ultra-stable; ±30 ppm/°C" },
+    { "id": "X5R", "tier": "Class II", "er": 2500, "T_min": -55, "T_max": 85,  "tcc_pct": 15,   "notes": "±15% over -55..85 °C" },
+    { "id": "X6S", "tier": "Class II", "er": 2200, "T_min": -55, "T_max": 105, "tcc_pct": 22,   "notes": "±22% over -55..105 °C" },
+    { "id": "X7R", "tier": "Class II", "er": 2200, "T_min": -55, "T_max": 125, "tcc_pct": 15,   "notes": "±15% over -55..125 °C; workhorse" },
+    { "id": "X7S", "tier": "Class II", "er": 2400, "T_min": -55, "T_max": 125, "tcc_pct": 22,   "notes": "±22% over -55..125 °C; higher-CV X7" },
+    { "id": "X8R", "tier": "Class II", "er": 1800, "T_min": -55, "T_max": 150, "tcc_pct": 15,   "notes": "±15% over -55..150 °C; automotive" },
+    { "id": "X8L", "tier": "Class II", "er": 1500, "T_min": -55, "T_max": 150, "tcc_pct": 15,   "notes": "±15%/+15%/-40% asymmetric extension" },
+    { "id": "Y5V", "tier": "Class III","er": 7000, "T_min": -30, "T_max": 85,  "tcc_pct": 82,   "notes": "+22%/-82% over -30..85 °C; legacy" }
+  ]
+}

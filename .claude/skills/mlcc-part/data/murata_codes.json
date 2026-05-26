@@ -1,0 +1,53 @@
+{
+  "_comment": "Murata GRM/GCM/GJM-series part-number grammar. Variable length 13-16 chars depending on trailing revision/packaging suffix. Source: Murata FAQ + Mouser global part numbering doc + worked example GRM21BR71H474KA88L.",
+  "vendor": "Murata",
+  "prefixes": ["GRM", "GCM", "GJM", "GRT", "GA3"],
+  "fields": [
+    { "name": "prefix",        "start": 0,  "len": 3 },
+    { "name": "size",          "start": 3,  "len": 2 },
+    { "name": "thickness",     "start": 5,  "len": 1 },
+    { "name": "tcc",           "start": 6,  "len": 2 },
+    { "name": "voltage",       "start": 8,  "len": 2 },
+    { "name": "capacitance",   "start": 10, "len": 3 },
+    { "name": "tolerance",     "start": 13, "len": 1 },
+    { "name": "termination",   "start": 14, "len": 1, "optional": true },
+    { "name": "packaging",     "start": 15, "len": 2, "optional": true },
+    { "name": "revision",      "start": 17, "len": 1, "optional": true }
+  ],
+  "size_to_case": {
+    "03": "0201_0603",
+    "15": "0402_1005",
+    "18": "0603_1608",
+    "21": "0805_2012",
+    "31": "1206_3216",
+    "32": "1210_3225",
+    "43": "1812_4532",
+    "55": "2220_5750"
+  },
+  "_tcc_note": "Murata uses 2-char TCC codes. 5C=C0G; R6=X5R; R7=X7R; R8=X8R. R5 is not a standard Murata letter (the X5R parts use R6). Verified against GRM21BR61E106K (X5R 10uF 25V) and GRM21BR71H475K (X7R 4.7uF 50V).",
+  "tcc_to_class": {
+    "5C": "C0G",
+    "C7": "C0G",
+    "R6": "X5R",
+    "R7": "X7R",
+    "R8": "X8R",
+    "L8": "X8L",
+    "F5": "Y5V"
+  },
+  "voltage": {
+    "0E": 2.5, "0G": 4.0, "0J": 6.3,
+    "1A": 10,  "1C": 16,  "1D": 20,  "1E": 25, "1V": 35,
+    "1H": 50,  "2A": 100, "2D": 200, "2E": 250, "2J": 630, "2W": 450,
+    "3A": 1000, "3D": 2000, "3F": 3000
+  },
+  "tolerance": {
+    "B": "±0.1 pF", "C": "±0.25 pF", "D": "±0.5 pF",
+    "F": "±1%", "G": "±2%", "J": "±5%", "K": "±10%", "M": "±20%", "Z": "+80/-20%"
+  },
+  "termination": {
+    "A": "Ni/Sn plating",
+    "K": "Sn (lead-free)",
+    "L": "Ni/Sn-Pb",
+    "U": "Soft termination (GRT-equivalent)"
+  }
+}
