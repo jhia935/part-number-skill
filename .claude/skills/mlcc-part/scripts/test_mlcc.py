@@ -220,12 +220,45 @@ def t_search():
 
 
 # ============================================================
+# 9. SKILL.md frontmatter validity (regression guard)
+# ============================================================
+
+def t_skill_md_frontmatter():
+    """Catches the class of YAML breakage that hid /mlcc-part from autocomplete:
+    an unquoted colon inside the description value broke yaml.safe_load even
+    though Claude Code's lenient lister still surfaced the skill text.
+    """
+    import re
+    skill_md = Path(__file__).resolve().parent.parent / "SKILL.md"
+    text = skill_md.read_text()
+    m = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
+    ok("SKILL.md has frontmatter delimiters", m is not None)
+    if m is None:
+        return
+    try:
+        import yaml
+        parsed = yaml.safe_load(m.group(1))
+    except Exception as e:
+        ok("SKILL.md frontmatter is valid YAML", False, str(e))
+        return
+    ok("SKILL.md frontmatter parses to dict", isinstance(parsed, dict))
+    ok("SKILL.md has a description",            "description" in parsed)
+    if "name" in parsed:
+        ok("name ≤ 64 chars",                   len(parsed["name"]) <= 64)
+        ok("name is lowercase / hyphens only",
+           bool(re.fullmatch(r"[a-z0-9-]+", parsed["name"])))
+    if "description" in parsed:
+        ok("description ≤ 1024 chars",          len(parsed["description"]) <= 1024)
+
+
+# ============================================================
 # Run
 # ============================================================
 
 if __name__ == "__main__":
     for fn in (t_semco_direct, t_murata_direct, t_tdk_direct, t_cap_code,
-               t_auto_dispatch, t_errors, t_database_crosscheck, t_search):
+               t_auto_dispatch, t_errors, t_database_crosscheck, t_search,
+               t_skill_md_frontmatter):
         fn()
 
     print(f"\n{passed + failed} test cases.")
