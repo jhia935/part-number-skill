@@ -235,7 +235,7 @@ function warningCodes(inp) {
     { name: 'Murata GRM21BR61E106K (0805 X5R 10 µF 25 V)',
       input: { case: '0805_2012', cls: 'X5R', hBT: 0.8, hNi: 0.7, Ne: 450 },
       target_uF: 10.0, tol: 2.5 },
-    { name: 'Samsung CL21B105KAFNNNE (0805 X7R 1 µF 50 V)',
+    { name: 'Samsung CL21B105KAFNNNE (0805 X7R 1 µF 25 V — verified Mouser/LCSC)',
       input: { case: '0805_2012', cls: 'X7R', hBT: 1.8, hNi: 1.0, Ne: 120 },
       target_uF: 1.0, tol: 2.5 },
     { name: '0805 X7R 1 µF 100 V (industrial)',

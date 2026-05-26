@@ -61,7 +61,7 @@
     { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 0.47,   mfr: 'Murata',  pn: 'GRM21BR71H474K' },
     { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 4.7,    mfr: 'Murata',  pn: 'GRM21BR71H475K' },
     { case: '0805_2012', cls: 'X5R', V: 25,  C_uF: 10,     mfr: 'Murata',  pn: 'GRM21BR61E106K' },
-    { case: '0805_2012', cls: 'X7R', V: 50,  C_uF: 1.0,    mfr: 'Samsung', pn: 'CL21B105KAFNNNE' },
+    { case: '0805_2012', cls: 'X7R', V: 25,  C_uF: 1.0,    mfr: 'Samsung', pn: 'CL21B105KAFNNNE' },
     { case: '0805_2012', cls: 'X7R', V: 100, C_uF: 1.0,    mfr: 'Murata',  pn: 'GRM21BR72A105K' },
     { case: '0805_2012', cls: 'C0G', V: 100, C_uF: 0.01,   mfr: 'Murata',  pn: 'GRM2165C2A103J' },
     { case: '0805_2012', cls: 'X8R', V: 50,  C_uF: 1.0,    mfr: 'Murata',  pn: 'GCM21BR71H105KA73' },
