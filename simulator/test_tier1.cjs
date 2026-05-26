@@ -312,6 +312,91 @@ function warningCodes(inp) {
 })();
 
 // ============================================================
+// 7. SEMCO part-number decoder
+// ============================================================
+
+(function decoderDirect() {
+  // Verified-real part from Mouser / LCSC / TME web lookup.
+  const a = t.parseSemcoCL('CL21B105KAFNNNE');
+  ok('CL21B105KAFNNNE: case = 0805_2012', a.case === '0805_2012');
+  ok('CL21B105KAFNNNE: cls = X7R',         a.cls === 'X7R');
+  ok('CL21B105KAFNNNE: C = 1 µF',          near(a.C_uF, 1.0, 1e-6));
+  ok('CL21B105KAFNNNE: tol = ±10%',        a.tol === '±10%');
+  ok('CL21B105KAFNNNE: V = 25',            a.V === 25);
+  ok('CL21B105KAFNNNE: plating N (BME)',   a.platingCode === 'N');
+  ok('CL21B105KAFNNNE: control N',         a.controlCode === 'N');
+
+  // Wiki canonical example (samsung-cl-series.md).
+  const b = t.parseSemcoCL('CL10B104KB8NNNC');
+  ok('CL10B104KB8NNNC: case = 0603_1608',  b.case === '0603_1608');
+  ok('CL10B104KB8NNNC: cls = X7R',         b.cls === 'X7R');
+  ok('CL10B104KB8NNNC: C = 100 nF',        near(b.C_uF, 0.1, 1e-6));
+  ok('CL10B104KB8NNNC: V = 50',            b.V === 50);
+  ok('CL10B104KB8NNNC: tol = ±10%',        b.tol === '±10%');
+
+  // High-voltage Class I encoding (C = C0G TCC, B = 50 V).
+  const c = t.parseSemcoCL('CL31B106KAHNNNE');
+  ok('CL31B106KAHNNNE: case = 1206_3216',  c.case === '1206_3216');
+  ok('CL31B106KAHNNNE: C = 10 µF',         near(c.C_uF, 10.0, 1e-6));
+  ok('CL31B106KAHNNNE: V = 25',            c.V === 25);
+
+  // 0402 X5R from open-access spec sheet (CL05A105KQ5NNNC = 1 µF 6.3V).
+  const d = t.parseSemcoCL('CL05A105KQ5NNNC');
+  ok('CL05A105KQ5NNNC: case = 0402_1005',  d.case === '0402_1005');
+  ok('CL05A105KQ5NNNC: cls = X5R',         d.cls === 'X5R');
+  ok('CL05A105KQ5NNNC: V = 6.3',           d.V === 6.3);
+  ok('CL05A105KQ5NNNC: C = 1 µF',          near(d.C_uF, 1.0, 1e-6));
+})();
+
+// ============================================================
+// 8. SEMCO decoder error handling
+// ============================================================
+
+(function decoderErrors() {
+  function throws(name, fn) {
+    try { fn(); failed++; failures.push(`✗ ${name} — should have thrown`); }
+    catch (e) { passed++; }
+  }
+  throws('rejects non-CL prefix',     () => t.parseSemcoCL('GRM21BR71H105KA'));
+  throws('rejects too short',         () => t.parseSemcoCL('CL21B105'));
+  throws('rejects too long',          () => t.parseSemcoCL('CL21B105KAFNNNEXTRA'));
+  throws('rejects unknown size code', () => t.parseSemcoCL('CL99B105KAFNNNE'));
+  throws('rejects unknown TCC code',  () => t.parseSemcoCL('CL21Z105KAFNNNE'));
+  throws('rejects unknown V code',    () => t.parseSemcoCL('CL21B105K?FNNNE'));
+  throws('rejects bad cap code',      () => t.parseSemcoCL('CL21BABCKAFNNNE'));
+})();
+
+// ============================================================
+// 9. Cross-check: every SEMCO part in VENDOR_PARTS must decode
+//    to the same case / cls / V / C as its metadata claims.
+//    This is what would have caught the V=50 → V=25 mistake
+//    on CL21B105KAFNNNE.
+// ============================================================
+
+(function crossCheckVendor() {
+  const semcoParts = t.VENDOR_PARTS.filter(p => p.mfr === 'Samsung' && p.pn.startsWith('CL'));
+  ok('At least 4 Samsung CL parts in VENDOR_PARTS', semcoParts.length >= 4);
+
+  for (const p of semcoParts) {
+    let d;
+    try { d = t.parseSemcoCL(p.pn); }
+    catch (e) {
+      ok(`${p.pn}: decodes without error`, false, e.message);
+      continue;
+    }
+    ok(`${p.pn}: decoded case = metadata case`,
+       d.case === p.case,  `decoded ${d.case} vs metadata ${p.case}`);
+    ok(`${p.pn}: decoded cls = metadata cls`,
+       d.cls === p.cls,    `decoded ${d.cls} vs metadata ${p.cls}`);
+    ok(`${p.pn}: decoded V = metadata V`,
+       d.V === p.V,        `decoded ${d.V} V vs metadata ${p.V} V`);
+    ok(`${p.pn}: decoded C ≈ metadata C`,
+       near(d.C_uF, p.C_uF, 1e-4),
+       `decoded ${d.C_uF} µF vs metadata ${p.C_uF} µF`);
+  }
+})();
+
+// ============================================================
 // Report
 // ============================================================
 

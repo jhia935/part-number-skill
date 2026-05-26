@@ -43,12 +43,115 @@
 
   const EPS0 = 8.854187817e-12; // F/m
 
+  // ============================================================
+  // SEMCO CL-series part-number decoder
+  // 11 fields, 15 characters total:
+  //   CL <size 2c> <tcc 1c> <cap 3c> <tol 1c> <volt 1c>
+  //      <thick 1c> <plating 1c> <control 1c> <reserved 1c> <packaging 1c>
+  // Wiki ref: wiki/entities/samsung-cl-series.md
+  // ============================================================
+
+  // Size code → simulator case ID
+  const SEMCO_SIZE_CODES = {
+    '03': '0201_0603',
+    '05': '0402_1005',
+    '10': '0603_1608',
+    '18': '0612_1632',   // wide-aspect (less common; not in our CASES yet)
+    '21': '0805_2012',
+    '31': '1206_3216',
+    '32': '1210_3225',
+    '42': '2010_5025',   // not in our CASES yet
+    '43': '1812_4532',
+    '55': '2220_5750',
+  };
+
+  // TCC code → simulator class ID. Some SEMCO codes (e.g. X6S, U2J)
+  // don't map to a class we model — decoded but flagged with cls: null.
+  const SEMCO_TCC_CODES = {
+    'A': 'X5R',
+    'B': 'X7R',
+    'X': null,   // X6S — not in our CLASSES set
+    'F': 'Y5V',
+    'C': 'C0G',
+    // Class I sub-codes (all map to C0G family in our model)
+    'P': 'C0G', 'R': 'C0G', 'S': 'C0G', 'T': 'C0G', 'U': 'C0G',
+  };
+
+  // Voltage letter → V rating
+  const SEMCO_VOLTAGE_CODES = {
+    'S': 2.5, 'R': 4.0, 'Q': 6.3, 'P': 10, 'O': 16, 'A': 25, 'L': 35,
+    'B': 50,  'T': 75,  'C': 100, 'D': 200, 'E': 250, 'G': 500,
+    'H': 630, 'I': 1000, 'J': 2000, 'K': 3000,
+  };
+
+  // Tolerance letter → text
+  const SEMCO_TOL_CODES = {
+    'B': '±0.1 pF', 'C': '±0.25 pF', 'D': '±0.5 pF',
+    'F': '±1%',  'G': '±2%',  'J': '±5%', 'K': '±10%',
+    'M': '±20%', 'Z': '+80/-20%',
+  };
+
+  // Decode the 3-character capacitance code.
+  // Standard form: D1 D2 M → (D1·10 + D2) × 10^M pF.
+  // R-form: 'R' acts as a decimal point for sub-pF values (1R0 = 1.0 pF, R47 = 0.47 pF).
+  function decodeCapCode(threeChars) {
+    if (threeChars.length !== 3) throw new Error(`cap code must be 3 chars, got "${threeChars}"`);
+    if (threeChars.includes('R')) {
+      const pf = parseFloat(threeChars.replace('R', '.'));
+      if (!isFinite(pf)) throw new Error(`bad R-form cap code: "${threeChars}"`);
+      return pf * 1e-12;
+    }
+    if (!/^\d{3}$/.test(threeChars)) throw new Error(`cap code must be 3 digits or contain R: "${threeChars}"`);
+    const d1 = parseInt(threeChars[0], 10);
+    const d2 = parseInt(threeChars[1], 10);
+    const m  = parseInt(threeChars[2], 10);
+    return (d1 * 10 + d2) * Math.pow(10, m) * 1e-12;
+  }
+
+  function parseSemcoCL(pn) {
+    if (typeof pn !== 'string') throw new Error(`expected string, got ${typeof pn}`);
+    if (!pn.startsWith('CL')) throw new Error(`not a SEMCO CL part: "${pn}"`);
+    if (pn.length !== 15) throw new Error(`SEMCO CL part must be 15 chars, got ${pn.length}: "${pn}"`);
+
+    const sizeCode      = pn.substring(2, 4);
+    const tccCode       = pn[4];
+    const capCode       = pn.substring(5, 8);
+    const tolCode       = pn[8];
+    const voltCode      = pn[9];
+    const thickCode     = pn[10];
+    const platingCode   = pn[11];
+    const controlCode   = pn[12];
+    const reservedCode  = pn[13];
+    const packagingCode = pn[14];
+
+    if (!(sizeCode in SEMCO_SIZE_CODES))
+      throw new Error(`unknown SEMCO size code "${sizeCode}" in "${pn}"`);
+    if (!(tccCode in SEMCO_TCC_CODES))
+      throw new Error(`unknown SEMCO TCC code "${tccCode}" in "${pn}"`);
+    if (!(voltCode in SEMCO_VOLTAGE_CODES))
+      throw new Error(`unknown SEMCO voltage code "${voltCode}" in "${pn}"`);
+
+    const C_F = decodeCapCode(capCode);
+
+    return {
+      prefix: 'CL',
+      sizeCode, case: SEMCO_SIZE_CODES[sizeCode],
+      tccCode,  cls:  SEMCO_TCC_CODES[tccCode],
+      capCode,  C_F,  C_uF: C_F * 1e6,
+      tolCode,  tol:  SEMCO_TOL_CODES[tolCode] || null,
+      voltCode, V:    SEMCO_VOLTAGE_CODES[voltCode],
+      thickCode, platingCode, controlCode, reservedCode, packagingCode,
+    };
+  }
+
+
   // Vendor reference parts — for the UI's vendor lookup table and as anchors
   // for the test suite's order-of-magnitude calibration. Mostly Murata/TDK/Samsung
   // standard part numbers. Not exhaustive; covers ~20 common case+class+V+C combos.
   const VENDOR_PARTS = [
     // 0402
-    { case: '0402_1005', cls: 'X5R', V: 6.3, C_uF: 1.0,    mfr: 'TDK',     pn: 'C1005X5R0J105K' },
+    { case: '0402_1005', cls: 'X5R', V: 6.3, C_uF: 1.0,    mfr: 'Samsung', pn: 'CL05A105KQ5NNNC' },
+    { case: '0402_1005', cls: 'X7R', V: 16,  C_uF: 0.1,    mfr: 'Samsung', pn: 'CL05B104KO5NNNC' },
     { case: '0402_1005', cls: 'X7R', V: 25,  C_uF: 0.010,  mfr: 'Murata',  pn: 'GRM155R71E103KA' },
     { case: '0402_1005', cls: 'C0G', V: 50,  C_uF: 0.0001, mfr: 'Murata',  pn: 'GRM1555C1H101J' },
     // 0603
@@ -69,6 +172,7 @@
     { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 1.0,    mfr: 'Murata',  pn: 'GRM31MR71H105K' },
     { case: '1206_3216', cls: 'X7R', V: 100, C_uF: 0.22,   mfr: 'TDK',     pn: 'C3216X7R2A224K' },
     { case: '1206_3216', cls: 'X7R', V: 50,  C_uF: 10,     mfr: 'Murata',  pn: 'GRM31CR71H106K' },
+    { case: '1206_3216', cls: 'X7R', V: 25,  C_uF: 10,     mfr: 'Samsung', pn: 'CL31B106KAHNNNE' },
     { case: '1206_3216', cls: 'X7R', V: 250, C_uF: 0.1,    mfr: 'TDK',     pn: 'C3216X7R2E104K' },
     // 1210
     { case: '1210_3225', cls: 'X5R', V: 25,  C_uF: 22,     mfr: 'Murata',  pn: 'GRM32ER61E226M' },
@@ -211,7 +315,9 @@
 
   const api = {
     CASES, CLASSES, DCBIAS, TCC_RANGES, EPS0, VENDOR_PARTS,
+    SEMCO_SIZE_CODES, SEMCO_TCC_CODES, SEMCO_VOLTAGE_CODES, SEMCO_TOL_CODES,
     tccFactor, dcBiasFactor, compute,
+    parseSemcoCL, decodeCapCode,
     fmtCap, fmt, defaultInputs,
   };
 
