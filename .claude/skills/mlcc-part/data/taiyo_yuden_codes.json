@@ -1,0 +1,38 @@
+{
+  "_comment": "Taiyo Yuden M-series part-number grammar. Format inferred from verified-real parts (JMK105CBJ106MV-F, LMK105BJ105KV-F, JMK107ABJ106KA-T). Voltage is encoded in the 3-char prefix; size is the next 3 digits; an optional termination char may follow; then a 2-char TCC code, 3-char cap, 1-char tolerance, 1-char thickness, and a -X packaging suffix. The optional termination char is the source of ambiguity — present in newer parts, absent in older ones.",
+  "vendor": "Taiyo Yuden",
+  "prefix_to_voltage": {
+    "AMK": 4.0,
+    "JMK": 6.3,
+    "LMK": 10,
+    "EMK": 16,
+    "TMK": 25,
+    "UMK": 50,
+    "HMK": 100,
+    "GMK": 250
+  },
+  "size_to_case": {
+    "105": "0402_1005",
+    "107": "0603_1608",
+    "212": "0805_2012",
+    "316": "1206_3216",
+    "325": "1210_3225",
+    "432": "1812_4532",
+    "550": "2220_5750"
+  },
+  "tcc_to_class": {
+    "BJ": "X5R",
+    "B7": "X7R",
+    "BB": "X7R",
+    "CG": "C0G",
+    "CH": "C0G",
+    "C7": "C0G",
+    "CK": "C0G",
+    "F5": "Y5V",
+    "EB": "X8R"
+  },
+  "tolerance": {
+    "B": "±0.1 pF", "C": "±0.25 pF", "D": "±0.5 pF",
+    "F": "±1%", "G": "±2%", "J": "±5%", "K": "±10%", "M": "±20%", "Z": "+80/-20%"
+  }
+}

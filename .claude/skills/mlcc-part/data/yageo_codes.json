@@ -1,0 +1,62 @@
+{
+  "_comment": "Yageo CC-series part-number grammar. Verified via Yageo's own product specsheets (https://yageogroup.com/download/specsheet/CC0402MRX5R5BB106 etc.). Format: CC + 4-digit EIA size + 1-char tolerance + 1-char packing + 3-char dielectric literal (X5R/X7R/NP0/Y5V/X8R) + 1-char voltage + 2-char process + 3-char capacitance. Length 17 chars.",
+  "vendor": "Yageo",
+  "prefix": "CC",
+  "length": 17,
+  "fields": [
+    { "name": "prefix",      "start": 0,  "len": 2 },
+    { "name": "size",        "start": 2,  "len": 4 },
+    { "name": "tolerance",   "start": 6,  "len": 1 },
+    { "name": "packing",     "start": 7,  "len": 1 },
+    { "name": "dielectric",  "start": 8,  "len": 3 },
+    { "name": "voltage",     "start": 11, "len": 1 },
+    { "name": "process",     "start": 12, "len": 2 },
+    { "name": "capacitance", "start": 14, "len": 3 }
+  ],
+  "size_to_case": {
+    "0201": "0201_0603",
+    "0402": "0402_1005",
+    "0603": "0603_1608",
+    "0805": "0805_2012",
+    "1206": "1206_3216",
+    "1210": "1210_3225",
+    "1812": "1812_4532",
+    "1825": "1812_4532",
+    "2220": "2220_5750"
+  },
+  "tolerance": {
+    "B": "±0.1 pF", "C": "±0.25 pF", "D": "±0.5 pF",
+    "F": "±1%", "G": "±2%", "J": "±5%", "K": "±10%", "M": "±20%", "Z": "+80/-20%"
+  },
+  "packing": {
+    "R": "Paper/PE tape, 7\" reel",
+    "K": "Blister tape, 7\" reel",
+    "P": "Paper/PE tape, 13\" reel",
+    "F": "Blister tape, 13\" reel"
+  },
+  "dielectric_to_class": {
+    "NP0": "C0G",
+    "C0G": "C0G",
+    "X5R": "X5R",
+    "X6S": "X6S",
+    "X7R": "X7R",
+    "X7S": "X7S",
+    "X8L": "X8L",
+    "X8R": "X8R",
+    "Y5V": "Y5V"
+  },
+  "voltage": {
+    "5": 6.3,
+    "6": 10,
+    "7": 16,
+    "8": 25,
+    "9": 50,
+    "B": 100,
+    "D": 250,
+    "E": 500,
+    "F": 630,
+    "G": 1000,
+    "H": 2000,
+    "J": 3000
+  }
+}

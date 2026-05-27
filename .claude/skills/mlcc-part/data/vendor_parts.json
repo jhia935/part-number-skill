@@ -1,8 +1,18 @@
 {
   "_comment": "Curated database of MLCC parts. Each entry must decode (via scripts/decoders.py) to match its declared metadata — enforced by test_mlcc.py cross-check loop.",
   "parts": [
-    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 1.0,    "mfr": "Samsung", "pn": "CL05A105KQ5NNNC" },
-    { "case": "0402_1005", "cls": "X7R", "V": 16,  "C_uF": 0.1,    "mfr": "Samsung", "pn": "CL05B104KO5NNNC" },
+    { "case": "0201_0603", "cls": "X5R", "V": 10,  "C_uF": 2.2,    "mfr": "Samsung",     "pn": "CL03A225MP3CEEB" },
+    { "case": "0201_0603", "cls": "X5R", "V": 10,  "C_uF": 2.2,    "mfr": "Murata",      "pn": "GRM033R61A225ME47D" },
+    { "case": "0201_0603", "cls": "X5R", "V": 10,  "C_uF": 2.2,    "mfr": "Murata",      "pn": "GRM033R61A225KE47D" },
+
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 1.0,    "mfr": "Samsung",     "pn": "CL05A105KQ5NNNC" },
+    { "case": "0402_1005", "cls": "X7R", "V": 16,  "C_uF": 0.1,    "mfr": "Samsung",     "pn": "CL05B104KO5NNNC" },
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 10,     "mfr": "Samsung",     "pn": "CL05A106MQ5NUNC" },
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 10,     "mfr": "Murata",      "pn": "GRM155R60J106ME44D" },
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 10,     "mfr": "TDK",         "pn": "C1005X5R0J106M050BC" },
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 10,     "mfr": "KEMET",       "pn": "C0402C106M9PACTU" },
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 10,     "mfr": "Yageo",       "pn": "CC0402MRX5R5BB106" },
+    { "case": "0402_1005", "cls": "X5R", "V": 6.3, "C_uF": 10,     "mfr": "Taiyo Yuden", "pn": "JMK105CBJ106MV-F" },
 
     { "case": "0603_1608", "cls": "X7R", "V": 50,  "C_uF": 0.1,    "mfr": "Murata",  "pn": "GRM188R71H104K" },
     { "case": "0603_1608", "cls": "X7R", "V": 16,  "C_uF": 1.0,    "mfr": "Murata",  "pn": "GRM188R71C105K" },

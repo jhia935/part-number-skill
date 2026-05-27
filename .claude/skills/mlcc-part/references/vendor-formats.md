@@ -85,6 +85,44 @@ Full form: `C2012X7R1H105K085AC` adds 0.85 mm thickness, A=packaging, C=control.
 > This skill only covers the standard commercial C-spec format. Specialty / film capacitor /
 > tantalum codes will fail to decode and that's correct behaviour — they're different products.
 
+## Yageo — CC series
+
+**Length**: exactly 17 characters.
+**Example**: `CC0402MRX5R5BB106` = 0402 / ±20 % / paper tape / X5R / 6.3 V / 10 µF.
+
+| Pos | Len | Field        | Notes |
+|-----|-----|--------------|-------|
+| 0   | 2   | Prefix `CC`  | |
+| 2   | 4   | Size         | **EIA**: 0201, 0402, 0603, 0805, 1206, 1210, 1812, 1825, 2220 |
+| 6   | 1   | Tolerance    | J=±5 %, K=±10 %, M=±20 %, Z=+80/-20 % |
+| 7   | 1   | Packing      | R=paper 7" / K=blister 7" / P=paper 13" / F=blister 13" |
+| 8   | 3   | Dielectric   | literal: `X5R`, `X7R`, `NP0`, `Y5V`, `X8R`, etc. |
+| 11  | 1   | Voltage      | **single digit**: 5=6.3 V, 6=10 V, 7=16 V, 8=25 V, 9=50 V, B=100 V, D=250 V |
+| 12  | 2   | Process      | `BB` = standard termination; other process codes for special variants |
+| 14  | 3   | Capacitance  | same EIA encoding as everyone else |
+
+> Yageo writes the dielectric class **literally** in the part code (like TDK), but the voltage is a **single digit** (unlike everyone else's 2-char codes). The fixed 17-character length makes it easy to validate.
+
+## Taiyo Yuden — M-series (JMK, LMK, EMK, TMK, AMK, UMK, HMK, GMK)
+
+**Length**: variable, typically 14–17 characters plus a `-X` packaging suffix.
+**Example**: `JMK105CBJ106MV-F` = 6.3 V (from JMK) / 0402 / standard termination / X5R / 10 µF / ±20 % / thickness V / packaging F.
+
+| Pos | Len   | Field        | Notes |
+|-----|-------|--------------|-------|
+| 0   | 3     | Voltage prefix | **Voltage is encoded in the prefix** — JMK=6.3 V, LMK=10 V, EMK=16 V, TMK=25 V, AMK=4 V, UMK=50 V, HMK=100 V, GMK=250 V |
+| 3   | 3     | Size         | Taiyo Yuden's own size codes: 105=0402, 107=0603, 212=0805, 316=1206, 325=1210, 432=1812, 550=2220 |
+| 6   | 0 or 1| Termination  | **Optional** single char (A, B, C, …) for end-termination variant. Older parts omit it; newer parts include it. |
+| —   | 2     | TCC          | `BJ`=X5R, `B7`=X7R, `BB`=X7R (alt), `CG`/`CH`/`C7`/`CK`=C0G, `F5`=Y5V, `EB`=X8R |
+| —   | 3     | Capacitance  | same EIA encoding |
+| —   | 1     | Tolerance    | same EIA letters |
+| —   | 1     | Thickness    | usually V or K |
+| —   | 0–N   | Packaging suffix | `-T`, `-F` etc., dash-separated |
+
+> Two unusual choices: (1) **voltage is in the prefix**, not a field after the size; (2) the size codes (105/107/212/…) are Taiyo Yuden's own, not the universal EIA or metric pattern. The optional termination char is the source of regex ambiguity — handled by making the regex group optional.
+>
+> Verified-real anchor parts: `JMK105CBJ106MV-F` (with termination), `LMK105BJ105KV-F` (without).
+
 ## How to add a new vendor
 
 1. Create `data/<vendor>_codes.json` with the same structure (`fields`, `size_to_case`,

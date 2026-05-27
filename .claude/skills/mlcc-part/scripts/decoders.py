@@ -26,6 +26,8 @@ SEMCO    = _load("semco_codes.json")
 MURATA   = _load("murata_codes.json")
 TDK      = _load("tdk_codes.json")
 KEMET    = _load("kemet_codes.json")
+YAGEO    = _load("yageo_codes.json")
+TAIYO    = _load("taiyo_yuden_codes.json")
 
 
 class DecodeError(ValueError):
@@ -279,6 +281,112 @@ def parse_kemet(pn):
 
 
 # ---------------------------------------------------------------------------
+# Vendor 5: Yageo CC-series
+# ---------------------------------------------------------------------------
+
+def parse_yageo_cc(pn):
+    if not pn.startswith("CC"):
+        raise DecodeError(f"not a Yageo CC part: {pn!r}")
+    if len(pn) != YAGEO["length"]:
+        raise DecodeError(f"Yageo CC part must be {YAGEO['length']} chars, got {len(pn)}: {pn!r}")
+
+    size_code  = pn[2:6]
+    tol_code   = pn[6]
+    pack_code  = pn[7]
+    dielectric = pn[8:11]
+    volt_code  = pn[11]
+    process    = pn[12:14]
+    cap_code   = pn[14:17]
+
+    case = YAGEO["size_to_case"].get(size_code)
+    if case is None:
+        raise DecodeError(f"unknown Yageo size code {size_code!r} in {pn!r}")
+    cls = YAGEO["dielectric_to_class"].get(dielectric)
+    if cls is None:
+        raise DecodeError(f"unknown Yageo dielectric literal {dielectric!r} in {pn!r}")
+    V = YAGEO["voltage"].get(volt_code)
+    if V is None:
+        raise DecodeError(f"unknown Yageo voltage code {volt_code!r} in {pn!r}")
+
+    C_F = decode_cap_code(cap_code)
+    return {
+        "vendor": "Yageo",
+        "prefix": "CC",
+        "pn": pn,
+        "case": case,
+        "cls": cls,
+        "C_F": C_F,
+        "C_uF": C_F * 1e6,
+        "V": V,
+        "tol_text": YAGEO["tolerance"].get(tol_code),
+        "raw": {
+            "sizeCode": size_code, "tolCode": tol_code, "packingCode": pack_code,
+            "dielectricLiteral": dielectric, "voltCode": volt_code,
+            "processCode": process, "capCode": cap_code,
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
+# Vendor 6: Taiyo Yuden M-series
+# ---------------------------------------------------------------------------
+
+_TAIYO_RE = re.compile(
+    r"^(?P<prefix>AMK|JMK|LMK|EMK|TMK|UMK|HMK|GMK)"
+    r"(?P<size>\d{3})"
+    r"(?P<term>[A-Z]?)"                   # optional termination char
+    r"(?P<tcc>(?:BJ|B7|BB|CG|CH|C7|CK|F5|EB))"
+    r"(?P<cap>[0-9R]{3})"
+    r"(?P<tol>[A-Z])"
+    r"(?P<thick>[A-Z])"
+    r"(?P<tail>(?:-[A-Z0-9]+)?)$"
+)
+
+
+def parse_taiyo_yuden(pn):
+    m = _TAIYO_RE.match(pn)
+    if not m:
+        raise DecodeError(f"not a recognised Taiyo Yuden M-series part: {pn!r}")
+    prefix    = m.group("prefix")
+    size_code = m.group("size")
+    term      = m.group("term")
+    tcc_code  = m.group("tcc")
+    cap_code  = m.group("cap")
+    tol_code  = m.group("tol")
+    thick     = m.group("thick")
+    tail      = m.group("tail")
+
+    V = TAIYO["prefix_to_voltage"].get(prefix)
+    if V is None:
+        raise DecodeError(f"unknown Taiyo Yuden prefix {prefix!r} in {pn!r}")
+    case = TAIYO["size_to_case"].get(size_code)
+    if case is None:
+        raise DecodeError(f"unknown Taiyo Yuden size code {size_code!r} in {pn!r}")
+    cls = TAIYO["tcc_to_class"].get(tcc_code)
+    if cls is None:
+        raise DecodeError(f"unknown Taiyo Yuden TCC code {tcc_code!r} in {pn!r}")
+
+    C_F = decode_cap_code(cap_code)
+    return {
+        "vendor": "Taiyo Yuden",
+        "prefix": prefix,
+        "pn": pn,
+        "case": case,
+        "cls": cls,
+        "C_F": C_F,
+        "C_uF": C_F * 1e6,
+        "V": V,
+        "tol_text": TAIYO["tolerance"].get(tol_code),
+        "raw": {
+            "voltageFromPrefix": prefix, "sizeCode": size_code,
+            "terminationCode": term, "tccCode": tcc_code,
+            "capCode": cap_code, "tolCode": tol_code, "thickCode": thick,
+            "tail": tail,
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
 # Auto-detection dispatcher
 # ---------------------------------------------------------------------------
 
@@ -306,12 +414,15 @@ def detect_vendor(pn):
 def decode(pn):
     """Auto-detect vendor and decode. Returns the canonical dict or raises DecodeError."""
     p = pn.upper()
-    # Try each parser in order; first one that doesn't raise wins.
     candidates = []
     if p.startswith(("GRM", "GCM", "GJM", "GRT", "GA3")):
         candidates.append(parse_murata_grm)
     if p.startswith(("CL", "CG", "CW")):
         candidates.append(parse_semco_cl)
+    if p.startswith("CC"):
+        candidates.append(parse_yageo_cc)
+    if p.startswith(("AMK", "JMK", "LMK", "EMK", "TMK", "UMK", "HMK", "GMK")):
+        candidates.append(parse_taiyo_yuden)
     if p.startswith("CGA") or (p.startswith("C") and len(p) >= 8 and p[5:8] in
                                ("C0G", "X5R", "X7R", "X6S", "X7S", "X8R", "X8L", "Y5V", "NP0", "U2J")):
         candidates.append(parse_tdk)

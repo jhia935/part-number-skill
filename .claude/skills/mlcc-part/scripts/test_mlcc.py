@@ -99,6 +99,52 @@ def t_murata_direct():
 
 
 # ============================================================
+# 2b. Yageo CC-series direct decode
+# ============================================================
+
+def t_yageo_direct():
+    a = decoders.parse_yageo_cc("CC0402MRX5R5BB106")
+    ok("CC0402MRX5R5BB106: vendor=Yageo",     a["vendor"] == "Yageo")
+    ok("CC0402MRX5R5BB106: case=0402_1005",   a["case"]   == "0402_1005")
+    ok("CC0402MRX5R5BB106: cls=X5R",          a["cls"]    == "X5R")
+    ok("CC0402MRX5R5BB106: V=6.3",            a["V"]      == 6.3)
+    ok("CC0402MRX5R5BB106: C=10µF",           near(a["C_uF"], 10.0, 1e-6))
+    ok("CC0402MRX5R5BB106: tol=±20%",         a["tol_text"] == "±20%")
+
+    # X7R variant at higher voltage
+    b = decoders.parse_yageo_cc("CC0402KRX7R9BB104")
+    ok("CC0402KRX7R9BB104: cls=X7R",          b["cls"] == "X7R")
+    ok("CC0402KRX7R9BB104: V=50",             b["V"]   == 50)
+    ok("CC0402KRX7R9BB104: C=100nF",          near(b["C_uF"], 0.1, 1e-6))
+    ok("CC0402KRX7R9BB104: tol=±10%",         b["tol_text"] == "±10%")
+
+
+# ============================================================
+# 2c. Taiyo Yuden M-series direct decode
+# ============================================================
+
+def t_taiyo_yuden_direct():
+    a = decoders.parse_taiyo_yuden("JMK105CBJ106MV-F")
+    ok("JMK105CBJ106MV-F: vendor=Taiyo Yuden", a["vendor"] == "Taiyo Yuden")
+    ok("JMK105CBJ106MV-F: case=0402_1005",    a["case"]   == "0402_1005")
+    ok("JMK105CBJ106MV-F: cls=X5R",            a["cls"]    == "X5R")
+    ok("JMK105CBJ106MV-F: V=6.3 (from JMK)",   a["V"]      == 6.3)
+    ok("JMK105CBJ106MV-F: C=10µF",             near(a["C_uF"], 10.0, 1e-6))
+    ok("JMK105CBJ106MV-F: tol=±20%",           a["tol_text"] == "±20%")
+
+    # No-termination variant (older format)
+    b = decoders.parse_taiyo_yuden("LMK105BJ105KV-F")
+    ok("LMK105BJ105KV-F: V=10 (from LMK)",     b["V"]   == 10)
+    ok("LMK105BJ105KV-F: C=1µF",               near(b["C_uF"], 1.0, 1e-6))
+    ok("LMK105BJ105KV-F: tol=±10%",            b["tol_text"] == "±10%")
+
+    # 0603 size, with termination char
+    c = decoders.parse_taiyo_yuden("JMK107ABJ106KA-T")
+    ok("JMK107ABJ106KA-T: case=0603_1608",    c["case"] == "0603_1608")
+    ok("JMK107ABJ106KA-T: V=6.3",              c["V"]    == 6.3)
+
+
+# ============================================================
 # 3. TDK direct decode
 # ============================================================
 
@@ -150,6 +196,9 @@ def t_auto_dispatch():
     ok("decode('CL21...') → Samsung",  decoders.decode("CL21B105KAFNNNE")["vendor"] == "Samsung")
     ok("decode('GRM21...') → Murata",  decoders.decode("GRM21BR71H475K")["vendor"]   == "Murata")
     ok("decode('C2012...') → TDK",     decoders.decode("C2012X7R1H105K")["vendor"]   == "TDK")
+    ok("decode('CC0402...') → Yageo",  decoders.decode("CC0402MRX5R5BB106")["vendor"] == "Yageo")
+    ok("decode('JMK105...') → Taiyo Yuden",
+       decoders.decode("JMK105CBJ106MV-F")["vendor"] == "Taiyo Yuden")
 
 
 # ============================================================
@@ -256,7 +305,8 @@ def t_skill_md_frontmatter():
 # ============================================================
 
 if __name__ == "__main__":
-    for fn in (t_semco_direct, t_murata_direct, t_tdk_direct, t_cap_code,
+    for fn in (t_semco_direct, t_murata_direct, t_yageo_direct, t_taiyo_yuden_direct,
+               t_tdk_direct, t_cap_code,
                t_auto_dispatch, t_errors, t_database_crosscheck, t_search,
                t_skill_md_frontmatter):
         fn()
