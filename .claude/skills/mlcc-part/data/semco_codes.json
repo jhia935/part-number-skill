@@ -1,5 +1,5 @@
 {
-  "_comment": "Samsung Electro-Mechanics CL-series part-number field grammar. 15-char fixed length. Source: wiki/entities/samsung-cl-series.md plus Mouser/LCSC verification.",
+  "_comment": "Samsung Electro-Mechanics CL-series part-number field grammar. 15-char fixed length. Sources: Samsung Electro-Mechanics official MLCC catalog (samsungsem.com) plus distributor verification (Mouser / LCSC / TME).",
   "vendor": "Samsung",
   "prefix": "CL",
   "length": 15,

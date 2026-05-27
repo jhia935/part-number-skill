@@ -41,9 +41,20 @@ Map the user's wording to the **canonical case ID** (`<EIA>_<metric>`):
 | `1206`                            | `1206_3216`        |
 
 > ⚠ Bare `0603` without `m`/`i` defaults to **EIA** here because most engineers
-> say "0603" meaning EIA. The full disambiguation table is in
-> `wiki/concepts/case-size-geometry.md`. If the user wrote `0603m` they meant the
-> tiny metric variant (= EIA 0201).
+> say "0603" meaning EIA. If the user explicitly wrote `0603m` they meant the
+> tiny metric variant (0.6 × 0.3 mm = EIA 0201) — a ~7× volume difference.
+>
+> Collision-prone bare codes where EIA and metric readings differ significantly:
+>
+> | Bare digits | EIA reading | Metric reading      | Volume ratio |
+> |-------------|-------------|---------------------|--------------|
+> | `0201`      | 0.6×0.3 mm  | 0.2×0.1 mm (008004) | ~27×         |
+> | `0402`      | 1.0×0.5 mm  | 0.4×0.2 mm (01005)  | ~31×         |
+> | `0603`      | 1.6×0.8 mm  | 0.6×0.3 mm (0201i)  | ~7×          |
+> | `0805`      | 2.0×1.25 mm | 0.8×0.5 mm (0402i)  | ~6×          |
+> | `1206`      | 3.2×1.6 mm  | 1.2×0.6 mm          | ~11×         |
+>
+> When in doubt for these codes, ask the user to use the explicit `i` / `m` suffix.
 
 ## Dielectric class
 

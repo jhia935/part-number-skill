@@ -40,7 +40,8 @@ def expect_decode_error(name, fn):
 
 
 # ============================================================
-# 1. SEMCO direct decode (verified-real and wiki canonical)
+# 1. SEMCO direct decode (verified-real parts from Mouser/LCSC + the canonical
+#    "CL 10 B 104 K B 8 N N N C" example from Samsung's official format spec)
 # ============================================================
 
 def t_semco_direct():
@@ -51,7 +52,7 @@ def t_semco_direct():
     ok("CL21B105KAFNNNE: C=1µF",           near(a["C_uF"], 1.0, 1e-6))
     ok("CL21B105KAFNNNE: tol=±10%",        a["tol_text"] == "±10%")
 
-    b = decoders.parse_semco_cl("CL10B104KB8NNNC")  # wiki canonical
+    b = decoders.parse_semco_cl("CL10B104KB8NNNC")  # Samsung canonical format example
     ok("CL10B104KB8NNNC: case=0603_1608", b["case"] == "0603_1608")
     ok("CL10B104KB8NNNC: cls=X7R",         b["cls"]  == "X7R")
     ok("CL10B104KB8NNNC: C=100nF",         near(b["C_uF"], 0.1, 1e-6))
