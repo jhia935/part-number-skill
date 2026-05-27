@@ -1,6 +1,7 @@
 {
   "_comment": "TDK C-series part-number grammar. Variable length depending on extension suffix. Source: TDK MLCC catalog + tdk.com partnumber description PDF.",
   "vendor": "TDK",
+  "_prefix_note": "TDK C-series (general) and CGA (automotive AEC-Q200) share the same field grammar — only the prefix differs. CGJ (high reliability), CKG (open-mode safety), CNA (soft termination) use different size encoding (single-digit like CGJ4) and need separate parsers — not yet implemented.",
   "prefixes": ["C", "CGA"],
   "fields_c_series": [
     { "name": "prefix",        "start": 0,  "len": 1, "note": "'C' for general purpose" },

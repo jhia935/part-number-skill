@@ -1,6 +1,10 @@
 {
   "_comment": "Curated database of MLCC parts. Each entry must decode (via scripts/decoders.py) to match its declared metadata — enforced by test_mlcc.py cross-check loop.",
   "parts": [
+    { "case": "0805_2012", "cls": "X7S", "V": 25,  "C_uF": 10,     "mfr": "Murata",      "pn": "GCM21BC71E106KE36L" },
+    { "case": "0805_2012", "cls": "X7S", "V": 25,  "C_uF": 10,     "mfr": "Samsung",     "pn": "CL21Y106KABVPNE" },
+    { "case": "0805_2012", "cls": "X8R", "V": 50,  "C_uF": 0.1,    "mfr": "Murata",      "pn": "GCM21BR91H104KA37L" },
+
     { "case": "0201_0603", "cls": "X5R", "V": 10,  "C_uF": 2.2,    "mfr": "Samsung",     "pn": "CL03A225MP3CEEB" },
     { "case": "0201_0603", "cls": "X5R", "V": 10,  "C_uF": 2.2,    "mfr": "Murata",      "pn": "GRM033R61A225ME47D" },
     { "case": "0201_0603", "cls": "X5R", "V": 10,  "C_uF": 2.2,    "mfr": "Murata",      "pn": "GRM033R61A225KE47D" },

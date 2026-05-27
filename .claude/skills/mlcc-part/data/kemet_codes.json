@@ -24,14 +24,36 @@
     "1825": "1812_4532",
     "2220": "2220_5750"
   },
-  "_voltage_note": "KEMET commercial C-spec uses 2-char voltage codes. Verified entries from real part-number lookups on Newark / Digi-Key: 9P=6.3V (C0402C106M9PACTU).",
+  "_voltage_note": "KEMET commercial C-spec voltage is a SINGLE character followed by a separate failure-rate/design code. Verified from KEM_C1002 datasheet voltage code table. (Legacy 2-char codes like 5R/5C/9P/etc. that I had earlier are actually V+FR concatenations — kept for backward-compat lookup, but the correct grammar splits them.)",
   "voltage": {
-    "5R": 4.0,  "5C": 6.3,  "9P": 6.3,
-    "8C": 10,
-    "1C": 16,   "3R": 25,
-    "5G": 35,   "1H": 50,
-    "1K": 100,  "2W": 200,  "3K": 250,
-    "1Y": 630,  "1J": 1000
+    "9": 6.3,
+    "8": 10,
+    "4": 16,
+    "3": 25,
+    "6": 35,
+    "5": 50,
+    "1": 100,
+    "2": 200,
+    "A": 250,
+    "C": 500,
+    "Y": 630,
+    "K": 1000,
+    "_legacy_2char": "These keys are V+FR concatenations from before the grammar was clarified; the parser still tries them as a fallback.",
+    "5R": 4.0, "5C": 6.3, "9P": 6.3, "9C": 6.3, "9R": 6.3, "9A": 6.3,
+    "8C": 10, "8R": 10, "8P": 10, "8A": 10,
+    "4C": 16, "4R": 16, "4P": 16,
+    "3R": 25, "3C": 25, "3P": 25,
+    "6C": 35, "6R": 35,
+    "5G": 35, "5P": 50, "5K": 50,
+    "1H": 50, "1C": 16, "1K": 100, "1P": 100,
+    "2W": 200, "2P": 200, "3K": 250,
+    "1Y": 630, "1J": 1000
+  },
+  "failure_rate": {
+    "A": "N/A (no FR designation)",
+    "C": "100% (all units pass burn-in)",
+    "P": "P-level",
+    "R": "R-level"
   },
   "dielectric_to_class": {
     "G": "C0G",

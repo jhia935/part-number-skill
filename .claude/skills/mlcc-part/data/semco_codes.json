@@ -30,10 +30,12 @@
     "A": "X5R",
     "B": "X7R",
     "X": "X6S",
+    "Y": "X7S",
     "F": "Y5V",
     "C": "C0G",
     "P": "C0G", "R": "C0G", "S": "C0G", "T": "C0G", "U": "C0G"
   },
+  "_tcc_note": "Verified: A=X5R (CL05A105KQ5NNNC), B=X7R (CL21B105KAFNNNE), Y=X7S (CL21Y106KABVPN automotive AEC-Q200). C0G has multiple sub-codes (P/R/S/T/U) for different temperature stability sub-classes — all map to C0G family. Other CL prefix variants like CG / CW are separate automotive product families.",
   "voltage": {
     "S": 2.5, "R": 4.0, "Q": 6.3, "P": 10, "O": 16, "A": 25, "L": 35,
     "B": 50,  "T": 75,  "C": 100, "D": 200, "E": 250, "G": 500,

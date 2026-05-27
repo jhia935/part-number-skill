@@ -24,20 +24,23 @@
     "43": "1812_4532",
     "55": "2220_5750"
   },
-  "_tcc_note": "Murata uses 2-char TCC codes. 5C=C0G; R6=X5R; R7=X7R; R8=X8R. R5 is not a standard Murata letter (the X5R parts use R6). Verified against GRM21BR61E106K (X5R 10uF 25V) and GRM21BR71H475K (X7R 4.7uF 50V).",
+  "_tcc_note": "Murata uses 2-char TCC codes. Verified against real parts: 5C=C0G (GRM2165C2A103J), R6=X5R (GRM21BR61E106K), R7=X7R (GRM21BR71H475K), C7=X7S (GCM21BC71E106KE36L), R9=X8R (GCM21BR91H104KA37L), L8=X8L. Common pitfalls: C7 is NOT C0G (that's 5C only); X8R is R9 not R8 in modern Murata coding; R5 is not used (X5R is R6, not R5). JIS-style codes (B1/B3/F1/R1/R3) appear in older / Japan-market parts.",
   "tcc_to_class": {
     "5C": "C0G",
-    "C7": "C0G",
     "R6": "X5R",
     "R7": "X7R",
-    "R8": "X8R",
+    "C7": "X7S",
+    "C8": "X6S",
+    "R9": "X8R",
     "L8": "X8L",
     "F5": "Y5V"
   },
+  "_jis_only_codes": "B1/B3=JIS B (±10/-30%, -25..85C), F1=JIS F (Z5U-like), R1/R3=JIS R. Decode but don't map to EIA class — these appear only in Japan-market legacy parts.",
   "voltage": {
     "0E": 2.5, "0G": 4.0, "0J": 6.3,
-    "1A": 10,  "1C": 16,  "1D": 20,  "1E": 25, "1V": 35,
-    "1H": 50,  "2A": 100, "2D": 200, "2E": 250, "2J": 630, "2W": 450,
+    "1A": 10,  "1C": 16,  "1D": 20,  "1E": 25, "1V": 35, "YA": 35,
+    "1H": 50,
+    "2A": 100, "2D": 200, "2E": 250, "YD": 300, "BB": 350, "2W": 450, "2H": 500, "2J": 630,
     "3A": 1000, "3D": 2000, "3F": 3000
   },
   "tolerance": {
